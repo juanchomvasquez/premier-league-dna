@@ -18,13 +18,14 @@ def player_header(player, role, role_label, start, end, view):
       <h2>{escape(player)}</h2><p>{escape(role_label)} · {escape(view)} · minutes ({start}, {end}]</p>
       <div class="hero-tag">FICTIONAL PLAYER / SYNTHETIC EVENTS</div></div>
       <figure class="position-pitch">
-      <svg viewBox="0 0 120 80" role="img" aria-label="Schematic {escape(role_label)} position; not tracking data">
-        <rect x="4" y="4" width="112" height="72" rx="3" fill="#10352f" stroke="#69ad9c"/>
-        <path d="M60 4v72 M4 22h17v36H4 M116 22H99v36h17" fill="none" stroke="#69ad9c"/>
-        <circle cx="60" cy="40" r="12" fill="none" stroke="#69ad9c"/>
-        <circle cx="{4+x*1.12}" cy="{4+y*.72}" r="10" fill="#39dfbc" fill-opacity=".18"/>
-        <circle cx="{4+x*1.12}" cy="{4+y*.72}" r="4" fill="#39dfbc" stroke="#fff"/>
-      </svg><figcaption>Position guide · schematic</figcaption></figure>
+      <div role="img" aria-label="Schematic {escape(role_label)} position; not tracking data"
+           style="position:relative;width:100%;aspect-ratio:112/72;background:#10352f;border:1px solid #69ad9c;border-radius:4px;overflow:hidden;">
+        <span style="position:absolute;left:50%;top:0;height:100%;border-left:1px solid #69ad9c;"></span>
+        <span style="position:absolute;left:39%;top:33%;width:22%;height:34%;border:1px solid #69ad9c;border-radius:50%;"></span>
+        <span style="position:absolute;left:0;top:25%;width:15%;height:50%;border:1px solid #69ad9c;border-left:0;"></span>
+        <span style="position:absolute;right:0;top:25%;width:15%;height:50%;border:1px solid #69ad9c;border-right:0;"></span>
+        <span style="position:absolute;left:{x}%;top:{y}%;width:11px;height:11px;transform:translate(-50%,-50%);background:#39dfbc;border:2px solid white;border-radius:50%;box-shadow:0 0 0 8px #39dfbc30;"></span>
+      </div><figcaption>Position guide · schematic</figcaption></figure>
     </section>"""
 
 
