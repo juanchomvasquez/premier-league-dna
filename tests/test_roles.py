@@ -280,7 +280,7 @@ class GoalkeeperEvidenceTests(unittest.TestCase):
 
 
 class RolePayloadTests(unittest.TestCase):
-    def test_all_twenty_four_invented_references_score_100_against_themselves(self):
+    def test_all_invented_references_score_100_against_themselves(self):
         for role,definition in ROLE_DEFINITIONS.items():
             for name,rates in definition['profiles'].items():
                 with self.subTest(role=role,reference=name):

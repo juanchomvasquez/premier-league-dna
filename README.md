@@ -13,6 +13,16 @@ python -m streamlit run app.py
 
 Select a player, move the match timeline, and switch between the match so far and the last 15 minutes. Inspect the event IDs behind each measurement or download the evidence package.
 
+Choose **Fan**, **Broadcaster** or **Expert** at the top. Fan leads with the
+story and legend-inspired profile cards. Broadcaster adds supporting facts and
+a copy-ready talking point. Expert leads with counts, rates and model details.
+All three use the same calculated evidence. The position pitch is schematic,
+not tracking data. Local summaries appear immediately; only the Generate insight
+button can trigger a Microsoft request when that mode is configured.
+
+The responsive navy, teal and purple theme is in `.streamlit/config.toml`.
+Include that folder when uploading or deploying the app.
+
 ```bash
 python -m unittest discover -s tests -v
 ```
@@ -37,7 +47,7 @@ as their measurements and reference models are implemented and tested.
 Currently implemented: a local experimental explorer for goalkeepers,
 centre-backs, full-backs, defensive midfielders (CDM), central midfielders (CM),
 attacking midfielders (CAM), wingers and strikers.
-Each role has five applicable measurements, three invented archetypes and a
+Each role has five applicable measurements, three invented archetypes (four for strikers) and a
 fictional demonstration player. The new role scenarios are separate from the
 original notebook dataset; the same player name does not imply the same data.
 Goalkeepers use their own measurements and invented reference profiles.

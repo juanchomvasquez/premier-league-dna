@@ -20,4 +20,7 @@ References are invented design profiles. No score claims historical accuracy, qu
 
 ## Remaining submission work
 
-The working local interface is only one part of the entry. Microsoft AI integration, narrative checks, hosted judge access, a pitch and a sub-two-minute video remain required development work. Automated local tests and UI checks do not establish production readiness.
+The app has been hosted on Streamlit Community Cloud. Live Microsoft AI verification,
+review of the updated hosted interface on desktop and mobile, a final pitch and a
+sub-two-minute video remain submission work. Automated local tests and UI checks
+do not establish production readiness.
