@@ -12,6 +12,7 @@ from pl_dna.roles import (
 from pl_dna.narrative import generate_narrative, SPANISH_METRICS
 from pl_dna.presentation import AUDIENCES, player_header, profile_cards, insight_card
 from pl_dna.dna_wheel import wheel_data, radar_svg, reference_card
+from pl_dna.historical import season_facts, sourced_season_card, observed_wheel_svg
 
 MIN_SEQUENCES = 10
 STYLE = """<style>
@@ -48,6 +49,10 @@ STYLE = """<style>
 .dna-reference dl {margin:20px 0;}.dna-reference dt {font-size:.72rem;color:#9eabc5;margin-top:14px;}
 .dna-reference dd {font-size:.86rem;color:#f3f6fc;margin:4px 0 0;}
 .dna-reference .dna-note {font-size:.78rem;color:#b8c8de;}
+.season-facts {display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0;}
+.season-fact {background:#09111f66;border:1px solid #52617a;border-radius:12px;padding:12px 8px;text-align:center;}
+.season-fact strong {display:block;color:#f3f6fc;font-size:1.65rem;}.season-fact span {display:block;color:#d1deed;font-size:.65rem;}
+.season-sources {padding-left:16px;font-size:.75rem;line-height:1.6;}.season-sources a {color:#93c5fd;}
 @media(max-width:640px){
  .block-container {padding:1.2rem 1rem 2rem;}.player-hero {padding:20px;gap:12px;align-items:flex-start;}
  .player-hero h2 {font-size:1.55rem;}.player-hero p {font-size:.85rem;}.hero-tag{font-size:.53rem;}
@@ -117,21 +122,32 @@ def render_profiles(events, player, start, end, role_config, sequences, expert=F
     rows = wheel_data(role_config, report, profile)
     enough = sequences >= MIN_SEQUENCES
     name = role_config.get("legend_inspirations", {}).get(profile, profile)
-    st.caption("Visual preview · Synthetic performance vs invented reference · historical season data pending")
+    illustrative = st.checkbox("Show invented reference overlay (design preview)", value=False, key="illustrative_overlay")
+    st.caption("Synthetic performance wheel · Historical season facts shown separately · No validated legend similarity score")
     wheel, reference = st.columns([1.5, 1], gap="large")
     with wheel:
         scale_max = max(20, math.ceil(max(max(values) for values in role_config["profiles"].values()) / 20) * 20)
-        st.image(radar_svg(rows, player, name, show_observed=enough, scale_max=scale_max), width="stretch")
-        st.caption("Teal solid: selected synthetic performance · Purple dashed: illustrative reference")
+        svg = radar_svg(rows, player, name, show_observed=enough, scale_max=scale_max) if illustrative else observed_wheel_svg(rows, player, scale_max, enough)
+        st.image(svg, width="stretch")
+        st.caption("Teal solid: selected synthetic performance · Purple dashed: invented reference" if illustrative else "Teal: selected synthetic performance only. No historical polygon is drawn because comparable reference rates are not loaded.")
     with reference:
-        st.html(reference_card(role_config, profile, rows, show_observed=enough))
+        st.html(reference_card(role_config, profile, rows, show_observed=enough) if illustrative else sourced_season_card(name))
     with st.expander("Exact wheel values & scale", expanded=expert):
         table = pd.DataFrame(rows).rename(columns={"measurement": "Measurement", "count": "Recorded count",
             "observed_rate": "Selected rate / 100 sequences", "reference_rate": "Invented reference / 100 sequences"})
         if not enough:
             table["Selected rate / 100 sequences"] = None
+        if not illustrative:
+            table = table.drop(columns=["Invented reference / 100 sequences"])
         st.dataframe(table, hide_index=True, width="stretch")
         st.caption("Every axis uses counts per 100 recorded sequences on the same rate scale. Its baseline covers all illustrative profiles for this position; it expands if an observed rate exceeds it. Check the ring labels when changing windows. These are not percentiles, ability ratings or historical statistics. Higher is more frequent, not necessarily better. Measurements may overlap.")
+    with st.expander("Historical source coverage", expanded=expert):
+        historical = season_facts(name)
+        if historical:
+            st.write("These are full-season facts. They are not fed into the wheel, narrative provider or resemblance formula.")
+            st.json(historical)
+        else:
+            st.write("Historical season data is not loaded for this legend. Missing values are unavailable, not zero.")
     scores = {}
     if enough:
         frame = score_role_profiles(events, player, start, end, min_sequences=MIN_SEQUENCES)
@@ -261,12 +277,17 @@ def main():
         these values are not historical player statistics or validated similarity estimates.
         The ten-sequence display threshold is provisional, not a statistical reliability guarantee.
 
-        **Player DNA wheel.** Teal shows measured synthetic rates and dashed purple shows the
-        selected invented reference, in the same units on a shared scale. No percentile or ability
-        rating is inferred. Below ten sequences the observed shape is hidden. The legend index
-        card is a design preview: no historical season, source or index score has been assigned.
-        Historical benchmarking is planned around one documented Premier League season per legend,
-        subject to comparable measurements and usable sources, not a mixture of career-high statistics.
+        **Player DNA wheel.** Teal shows measured synthetic rates. An invented purple reference
+        is available only through the explicit design-preview checkbox, off by default.
+        No percentile or ability rating is inferred. Below ten sequences the observed shape is hidden.
+
+        **Historical season facts.** Selected PL seasons are loaded for Lampard, Gerrard, Scholes,
+        Drogba, Hazard and Fabregas, with source links and selection criteria. These full-season
+        totals are shown separately and never passed to the wheel or similarity formula: the
+        definitions and denominators do not match. Missing or unresolved fields remain unavailable.
+        Scoring peaks are not claims of best overall playing style; Fabregas uses a Chelsea-era
+        creative peak. A historical polygon and numerical index remain unavailable until comparable
+        event metrics are sourced. No combination of career-high statistics is used.
 
         **Insight provenance.** Local previews use fixed templates and calculated evidence.
         Microsoft mode requires a deployed model and server configuration. Only Generate insight
