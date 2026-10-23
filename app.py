@@ -281,8 +281,8 @@ def main():
         is available only through the explicit design-preview checkbox, off by default.
         No percentile or ability rating is inferred. Below ten sequences the observed shape is hidden.
 
-        **Historical season facts.** Selected PL seasons are loaded for Lampard, Gerrard, Scholes,
-        Drogba, Hazard and Fabregas, with source links and selection criteria. These full-season
+        **Historical season facts.** Selected PL seasons are loaded for all 25 legends
+        across eight positions, with source links and selection criteria. These full-season
         totals are shown separately and never passed to the wheel or similarity formula: the
         definitions and denominators do not match. Missing or unresolved fields remain unavailable.
         Scoring peaks are not claims of best overall playing style; Fabregas uses a Chelsea-era
