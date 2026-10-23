@@ -56,7 +56,7 @@ def player_header(player, role, role_label, start, end, view):
     </section>"""
 
 
-def profile_cards(definition, scores):
+def profile_cards(definition, scores, show_scores=True):
     cards = []
     for profile in definition["profiles"]:
         name = definition.get("legend_inspirations", {}).get(profile, profile)
@@ -65,7 +65,10 @@ def profile_cards(definition, scores):
         club_label = (f'<div style="font-size:.72rem;color:#d1deed;margin:8px 0 12px;">'
                       f'{escape(club)} · club inspiration</div>') if club else ""
         score = scores.get(profile)
-        if score is None:
+        if not show_scores:
+            value = '<div class="profile-score muted">Historical calibration pending</div>'
+            bar = ''
+        elif score is None:
             value = '<div class="profile-score muted">Insufficient sample</div>'
             bar = '<div class="score-track" aria-hidden="true"></div>'
         else:

@@ -1,5 +1,6 @@
 """Audience-aware, evidence-first football dashboard."""
 import json
+import math
 
 import pandas as pd
 import streamlit as st
@@ -10,6 +11,7 @@ from pl_dna.roles import (
 )
 from pl_dna.narrative import generate_narrative, SPANISH_METRICS
 from pl_dna.presentation import AUDIENCES, player_header, profile_cards, insight_card
+from pl_dna.dna_wheel import wheel_data, radar_svg, reference_card
 
 MIN_SEQUENCES = 10
 STYLE = """<style>
@@ -39,6 +41,13 @@ STYLE = """<style>
 .profile-score.muted {font-size:.85rem;min-height:43px;padding-top:12px;}
 .score-track {height:6px;border-radius:8px;background:#35334d;margin-top:10px;overflow:hidden;}
 .score-fill {height:100%;background:#b69aff;border-radius:8px;}
+.dna-reference {border:1px solid #37506d;border-radius:18px;padding:24px;min-height:360px;}
+.dna-reference h3 {font-size:1.8rem;color:#f3f6fc;padding:12px 0 8px;margin:0;}
+.dna-reference p {color:#d1deed;font-size:.93rem;line-height:1.65;}
+.dna-status {display:inline-block;margin:12px 0;padding:6px 10px;border:1px solid #5b527d;border-radius:20px;color:#d6c5ff;font-size:.65rem;letter-spacing:.07em;}
+.dna-reference dl {margin:20px 0;}.dna-reference dt {font-size:.72rem;color:#9eabc5;margin-top:14px;}
+.dna-reference dd {font-size:.86rem;color:#f3f6fc;margin:4px 0 0;}
+.dna-reference .dna-note {font-size:.78rem;color:#b8c8de;}
 @media(max-width:640px){
  .block-container {padding:1.2rem 1rem 2rem;}.player-hero {padding:20px;gap:12px;align-items:flex-start;}
  .player-hero h2 {font-size:1.55rem;}.player-hero p {font-size:.85rem;}.hero-tag{font-size:.53rem;}
@@ -100,17 +109,41 @@ def render_insight(package, audience, player, start, end):
 
 
 def render_profiles(events, player, start, end, role_config, sequences, expert=False):
-    st.subheader("Legend-inspired profiles")
+    st.subheader("Player DNA")
+    profile = st.selectbox("Compare with a legend-inspired reference", list(role_config["profiles"]),
+                           format_func=lambda key: role_config.get("legend_inspirations", {}).get(key, key),
+                           key="dna_reference")
+    report = analyze_role_player(events, player, start, end)
+    rows = wheel_data(role_config, report, profile)
+    enough = sequences >= MIN_SEQUENCES
+    name = role_config.get("legend_inspirations", {}).get(profile, profile)
+    st.caption("Visual preview · Synthetic performance vs invented reference · historical season data pending")
+    wheel, reference = st.columns([1.5, 1], gap="large")
+    with wheel:
+        scale_max = max(20, math.ceil(max(max(values) for values in role_config["profiles"].values()) / 20) * 20)
+        st.image(radar_svg(rows, player, name, show_observed=enough, scale_max=scale_max), width="stretch")
+        st.caption("Teal solid: selected synthetic performance · Purple dashed: illustrative reference")
+    with reference:
+        st.html(reference_card(role_config, profile, rows, show_observed=enough))
+    with st.expander("Exact wheel values & scale", expanded=expert):
+        table = pd.DataFrame(rows).rename(columns={"measurement": "Measurement", "count": "Recorded count",
+            "observed_rate": "Selected rate / 100 sequences", "reference_rate": "Invented reference / 100 sequences"})
+        if not enough:
+            table["Selected rate / 100 sequences"] = None
+        st.dataframe(table, hide_index=True, width="stretch")
+        st.caption("Every axis uses counts per 100 recorded sequences on the same rate scale. Its baseline covers all illustrative profiles for this position; it expands if an observed rate exceeds it. Check the ring labels when changing windows. These are not percentiles, ability ratings or historical statistics. Higher is more frequent, not necessarily better. Measurements may overlap.")
     scores = {}
-    if sequences >= MIN_SEQUENCES:
+    if enough:
         frame = score_role_profiles(events, player, start, end, min_sequences=MIN_SEQUENCES)
         scores = frame["experimental_resemblance_score"].to_dict()
     else:
         st.warning(f"Scores hidden: {sequences} recorded sequences. The provisional display threshold is {MIN_SEQUENCES}; it is not a validated reliability cutoff.")
-    st.html(profile_cards(role_config, scores))
-    st.caption("Independent model scores / 100 · invented reference rates · not historical similarity, player quality, or percentages of a legend.")
-    if expert and scores:
-        st.dataframe(frame.rename(columns={"weighted_distance": "Weighted distance", "experimental_resemblance_score": "Model score / 100"}), width="stretch")
+    with st.expander("Other illustrative profiles"):
+        st.html(profile_cards(role_config, scores, show_scores=expert or not enough))
+        if expert:
+            st.caption("Legacy experimental model scores / 100 · invented references · not historical similarity, quality, or percentages of a legend.")
+            if scores:
+                st.dataframe(frame.rename(columns={"weighted_distance": "Weighted distance", "experimental_resemblance_score": "Model score / 100"}), width="stretch")
 
 
 def render_contributions(report, expert=False):
@@ -227,6 +260,13 @@ def main():
         to 100, and cannot be compared across positions. Legend labels are design inspirations;
         these values are not historical player statistics or validated similarity estimates.
         The ten-sequence display threshold is provisional, not a statistical reliability guarantee.
+
+        **Player DNA wheel.** Teal shows measured synthetic rates and dashed purple shows the
+        selected invented reference, in the same units on a shared scale. No percentile or ability
+        rating is inferred. Below ten sequences the observed shape is hidden. The legend index
+        card is a design preview: no historical season, source or index score has been assigned.
+        Historical benchmarking is planned around one documented Premier League season per legend,
+        subject to comparable measurements and usable sources, not a mixture of career-high statistics.
 
         **Insight provenance.** Local previews use fixed templates and calculated evidence.
         Microsoft mode requires a deployed model and server configuration. Only Generate insight
