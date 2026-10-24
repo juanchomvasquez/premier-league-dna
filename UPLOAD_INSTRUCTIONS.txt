@@ -1,0 +1,31 @@
+PREMIER LEAGUE DNA — RECORDED MIDFIELD / AZURE STORY PILOT
+
+1. Extract this ZIP.
+2. Open juanchomvasquez/premier-league-dna on GitHub, on the branch used by Streamlit.
+3. Add file > Upload files. Drag app.py and the pl_dna, docs, tools and tests folders
+   from INSIDE the extracted folder. Commit the changes. Existing matching files
+   are replaced; other repository files stay in place. Do not erase the repository.
+4. In the live app: Manage app > menu > Reboot app. Wait for it to reload.
+5. The new default Data source is Recorded midfield comparison.
+6. Inspect the calculated blend and source coverage first. Then click Generate
+   legend story with Microsoft AI to make one potentially billable Azure request.
+   Existing Azure secrets are reused. No secret file is included in this update.
+
+The Fan / Broadcaster / Expert buttons are removed. There is one dashboard,
+with the match story near the top and detailed counts under expanders.
+The original eight-position synthetic demo remains available under Data source.
+All previously uploaded career cards remain; the wheel preview toggle can no
+longer hide them.
+
+IMPORTANT SCOPE: Lampard 2 archived matches, Gerrard 2, Scholes 1, all against
+Arsenal in 2003/04. This is an exploratory fit to recorded match samples, not a
+validated career or best-season similarity score. Four selected performances
+cover Vieira and Gilberto. Broader compatible event coverage is still required
+for the full legend-comparison goal.
+
+Local verification: 102 tests passed, plus an independent SQL recount of all
+seven reference/target profiles. No paid Azure call was used in testing. The
+first live response still needs checking after upload.
+
+Optional: open docs/previews/midfield-blend-preview.html to see a static example
+before uploading. Its narrative example is assembled locally, not Azure output.

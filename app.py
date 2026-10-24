@@ -10,8 +10,7 @@ from pl_dna.roles import (
     build_role_story_input, generate_role_events, score_role_profiles,
 )
 from pl_dna.narrative import generate_narrative, SPANISH_METRICS
-from pl_dna.match_brief import build_match_brief, generate_match_brief
-from pl_dna.presentation import AUDIENCES, player_header, profile_cards, insight_card
+from pl_dna.presentation import player_header, profile_cards, insight_card
 from pl_dna.dna_wheel import wheel_data, radar_svg, reference_card
 from pl_dna.historical import season_facts, sourced_season_card, observed_wheel_svg
 
@@ -64,68 +63,13 @@ STYLE = """<style>
 </style>"""
 
 
-def render_match_analysis(package, audience, player, end, language):
-    st.markdown("#### What changed in the last 15 minutes?")
-    st.caption("Compares the latest 15 minutes with the preceding 15, ending at your selected match minute. This comparison is independent of the overview window.")
-    analysis = package["match_development"]
-    analysis["audience"] = audience.lower()
-    context = ("match-development-v1", player, end, audience)
-    if language != "English":
-        st.info("Match-development analysis is currently available in English. Local calculated summaries remain available in Spanish.")
-        return
-    if analysis["availability"]:
-        st.info(analysis["availability"])
-        return
-    if st.button("Generate match analysis", type="primary", key="generate_match_analysis"):
-        try:
-            from pl_dna.microsoft_provider import create_provider_from_env
-            provider = create_provider_from_env()
-        except Exception:
-            st.warning("Microsoft AI is not configured. Select Local calculated summary to see recorded totals.")
-        else:
-            with st.spinner("Comparing the windows and choosing the supported story…"):
-                result = generate_match_brief(analysis, provider=provider)
-            st.session_state["match_analysis"] = {"context": context, "result": result}
-    saved = st.session_state.get("match_analysis")
-    result = saved["result"] if saved and saved["context"] == context else generate_match_brief(analysis)
-    if result["status"] == "verified":
-        brief = result["brief"]
-        st.html(insight_card(brief["headline"], audience))
-        st.caption(f"Minutes {brief['period']} · Counts in equal 15-minute windows")
-        for fact in brief["facts"]:
-            st.write(fact)
-        st.markdown("**How to read this**")
-        for meaning in brief["meaning"]:
-            st.write(meaning)
-        st.markdown("**What to watch next**")
-        st.write(brief["watch"])
-        st.caption(brief["caution"])
-        st.caption("Microsoft AI chose the lead and supporting development. Counts, explanations and watch prompts use checked evidence and controlled wording.")
-        with st.expander("Analysis evidence", expanded=audience == "Expert"):
-            st.json({"status": result["status"], "reason": result["reason"],
-                     "previous_window": analysis["previous"], "recent_window": analysis["recent"],
-                     "selected_changes": brief["evidence"]})
-        if audience == "Broadcaster":
-            with st.expander("Copy talking point"):
-                st.code(f"{player}: {brief['headline']} {'; '.join(brief['facts'])}. Minutes {brief['period']}. Synthetic demonstration.", language=None, wrap_lines=True)
-    else:
-        st.info(result["reason"])
-    with st.expander("Window comparison · calculated locally"):
-        before = {m["measurement"]: m["count"] for m in analysis["previous"]["measurements"]}
-        st.dataframe(pd.DataFrame([{"Measurement": m["measurement"], "Previous 15 min": before[m["measurement"]],
-                                   "Latest 15 min": m["count"], "Change": m["count"] - before[m["measurement"]]}
-                                  for m in analysis["recent"]["measurements"]]), hide_index=True)
-        st.caption(f"Recorded sequences: {analysis['previous']['action_sequences']} → {analysis['recent']['action_sequences']}. Measurements can overlap. No statistical significance is claimed.")
-    st.caption("One potentially billable Azure request per Generate match analysis click. Changing controls does not call Azure.")
-
-
 def render_insight(package, audience, player, start, end):
-    st.subheader({"Fan": "What did they contribute?", "Broadcaster": "Broadcast desk", "Expert": "Claim selection & checks"}[audience])
+    st.subheader("What did they contribute?")
     language_col, source_col = st.columns([1, 2])
     language = language_col.selectbox("Insight language", ["English", "Spanish"], key="insight_language")
     mode = source_col.radio("Insight source", ["Local calculated summary", "Microsoft AI"], horizontal=True, key="insight_source")
     if mode == "Microsoft AI":
-        render_match_analysis(package, audience, player, end, language)
+        st.info("For the Microsoft legend story, choose Recorded midfield comparison under Data source. The synthetic demo does not have compatible historical reference rates.")
         return
     context_key = (player, start, end, language, mode, audience)
     package["audience"] = audience.lower()
@@ -139,21 +83,8 @@ def render_insight(package, audience, player, start, end):
     result = saved["result"] if saved and saved["context"] == context_key else generate_narrative(package, language=language)
     st.html(insight_card(result["text"], audience))
     st.caption("Local calculated summary · no model-generated wording.")
-    if audience == "Broadcaster":
-        st.markdown("#### Supporting facts")
-        for claim in result["claims"]:
-            label = SPANISH_METRICS.get(claim["measurement"], claim["measurement"]) if language == "Spanish" else claim["measurement"]
-            if claim["count"]:
-                fact = f"{claim['count']} · {label}"
-            else:
-                fact = f"Sin eventos registrados · {label}" if language == "Spanish" else f"No recorded events · {label}"
-            st.write(f"**{fact}**")
-            st.caption("Evidence: " + (", ".join(claim["event_ids"]) or "No recorded events"))
-            if claim["supporting_event_ids"]:
-                st.caption("Supporting events: " + ", ".join(claim["supporting_event_ids"]))
-        with st.expander("Copy talking point"):
-            st.code(result["text"], language=None, wrap_lines=True)
-        st.caption("Editorial note: synthetic demonstration; one window does not establish a change in tactics or form.")
+    with st.expander("Copy summary"):
+        st.code(result["text"], language=None, wrap_lines=True)
     with st.expander("Insight evidence checks", expanded=audience == "Expert"):
         st.json({key: result[key] for key in ("status", "source", "reason", "claims")})
 
@@ -176,7 +107,7 @@ def render_profiles(events, player, start, end, role_config, sequences, expert=F
         st.image(svg, width="stretch")
         st.caption("Teal solid: selected synthetic performance · Purple dashed: invented reference" if illustrative else "Teal: selected synthetic performance only. No historical polygon is drawn because comparable reference rates are not loaded.")
     with reference:
-        st.html(reference_card(role_config, profile, rows, show_observed=enough) if illustrative else sourced_season_card(name))
+        st.html(sourced_season_card(name))
     with st.expander("Exact wheel values & scale", expanded=expert):
         table = pd.DataFrame(rows).rename(columns={"measurement": "Measurement", "count": "Recorded count",
             "observed_rate": "Selected rate / 100 sequences", "reference_rate": "Invented reference / 100 sequences"})
@@ -258,9 +189,14 @@ def main():
     st.html('<div class="brand-line">PREMIER LEAGUE DNA / MATCH EXPLORER</div>')
     st.title("Every player has a blend.")
     st.write("Explore the contribution. Understand the profile. Follow the evidence.")
+    audience = "Fan"  # One public dashboard; this preserves the internal narrative schema.
+    source = st.radio("Data source", ["Recorded midfield comparison", "Eight-position synthetic demo"],
+                      horizontal=True, key="data_source")
+    if source == "Recorded midfield comparison":
+        from pl_dna.blend_dashboard import render_blend_dashboard
+        render_blend_dashboard(st, audience)
+        return
     st.html('<div class="demo-badge">Synthetic demo · Fictional players · Invented profiles</div>')
-    audience = st.radio("Audience view", list(AUDIENCES), horizontal=True, key="audience")
-    st.caption(AUDIENCES[audience])
     events = st.cache_data(generate_role_events)(seed=42)
     controls = st.columns([2, 2, 2, 3])
     role = controls[0].selectbox("Position", list(ROLE_DEFINITIONS), index=2,
@@ -273,37 +209,26 @@ def main():
     report = analyze_role_player(events, player, start, end)
     selected = events.loc[events["player"].eq(player) & events["sequence_minute"].gt(start) & events["sequence_minute"].le(end) & events["minute"].le(end)]
     package = build_role_story_input(events, player, start, end, view=view, min_sequences=MIN_SEQUENCES)
-    package["match_development"] = build_match_brief(events, player, end)
     package["audience"] = audience.lower()
     st.html(player_header(player, role, definition["label"], start, end, view))
     summary = st.columns(3)
     summary[0].metric("Recorded sequences", report["action_sequences"])
     summary[1].metric("Recorded events", report["recorded_events"])
     summary[2].metric("Selected window", f"{end-start} min")
-    overview, evidence, method = st.tabs(["Analysis & rates" if audience == "Expert" else "Player overview", "Evidence explorer", "How it works"])
+    overview, evidence, method = st.tabs(["Player overview", "Evidence explorer", "How it works"])
     with overview:
-        if audience == "Expert":
+        render_insight(package, audience, player, start, end)
+        render_profiles(events, player, start, end, definition, report["action_sequences"])
+        with st.expander("Recorded contributions & rates"):
             render_contributions(report, expert=True)
-            render_profiles(events, player, start, end, definition, report["action_sequences"], expert=True)
-            render_insight(package, audience, player, start, end)
-        else:
-            render_insight(package, audience, player, start, end)
-            if audience == "Fan":
-                render_profiles(events, player, start, end, definition, report["action_sequences"])
-                render_contributions(report)
-            else:
-                render_contributions(report)
-                with st.expander("Explore invented style profiles"):
-                    render_profiles(events, player, start, end, definition, report["action_sequences"])
     with evidence:
         render_evidence(events, selected, report, package, player, start, end, definition, audience == "Expert")
     with method:
         st.subheader("The model, explained")
         st.markdown("""
-        **One evidence base, three views.** Fan leads with a simple summary and profile cards.
-        Broadcaster adds a copy-ready talking point and the supporting facts. Expert leads
-        with counts, rates, distances and definitions. Audience selection changes presentation;
-        it does not change calculated measurements or scores. Insight wording supports English and Spanish.
+        **One dashboard.** The overview leads with the summary and player profiles. Copyable
+        summaries, recorded contributions and detailed evidence are available under expanders
+        and the Evidence explorer tab. Local summary wording supports English and Spanish.
 
         **Synthetic demonstration.** Eight fictional players cover eight position groups.
         These are independent action scenarios, not a possession-consistent full match.
@@ -335,20 +260,15 @@ def main():
         creative peak. A historical polygon and numerical index remain unavailable until comparable
         event metrics are sourced. No combination of career-high statistics is used.
 
-        **Insight provenance.** Local previews use fixed templates and calculated evidence.
-        Microsoft mode compares the latest 15 minutes with the preceding 15, ending at the selected
-        minute, independently of the overview window. At least three recorded sequences per window
-        and three combined occurrences of a changing measurement are required. These are editorial
-        thresholds, not statistical reliability guarantees. Azure chooses a lead development and an
-        optional supporting or contrasting development from calculated comparisons. Counts and event
-        IDs remain local; explanations and watch prompts use controlled wording. Only Generate match
-        analysis triggers a potentially billable request. Unsupported output produces no AI brief.
-        Match-development briefs currently support English; local summaries also support Spanish.
-        Evidence consistency does not establish historical truth or a cause for the change.
+        **Insight provenance.** Local summaries use calculated evidence and fixed wording.
+        For a Microsoft legend story, select Recorded midfield comparison. That mode fits actual
+        archived-event rates to three small reference samples, then Azure selects the supporting
+        comparisons. It does not compare synthetic counts with historical season totals.
+        Only the explicit Generate legend story button calls Azure. Evidence selections are checked
+        against locally calculated facts. This validates output consistency, not career resemblance.
         """)
         with st.expander("Selected position: model configuration"):
             st.json(definition)
-
 
 if __name__ == "__main__":
     main()
