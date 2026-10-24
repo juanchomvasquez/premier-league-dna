@@ -100,8 +100,29 @@ def generate_match_brief(payload, provider=None, language='English'):
     if provider is None:
         return dict(status='preview', reason='Click Generate match analysis to ask Microsoft AI to select a supported development.', brief=None)
     try:
-        selected = validate_brief(trusted, provider(deepcopy(trusted)))
-    except Exception:
-        return dict(status='fallback', reason='Microsoft analysis was unavailable or returned unsupported evidence. No AI brief was accepted.', brief=None)
+        candidate = provider(deepcopy(trusted))
+    except Exception as exc:
+        from pl_dna.microsoft_provider import ProviderError
+        safe_messages = {
+            'http_400': 'Azure rejected the request (HTTP 400). Check model and request compatibility.',
+            'http_401': 'Azure rejected authentication (HTTP 401). Check the private server API key.',
+            'http_403': 'Azure denied access (HTTP 403). Check deployment permissions.',
+            'http_404': 'Azure could not find the deployment or endpoint (HTTP 404).',
+            'http_429': 'Azure rate or quota limit reached (HTTP 429). Wait before trying again.',
+            'timeout': 'Azure did not respond within the request timeout.',
+            'connection': 'The server could not connect to Azure.',
+            'incomplete_response': 'Azure returned an incomplete response.',
+            'empty_response': 'Azure returned no usable analysis text.',
+            'invalid_json': 'Azure returned text outside the required JSON format.',
+            'invalid_response': 'Azure returned an unreadable response.',
+            'oversized_response': 'Azure returned a response above the permitted size.',
+            'refusal': 'Azure declined to generate this analysis.',
+        }
+        message = safe_messages.get(exc.code, 'Azure returned a service error.') if isinstance(exc, ProviderError) else 'The analysis provider failed before its evidence could be checked.'
+        return dict(status='fallback', reason=message + ' No AI brief was accepted. No automatic retry was made.', brief=None)
+    try:
+        selected = validate_brief(trusted, candidate)
+    except (ValueError, TypeError, KeyError):
+        return dict(status='fallback', reason='Azure responded, but its selected change IDs did not pass evidence validation. No AI brief was accepted.', brief=None)
     return dict(status='verified', reason='AI-selected developments match the calculated window comparisons.',
                 brief=render_brief(trusted, selected, language))
