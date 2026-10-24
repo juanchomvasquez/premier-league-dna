@@ -382,15 +382,22 @@ def season_facts(name):
     return result
 
 
-def sourced_season_card(name):
+def sourced_season_card(name, show_career=True):
     from pl_dna.presentation import LEGEND_CLUBS, CLUB_COLOURS
+    from pl_dna.career import career_html, club_background, club_shares, CAREER_COLOURS
+    career = career_html(name) if show_career else ""
     record = season_facts(name)
     club = record["club"] if record else LEGEND_CLUBS.get(name, "Club not assigned")
     accent, tint = ({"Blackburn Rovers": ("#4c8dff", "#142b52")}.get(club)
                     or CLUB_COLOURS.get(club, ("#b69aff", "#221c36")))
     heading = name.removesuffix("-inspired") + " Index"
-    opening = (f'<section class="dna-reference" style="border-top:4px solid {accent};background:linear-gradient(145deg,{tint},#101d30);">'
-               '<div class="eyebrow">LEGEND SEASON / SOURCE CHECK</div>'
+    if career:
+        dominant_club = max(club_shares(name), key=lambda row: row[1])[0]
+        accent = CAREER_COLOURS[dominant_club][0]
+    background = club_background(name) if career else None
+    background = background or f'linear-gradient(145deg,{tint},#101d30)'
+    opening = (f'<section class="dna-reference" style="border-top:4px solid {accent};background:{background};">'
+               f'<div class="eyebrow">{"LEGEND / PREMIER LEAGUE CAREER" if career else "LEGEND SEASON / SOURCE CHECK"}</div>'
                f'<h3>{escape(heading)}</h3>')
     if record is None:
         return (opening + f'<p>{escape(club)}</p><div class="dna-status">SOURCE COVERAGE PENDING</div>'
@@ -400,13 +407,15 @@ def sourced_season_card(name):
                     f'<span>{label}</span></div>' for key, label in
                     record.get("display_fields", (("appearances", "PL appearances"), ("goals", "PL goals"), ("assists", "PL assists"))))
     sources = ''.join(f'<li><a href="{escape(source["url"], quote=True)}" target="_blank" rel="noopener noreferrer">{escape(source["title"])}</a></li>' for source in record["sources"])
-    return (opening + f'<p>{escape(record["player"])} · {escape(club)} · {record["season"]}</p>'
+    season_open = '<details style="margin-top:18px"><summary>Selected season · separate from career totals</summary>' if career else ''
+    season_close = '</details>' if career else ''
+    return (opening + career + season_open + f'<p>{escape(record["player"])} · {escape(club)} · {record["season"]}</p>'
             '<div class="dna-status">SOURCED SEASON FACTS</div>'
             '<p class="dna-note">Full Premier League season totals · not the selected match window</p>'
             f'<div class="season-facts">{facts}</div><p>{escape(record["selection"])}</p>'
             f'<p class="dna-note">{escape(record["coverage_note"])}</p>'
             f'<ul class="season-sources">{sources}</ul><p class="dna-note">Source check: {CHECKED_ON}. '
-            'Historical style index unavailable: compatible event rates have not been loaded.</p></section>')
+            'Historical style index unavailable: compatible event rates have not been loaded.</p>' + season_close + '</section>')
 
 
 def observed_wheel_svg(rows, player, scale_max, show_observed):
