@@ -10,6 +10,7 @@ from pl_dna.roles import (
     build_role_story_input, generate_role_events, score_role_profiles,
 )
 from pl_dna.narrative import generate_narrative, SPANISH_METRICS
+from pl_dna.match_brief import build_match_brief, generate_match_brief
 from pl_dna.presentation import AUDIENCES, player_header, profile_cards, insight_card
 from pl_dna.dna_wheel import wheel_data, radar_svg, reference_card
 from pl_dna.historical import season_facts, sourced_season_card, observed_wheel_svg
@@ -63,37 +64,81 @@ STYLE = """<style>
 </style>"""
 
 
+def render_match_analysis(package, audience, player, end, language):
+    st.markdown("#### What changed in the last 15 minutes?")
+    st.caption("Compares the latest 15 minutes with the preceding 15, ending at your selected match minute. This comparison is independent of the overview window.")
+    analysis = package["match_development"]
+    analysis["audience"] = audience.lower()
+    context = ("match-development-v1", player, end, audience)
+    if language != "English":
+        st.info("Match-development analysis is currently available in English. Local calculated summaries remain available in Spanish.")
+        return
+    if analysis["availability"]:
+        st.info(analysis["availability"])
+        return
+    if st.button("Generate match analysis", type="primary", key="generate_match_analysis"):
+        try:
+            from pl_dna.microsoft_provider import create_provider_from_env
+            provider = create_provider_from_env()
+        except Exception:
+            st.warning("Microsoft AI is not configured. Select Local calculated summary to see recorded totals.")
+        else:
+            with st.spinner("Comparing the windows and choosing the supported story…"):
+                result = generate_match_brief(analysis, provider=provider)
+            st.session_state["match_analysis"] = {"context": context, "result": result}
+    saved = st.session_state.get("match_analysis")
+    result = saved["result"] if saved and saved["context"] == context else generate_match_brief(analysis)
+    if result["status"] == "verified":
+        brief = result["brief"]
+        st.html(insight_card(brief["headline"], audience))
+        st.caption(f"Minutes {brief['period']} · Counts in equal 15-minute windows")
+        for fact in brief["facts"]:
+            st.write(fact)
+        st.markdown("**How to read this**")
+        for meaning in brief["meaning"]:
+            st.write(meaning)
+        st.markdown("**What to watch next**")
+        st.write(brief["watch"])
+        st.caption(brief["caution"])
+        st.caption("Microsoft AI chose the lead and supporting development. Counts, explanations and watch prompts use checked evidence and controlled wording.")
+        with st.expander("Analysis evidence", expanded=audience == "Expert"):
+            st.json({"status": result["status"], "reason": result["reason"],
+                     "previous_window": analysis["previous"], "recent_window": analysis["recent"],
+                     "selected_changes": brief["evidence"]})
+        if audience == "Broadcaster":
+            with st.expander("Copy talking point"):
+                st.code(f"{player}: {brief['headline']} {'; '.join(brief['facts'])}. Minutes {brief['period']}. Synthetic demonstration.", language=None, wrap_lines=True)
+    else:
+        st.info(result["reason"])
+    with st.expander("Window comparison · calculated locally"):
+        before = {m["measurement"]: m["count"] for m in analysis["previous"]["measurements"]}
+        st.dataframe(pd.DataFrame([{"Measurement": m["measurement"], "Previous 15 min": before[m["measurement"]],
+                                   "Latest 15 min": m["count"], "Change": m["count"] - before[m["measurement"]]}
+                                  for m in analysis["recent"]["measurements"]]), hide_index=True)
+        st.caption(f"Recorded sequences: {analysis['previous']['action_sequences']} → {analysis['recent']['action_sequences']}. Measurements can overlap. No statistical significance is claimed.")
+    st.caption("One potentially billable Azure request per Generate match analysis click. Changing controls does not call Azure.")
+
+
 def render_insight(package, audience, player, start, end):
     st.subheader({"Fan": "What did they contribute?", "Broadcaster": "Broadcast desk", "Expert": "Claim selection & checks"}[audience])
     language_col, source_col = st.columns([1, 2])
     language = language_col.selectbox("Insight language", ["English", "Spanish"], key="insight_language")
     mode = source_col.radio("Insight source", ["Local calculated summary", "Microsoft AI"], horizontal=True, key="insight_source")
+    if mode == "Microsoft AI":
+        render_match_analysis(package, audience, player, end, language)
+        return
     context_key = (player, start, end, language, mode, audience)
     package["audience"] = audience.lower()
     package["language"] = language
     if st.button("Generate insight", type="primary", key="generate_insight"):
-        provider = None
-        if mode == "Microsoft AI":
-            try:
-                from pl_dna.microsoft_provider import create_provider_from_env
-                provider = create_provider_from_env()
-            except Exception:
-                st.warning("Microsoft AI is not configured. Showing a local calculated summary.")
-        with st.spinner("Checking evidence and preparing insight…"):
-            result = generate_narrative(package, provider=provider, language=language)
+        with st.spinner("Preparing the calculated summary…"):
+            result = generate_narrative(package, language=language)
         st.session_state["insight_result"] = {"context": context_key, "result": result}
     saved = st.session_state.get("insight_result")
     # Automatic previews stay local; only the explicit button can call a model.
     result = saved["result"] if saved and saved["context"] == context_key else generate_narrative(package, language=language)
     st.html(insight_card(result["text"], audience))
-    if result["status"] == "verified":
-        st.caption("Microsoft-selected claims passed evidence checks · controlled wording.")
-    else:
-        st.caption("Local calculated summary · no model-generated wording.")
-        if saved and saved["context"] == context_key and mode == "Microsoft AI":
-            st.info("Live Microsoft AI was unavailable or its claims failed validation. The summary above uses the local fallback.")
-    if mode == "Microsoft AI":
-        st.caption("Generate insight sends this window’s synthetic evidence to your configured Azure model and may incur usage charges. A fresh preview stays local until a model result is accepted.")
+    st.caption("Local calculated summary · no model-generated wording.")
     if audience == "Broadcaster":
         st.markdown("#### Supporting facts")
         for claim in result["claims"]:
@@ -117,7 +162,7 @@ def render_profiles(events, player, start, end, role_config, sequences, expert=F
     st.subheader("Player DNA")
     profile = st.selectbox("Compare with a legend-inspired reference", list(role_config["profiles"]),
                            format_func=lambda key: role_config.get("legend_inspirations", {}).get(key, key),
-                           key="dna_reference")
+                           key=f"dna_reference_{role_config['label']}")
     report = analyze_role_player(events, player, start, end)
     rows = wheel_data(role_config, report, profile)
     enough = sequences >= MIN_SEQUENCES
@@ -228,6 +273,7 @@ def main():
     report = analyze_role_player(events, player, start, end)
     selected = events.loc[events["player"].eq(player) & events["sequence_minute"].gt(start) & events["sequence_minute"].le(end) & events["minute"].le(end)]
     package = build_role_story_input(events, player, start, end, view=view, min_sequences=MIN_SEQUENCES)
+    package["match_development"] = build_match_brief(events, player, end)
     package["audience"] = audience.lower()
     st.html(player_header(player, role, definition["label"], start, end, view))
     summary = st.columns(3)
@@ -290,10 +336,15 @@ def main():
         event metrics are sourced. No combination of career-high statistics is used.
 
         **Insight provenance.** Local previews use fixed templates and calculated evidence.
-        Microsoft mode requires a deployed model and server configuration. Only Generate insight
-        triggers a potentially billable request. Accepted model selections must copy counts and
-        event IDs exactly; wording uses controlled templates. Invalid or unavailable output falls
-        back to the local summary. Evidence consistency does not establish historical truth.
+        Microsoft mode compares the latest 15 minutes with the preceding 15, ending at the selected
+        minute, independently of the overview window. At least three recorded sequences per window
+        and three combined occurrences of a changing measurement are required. These are editorial
+        thresholds, not statistical reliability guarantees. Azure chooses a lead development and an
+        optional supporting or contrasting development from calculated comparisons. Counts and event
+        IDs remain local; explanations and watch prompts use controlled wording. Only Generate match
+        analysis triggers a potentially billable request. Unsupported output produces no AI brief.
+        Match-development briefs currently support English; local summaries also support Spanish.
+        Evidence consistency does not establish historical truth or a cause for the change.
         """)
         with st.expander("Selected position: model configuration"):
             st.json(definition)

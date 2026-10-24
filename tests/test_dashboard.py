@@ -44,24 +44,24 @@ class DashboardTests(unittest.TestCase):
                             self.assertEqual(len(at.code), 1)
 
     def test_model_requires_click_and_old_result_is_hidden_after_context_changes(self):
-        provider = Mock(side_effect=lambda payload: {"claims": [payload["evidence"]["measurements"][-1]]})
+        provider = Mock(side_effect=lambda payload: {"lead": payload["comparisons"][0]["id"], "support": None})
         with patch("pl_dna.microsoft_provider.create_provider_from_env", return_value=provider) as factory:
             at = self.app()
             at.radio(key="insight_source").set_value("Microsoft AI").run()
             factory.assert_not_called()
-            at.button(key="generate_insight").click().run()
+            at.button(key="generate_match_analysis").click().run()
             self.assert_healthy(at)
             self.assertEqual(provider.call_count, 1)
-            self.assertTrue(any("Microsoft-selected" in c.value for c in at.caption))
+            self.assertTrue(any("Microsoft AI chose" in c.value for c in at.caption))
             at.radio(key="audience").set_value("Broadcaster").run()
             at.slider(key="minute").set_value(1).run()
             self.assert_healthy(at)
             self.assertEqual(provider.call_count, 1)
-            self.assertFalse(any("Microsoft-selected" in c.value for c in at.caption))
+            self.assertFalse(any("Microsoft AI chose" in c.value for c in at.caption))
             self.assertIn("Insufficient sample", html(at))
             self.assertNotIn('role="meter"', html(at))
             at.selectbox(key="insight_language").select("Spanish").run()
-            self.assertIn("Demostración sintética", html(at))
+            self.assertTrue(any("currently available in English" in c.value for c in at.info))
 
     def test_updated_striker_cards_include_henry_and_rooney_without_changing_data(self):
         at = self.app()
