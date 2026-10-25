@@ -31,8 +31,10 @@ def generate_analyst_brief(payload, provider):
         headline,narrative,ids = reply['headline'],reply['narrative'],reply['evidence_ids']
         if not isinstance(headline,str) or not isinstance(narrative,str):raise ValueError('Text required')
         minimum, maximum = brief_word_limits(trusted)
-        if not 3 <= len(headline.split()) <= 14 or not minimum <= len(narrative.split()) <= maximum:
-            raise ValueError('Length')
+        if not 3 <= len(headline.split()) <= 14:
+            return {'status':'fallback','reason':f'Microsoft headline had {len(headline.split())} words; it must have 3–14. No brief was accepted; recorded facts remain available.'}
+        if not minimum <= len(narrative.split()) <= maximum:
+            return {'status':'fallback','reason':f'Microsoft brief had {len(narrative.split())} words; this mode requires {minimum}–{maximum}. No brief was accepted; recorded facts remain available.'}
         text = headline+' '+narrative
         # Numbers are shown only in exact source facts below the interpretation.
         if re.search(r'[\d%<>{}\[\]]|https?://',text):raise ValueError('Prose must not introduce numerical claims or markup')
@@ -59,5 +61,21 @@ def generate_analyst_brief(payload, provider):
                     raise ValueError('No legend resemblance is supported')
         return {'status':'evidence_checked','headline':headline.strip(),'text':narrative.strip(),
             'facts':[e['sentence'] for e in facts], 'evidence_ids':ids}
-    except (ValueError,KeyError,TypeError):
-        return {'status':'fallback','reason':'Microsoft returned an interpretation that failed the format or evidence checks. No brief was accepted; recorded facts remain available.'}
+    except (ValueError,KeyError,TypeError) as error:
+        # Only our own fixed validation labels are exposed, never provider text or unknown IDs.
+        explanations = {
+            'Unexpected structure':'The response did not use the required brief format.',
+            'Text required':'The headline or brief was missing text.',
+            'Prose must not introduce numerical claims or markup':'The prose included numbers or markup; exact figures belong in the supporting facts.',
+            'Unsupported overall assessment':'The response included an unsupported overall player assessment.',
+            'Distinct citations required':'The response did not cite two or three distinct supporting facts.',
+            'A trend requires cited window-change evidence':'The response described a recent change without citing window-comparison evidence.',
+            'Multiple measurements required':'The response did not cite different measurements.',
+            'A fact copy is not an interpretation':'The response copied a supporting fact instead of explaining the pattern.',
+            'Synthetic attribution required':'The brief did not identify the performance as synthetic.',
+            'No historical comparison in the synthetic brief':'The response introduced an unsupported legend comparison.',
+            'No legend resemblance is supported':'The response introduced an unsupported legend comparison.',
+        }
+        detail=explanations.get(str(error),'The response cited unavailable evidence or used an invalid format.') if isinstance(error,ValueError) else 'The response cited unavailable evidence or used an invalid format.'
+        return {'status':'fallback','reason':detail+' No brief was accepted; recorded facts remain available.'}
+

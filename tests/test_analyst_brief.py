@@ -72,6 +72,17 @@ class AnalystTests(unittest.TestCase):
         reply['evidence_ids']=[change['id'],other['id']]
         self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'evidence_checked')
 
+    def test_safe_rejection_reason_identifies_length_and_missing_citations(self):
+        p=self.payload();p['focus']='Broadcast talking point'
+        reply=simulated_brief(p);reply['narrative']=' '.join(['football']*40)
+        result=generate_analyst_brief(p,lambda _:reply)
+        self.assertIn('40 words',result['reason']);self.assertIn('20–35',result['reason'])
+        reply['narrative']=' '.join(['football']*25)
+        reply['evidence_ids']=['secret-provider-value','unknown']
+        result=generate_analyst_brief(p,lambda _:reply)
+        self.assertNotIn('secret-provider-value',result['reason'])
+        self.assertIn('unavailable evidence',result['reason'])
+
     def test_provider_errors_never_echo_secrets_or_retry(self):
         provider=Mock(side_effect=ValueError('secret-credential'))
         result=generate_analyst_brief(self.payload(),provider)
