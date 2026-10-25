@@ -1,6 +1,6 @@
 # Premier League DNA
 
-Every player has a blend. Explore synthetic football events through position-specific playing-style ideas, explainable measurements and evidence.
+Every player has a blend. Explore recorded Premier League performances, inspect exploratory historical-reference comparisons, and follow automatically refreshed match statistics.
 
 ## Run the prototype
 
@@ -11,14 +11,27 @@ python -m pip install -r requirements.txt
 python -m streamlit run app.py
 ```
 
-Select a player, move the match timeline, and switch between the match so far and the last 15 minutes. Inspect the event IDs behind each measurement or download the evidence package.
+The default **This season & live** dashboard includes eight recorded 2026/27
+performances: one per position group, from eight clubs. Choose a recorded example
+or connect to a match feed. Live statistics refresh every 60 seconds while the
+view is active; matchdays can also be browsed by UK date.
 
-Choose **Fan**, **Broadcaster** or **Expert** at the top. Fan leads with the
-story and legend-inspired profile cards. Broadcaster adds supporting facts and
-a copy-ready talking point. Expert leads with counts, rates and model details.
-All three use the same calculated evidence. The position pitch is schematic,
-not tracking data. Local summaries appear immediately; only the Generate insight
-button can trigger a Microsoft request when that mode is configured.
+One dashboard replaces the Fan/Broadcaster/Expert controls. A weak comparison
+shows **No clear legend match**, hides mixture percentages and the composite
+reference polygon, and keeps the player's wheel and evidence-based story.
+Execution facts are separate from playing style; no overall grade is inferred.
+Insufficient minutes or shared fields has a separate unavailable state.
+
+[Current-season data, live behavior, sources and limits](docs/CURRENT_SEASON_AND_LIVE.md)
+documents the 20 usable historical season references and five unavailable ones.
+All 25 career cards remain accessible with club colours weighted by PL appearances.
+The fitted mix is exploratory; neither provider equivalence nor style similarity
+has been independently validated.
+
+The separate **Eight-position synthetic demo** retains the fictional scenarios,
+minute slider, local English/Spanish summaries and explicitly invented overlay.
+**Archived midfield research** preserves the earlier historical event study.
+Recorded match totals are never turned into invented minute-by-minute replays.
 
 The responsive navy, teal and purple theme is in `.streamlit/config.toml`.
 Include that folder when uploading or deploying the app.
@@ -27,11 +40,14 @@ Include that folder when uploading or deploying the app.
 python -m unittest discover -s tests -v
 ```
 
-The app generates English or Spanish insights from evidence. Local mode uses a
-calculated summary and needs no Azure credentials. An optional Microsoft connector
-selects structured claims, validates them, then renders controlled wording. It has
-been tested with simulated responses; live Azure inference remains unverified.
-See [Microsoft setup](docs/MICROSOFT_SETUP.md) before enabling paid calls.
+Local calculations require no Azure credentials. The optional Microsoft connector
+selects evidence IDs, validates them, and renders controlled wording. A manual
+click makes one potentially billable request. Automatic Microsoft stories are
+off by default and, if enabled during live play, limited to one attempt per five
+minutes per browser session when fresh statistics change. No paid Azure calls
+were used in development tests. Real in-progress feed behavior still needs an
+end-to-end check on the deployed app; completed and pre-match feeds were exercised.
+See [Microsoft setup](docs/MICROSOFT_SETUP.md).
 
 ## Project vision and development scope
 
@@ -52,7 +68,7 @@ fictional demonstration player. The new role scenarios are separate from the
 original notebook dataset; the same player name does not imply the same data.
 Goalkeepers use their own measurements and invented reference profiles.
 
-## Interpretation
+## Synthetic-demo interpretation
 
 The dataset is synthetic and the players are fictional. Legend-inspired reference profiles are invented design hypotheses. Scores are independent model outputs, not probabilities, validated historical comparisons or player-quality rankings. Activity dimensions overlap. The ten-sequence display threshold is provisional.
 
@@ -62,3 +78,19 @@ scenarios and calculations are in `pl_dna/roles.py`; the interface is in `app.py
 These are independent action scenarios, not a possession-consistent simulation
 of a complete match. See [build checkpoints](docs/BUILD_PLAN.md) and
 [acceptance criteria](docs/ACCEPTANCE.md) for remaining scope and limitations.
+
+## Player DNA visual preview
+
+The dashboard includes a selectable radar wheel and club-coloured legend season card.
+Sourced full-season facts are loaded for all 25 legends across eight positions. They are displayed separately from the synthetic performance wheel; the current-season mode separately uses sourced season-rate references. Neither mode supplies validated similarity scores. The invented
+overlay is an explicit design-preview option, off by default.
+See [historical sources, selection criteria and upload instructions](docs/HISTORICAL_SEASONS.md).
+
+
+## Recorded-event research study
+
+A separate optional study compares Henry’s Liverpool match with his other 2003/04
+appearances using same-provider, same-definition event rates. It includes source
+reconciliation and a second SQL recount, without claiming a validated style score
+or career event coverage. All 25 optional career headline cards include club colours
+weighted by PL appearances. See [evidence and limitations](docs/RECORDED_EVENT_STUDY.md).

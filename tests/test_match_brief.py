@@ -97,3 +97,48 @@ class MatchBriefTests(unittest.TestCase):
         body = json.loads(calls[0].data)
         self.assertIn('broadcast research editor', body['input'])
         self.assertFalse(body['store'])
+
+class MatchBriefDiagnosticsTests(unittest.TestCase):
+    def setUp(self):
+        self.payload = build_match_brief(generate_role_events(42), 'Alex Morganfield', 90)
+
+    def test_http_failures_are_distinct_and_never_show_private_error_text(self):
+        from urllib.error import HTTPError
+        config = {'PL_DNA_ENABLE_AZURE': '1',
+                  'AZURE_OPENAI_BASE_URL': 'https://demo.services.ai.azure.com/openai/v1/',
+                  'AZURE_OPENAI_API_KEY': 'private-placeholder', 'AZURE_OPENAI_DEPLOYMENT': 'demo'}
+        for status in (400, 401, 403, 404, 429, 500):
+            transport = Mock(side_effect=HTTPError('https://private.example', status, 'private-placeholder', {}, None))
+            provider = create_provider_from_env(config, transport)
+            result = generate_match_brief(self.payload, provider)
+            self.assertEqual(result['status'], 'fallback')
+            self.assertNotIn('private-placeholder', result['reason'])
+            self.assertNotIn('private.example', result['reason'])
+            self.assertIn('No automatic retry', result['reason'])
+            if status < 500:
+                self.assertIn(str(status), result['reason'])
+            transport.assert_called_once()
+
+    def test_malformed_json_is_not_reported_as_a_bad_evidence_id(self):
+        from pl_dna.microsoft_provider import ProviderError
+        result = generate_match_brief(self.payload, Mock(side_effect=ProviderError('invalid_json')))
+        self.assertIn('JSON format', result['reason'])
+        result = generate_match_brief(self.payload, lambda p: {'lead':'FORGED','support':None})
+        self.assertIn('change IDs', result['reason'])
+
+    def test_strict_response_schema_only_allows_supplied_ids(self):
+        config = {'PL_DNA_ENABLE_AZURE': '1',
+                  'AZURE_OPENAI_BASE_URL': 'https://demo.services.ai.azure.com/openai/v1/',
+                  'AZURE_OPENAI_API_KEY': 'placeholder', 'AZURE_OPENAI_DEPLOYMENT': 'demo'}
+        requests = []
+        def transport(request, timeout):
+            requests.append(request)
+            return io.BytesIO(json.dumps({'output':[{'type':'message','content':[{'type':'output_text',
+                'text':json.dumps({'lead':self.payload['comparisons'][0]['id'],'support':None})}]}]}).encode())
+        result = generate_match_brief(self.payload, create_provider_from_env(config, transport))
+        self.assertEqual(result['status'], 'verified')
+        format = json.loads(requests[0].data)['text']['format']
+        self.assertTrue(format['strict'])
+        self.assertEqual(format['type'], 'json_schema')
+        self.assertFalse(format['schema']['additionalProperties'])
+        self.assertEqual(format['schema']['properties']['lead']['enum'], [c['id'] for c in self.payload['comparisons']])

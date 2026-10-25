@@ -10,31 +10,32 @@ from pl_dna.recorded_events import METRICS
 MIN_ACTIONS = 30  # Display floor, not a reliability guarantee.
 
 
-def fit_blend(target, references):
-    """Exact simplex least squares over every active face (three references).
+def fit_blend(target, references, metric_keys=None):
+    """Exact simplex least squares over every active face (two to four references).
 
     Equal squared error per rate point; no fitted scaling, softmax, or hand-set
     legend weights. Reject malformed inputs rather than substituting zeroes.
     """
-    names, keys = list(references), list(METRICS)
-    if len(names) != 3:
-        raise ValueError('Exactly three reference samples are required.')
+    names, keys = list(references), list(METRICS if metric_keys is None else metric_keys)
+    n = len(names)
+    if not 2 <= n <= 4:
+        raise ValueError('Two to four reference samples are required.')
     y = np.array([target['rates'][k] for k in keys], dtype=float)
     x = np.array([[references[n]['rates'][k] for n in names] for k in keys], dtype=float)
     if not np.isfinite(y).all() or not np.isfinite(x).all() or (y < 0).any() or (x < 0).any():
         raise ValueError('Rates must be finite nonnegative numbers.')
-    if np.linalg.matrix_rank(np.vstack([x, np.ones(3)])) != 3:
+    if np.linalg.matrix_rank(np.vstack([x, np.ones(n)])) != n:
         raise ValueError('Reference profiles cannot distinguish a unique blend.')
     best = None
-    for size in (1, 2, 3):
-        for active in combinations(range(3), size):
+    for size in range(1, n+1):
+        for active in combinations(range(n), size):
             a = x[:, active]
             system = np.block([[a.T @ a, np.ones((size, 1))],
                                [np.ones((1, size)), np.zeros((1, 1))]])
             solution = np.linalg.lstsq(system, np.r_[a.T @ y, 1.0], rcond=None)[0][:-1]
             if min(solution) < -1e-9:
                 continue
-            weights = np.zeros(3)
+            weights = np.zeros(n)
             weights[list(active)] = np.maximum(solution, 0)
             weights /= weights.sum()
             residual = float(np.mean((x @ weights - y)**2))
@@ -44,7 +45,7 @@ def fit_blend(target, references):
     # Largest remainder display rounding: integer percentages total exactly 100.
     raw = 100 * weights
     percentages = np.floor(raw).astype(int)
-    for i in sorted(range(3), key=lambda i: (-(raw[i] - percentages[i]), i))[:100-int(percentages.sum())]:
+    for i in sorted(range(n), key=lambda i: (-(raw[i] - percentages[i]), i))[:100-int(percentages.sum())]:
         percentages[i] += 1
     return dict(weights=dict(zip(names, weights.tolist())),
         percentages=dict(zip(names, percentages.tolist())),
@@ -112,8 +113,14 @@ def validate_story(payload, candidate):
 
 def story_text(payload, candidate):
     evidence = validate_story(payload, candidate)
-    parts = [f"{pct}% {name.split()[-1]}" for name, pct in sorted(payload['fit']['percentages'].items(), key=lambda x: -x[1]) if pct]
-    summary = f"Through {payload['minute']} minutes, {payload['player']}’s recorded action mix fits {' / '.join(parts)} within these three match samples."
+    if payload.get('fit_status') == 'no_clear_match':
+        return (f"No clear match to the loaded legend profiles for {payload['player']} under the current display checks. "
+                'This is not an overall performance grade. ' + ' '.join(e['sentence'] for e in evidence))
+    parts = [f"{pct}% {payload['references'][name].get('short_label', name.split()[-1])}" for name, pct in sorted(payload['fit']['percentages'].items(), key=lambda x: -x[1]) if pct]
+    if payload.get('comparison_scope') == 'season_rates':
+        summary = f"{payload['player']}’s recorded match rates fit {' / '.join(parts)} relative to the selected reference seasons. This is an exploratory comparison."
+    else:
+        summary = f"Through {payload['minute']} minutes, {payload['player']}’s recorded action mix fits {' / '.join(parts)} within these three match samples."
     return summary + ' ' + ' '.join(e['sentence'] for e in evidence)
 
 

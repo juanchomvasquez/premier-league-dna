@@ -5,7 +5,8 @@ legend-sample comparison. It does **not** establish validated career resemblance
 The Fan / Broadcaster / Expert buttons have been removed. The story is prominent,
 copyable text and detailed evidence sit under expanders.
 
-The default Data source is **Recorded midfield comparison**; the original
+This older study is available under **Archived midfield research**. The default
+view is now **This season & live**, documented in CURRENT_SEASON_AND_LIVE.md. The original
 eight-position synthetic demo remains available through the Data source control.
 
 ## What Azure does

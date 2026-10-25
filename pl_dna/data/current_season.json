@@ -1,0 +1,1441 @@
+{
+  "version": 2,
+  "season": "2026/27",
+  "checked_at": "2026-10-25T03:31:11.084192+00:00",
+  "selection": "One sourced performance for each of eight position groups, from eight different clubs, across fixtures completed by 24 Oct 2026. The named examples were fixed before calculating their legend blends. This is a varied convenience sample, not a representative random league sample or a claim that every example is a standout.",
+  "references": [
+    {
+      "player": "Frank Lampard",
+      "id": "2051",
+      "role": "CM",
+      "inspiration": "Lampard-inspired",
+      "season": "2009/10",
+      "minutes": 3220.0,
+      "appearances": 36.0,
+      "counts": {
+        "passes": 1923.0,
+        "shots": 108.0,
+        "takeons": 16.0,
+        "tackles": 75.0,
+        "interceptions": 36.0,
+        "long_passes": 142.0,
+        "clearances": 42.0,
+        "aerials": 4.0,
+        "shot_assists": 100.0,
+        "goals": 22.0,
+        "assists": 14.0,
+        "box_touches": 118.0,
+        "recoveries": 148.0,
+        "saves": null,
+        "conceded": 32.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2009/players/2051/stats",
+        "checked_at": "2026-10-25T02:11:10.399712+00:00",
+        "sha256": "fcacf24272415a1263a43197672a050e8db9774af5a2e19ed2f7afe80322a470",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "b317454db3c2f1c868e3bba8b25c476c30b4739c0a70bbdabbc184aaa08afcae"
+      }
+    },
+    {
+      "player": "Steven Gerrard",
+      "id": "1814",
+      "role": "CM",
+      "inspiration": "Gerrard-inspired",
+      "season": "2008/09",
+      "minutes": 2630.0,
+      "appearances": 31.0,
+      "counts": {
+        "passes": 1709.0,
+        "shots": 99.0,
+        "takeons": 31.0,
+        "tackles": 54.0,
+        "interceptions": 38.0,
+        "long_passes": 125.0,
+        "clearances": 34.0,
+        "aerials": 33.0,
+        "shot_assists": 80.0,
+        "goals": 16.0,
+        "assists": 9.0,
+        "box_touches": 110.0,
+        "recoveries": 173.0,
+        "saves": null,
+        "conceded": 18.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2008/players/1814/stats",
+        "checked_at": "2026-10-25T02:11:10.508215+00:00",
+        "sha256": "cf22517a418b67dd7990abd037a019978efee0dfcc98dfbd7baa6601f34947eb",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "212cded0ba160ec761e824e43c7a723f0d13243f164623832e228aa7f06b782d"
+      }
+    },
+    {
+      "player": "Paul Scholes",
+      "id": "363",
+      "role": "CM",
+      "inspiration": "Scholes-inspired",
+      "season": "2010/11",
+      "minutes": 1536.0,
+      "appearances": 22.0,
+      "counts": {
+        "passes": 1357.0,
+        "shots": 13.0,
+        "takeons": 6.0,
+        "tackles": 28.0,
+        "interceptions": 35.0,
+        "long_passes": 184.0,
+        "clearances": 8.0,
+        "aerials": 4.0,
+        "shot_assists": 17.0,
+        "goals": 1.0,
+        "assists": 3.0,
+        "box_touches": 13.0,
+        "recoveries": 129.0,
+        "saves": null,
+        "conceded": 19.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2010/players/363/stats",
+        "checked_at": "2026-10-25T02:11:10.373024+00:00",
+        "sha256": "368d621362179cafc8136b691dc4f875a0f9b4e3bbe0c77ff0a4ec5f447bb628",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "6e61da3372a9d0ce650c26d6a6c8552bacb3633d99441947f74399d4d55fed86"
+      }
+    },
+    {
+      "player": "Cesc Fàbregas",
+      "id": "17878",
+      "role": "CAM",
+      "inspiration": "Fabregas-inspired",
+      "season": "2014/15",
+      "minutes": 2886.0,
+      "appearances": 34.0,
+      "counts": {
+        "passes": 2743.0,
+        "shots": 27.0,
+        "takeons": 36.0,
+        "tackles": 90.0,
+        "interceptions": 24.0,
+        "long_passes": 182.0,
+        "clearances": 30.0,
+        "aerials": 28.0,
+        "shot_assists": 77.0,
+        "goals": 3.0,
+        "assists": 18.0,
+        "box_touches": 97.0,
+        "recoveries": 265.0,
+        "saves": null,
+        "conceded": 26.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2014/players/17878/stats",
+        "checked_at": "2026-10-25T02:11:13.508357+00:00",
+        "sha256": "6e0581c44f9fa6494ca53afbcf9e0063d3289148a1fe2f742644175963c38ecd",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "a427731010a43d152badfbb3fe1dde98e70337e41932b75b4867308af3424c19"
+      }
+    },
+    {
+      "player": "Mesut Özil",
+      "id": "37605",
+      "role": "CAM",
+      "inspiration": "Ozil-inspired",
+      "season": "2015/16",
+      "minutes": 3047.0,
+      "appearances": 35.0,
+      "counts": {
+        "passes": 2276.0,
+        "shots": 30.0,
+        "takeons": 46.0,
+        "tackles": 35.0,
+        "interceptions": 22.0,
+        "long_passes": 53.0,
+        "clearances": 10.0,
+        "aerials": 4.0,
+        "shot_assists": 127.0,
+        "goals": 6.0,
+        "assists": 19.0,
+        "box_touches": null,
+        "recoveries": 147.0,
+        "saves": null,
+        "conceded": 31.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2015/players/37605/stats",
+        "checked_at": "2026-10-25T02:11:13.509643+00:00",
+        "sha256": "7581b86e7284c8cc79e965875672f6c5a356244888236b1893e09c4964e1ac3e",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "ae52637785cf9cf5fd119a12259637ae2140f04e2db53d2e8aa9491465cbabb8"
+      }
+    },
+    {
+      "player": "Kevin De Bruyne",
+      "id": "61366",
+      "role": "CAM",
+      "inspiration": "De Bruyne-inspired",
+      "season": "2019/20",
+      "minutes": 2798.0,
+      "appearances": 35.0,
+      "counts": {
+        "passes": 1907.0,
+        "shots": 70.0,
+        "takeons": 48.0,
+        "tackles": 45.0,
+        "interceptions": 18.0,
+        "long_passes": 121.0,
+        "clearances": 23.0,
+        "aerials": 17.0,
+        "shot_assists": 116.0,
+        "goals": 13.0,
+        "assists": 20.0,
+        "box_touches": 159.0,
+        "recoveries": 136.0,
+        "saves": null,
+        "conceded": 22.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2019/players/61366/stats",
+        "checked_at": "2026-10-25T02:11:13.513470+00:00",
+        "sha256": "73d8134adfc5320e604cd3885d0480cad4b9918e764bca1c326afff1aedfe7a2",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "88000c73565b43ddfaf4e21464783217c59c8619aaa7fc54e8c7d660f0cef4dc"
+      }
+    },
+    {
+      "player": "John Terry",
+      "id": "1718",
+      "role": "CB",
+      "inspiration": "Terry-inspired",
+      "season": "2014/15",
+      "minutes": 3420.0,
+      "appearances": 38.0,
+      "counts": {
+        "passes": 1604.0,
+        "shots": 17.0,
+        "takeons": null,
+        "tackles": 43.0,
+        "interceptions": 32.0,
+        "long_passes": 63.0,
+        "clearances": 217.0,
+        "aerials": 99.0,
+        "shot_assists": 7.0,
+        "goals": 5.0,
+        "assists": null,
+        "box_touches": 39.0,
+        "recoveries": 129.0,
+        "saves": null,
+        "conceded": 32.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2014/players/1718/stats",
+        "checked_at": "2026-10-25T02:11:16.469964+00:00",
+        "sha256": "3251d7142d374c17dd3aa33bbbb66f5069f8d9327576ab93d8ef1b58afb85bf2",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "d873c2ede87e81b26a7d659b820cef3776ea2ca75b0c659c7f599956fb786397"
+      }
+    },
+    {
+      "player": "Nemanja Vidic",
+      "id": "14965",
+      "role": "CB",
+      "inspiration": "Vidic-inspired",
+      "season": "2010/11",
+      "minutes": 3117.0,
+      "appearances": 35.0,
+      "counts": {
+        "passes": 1635.0,
+        "shots": 17.0,
+        "takeons": 1.0,
+        "tackles": 74.0,
+        "interceptions": 91.0,
+        "long_passes": 158.0,
+        "clearances": 334.0,
+        "aerials": 102.0,
+        "shot_assists": 3.0,
+        "goals": 5.0,
+        "assists": 1.0,
+        "box_touches": 30.0,
+        "recoveries": 179.0,
+        "saves": 33.0,
+        "conceded": 33.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2010/players/14965/stats",
+        "checked_at": "2026-10-25T02:11:16.372163+00:00",
+        "sha256": "6d2b74449efb324c8a8e846f6089f862252987ebf38b012b083a1a78da594810",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "dae2a0fb17e28290c8cc19812f1b006af637fc35c177f6d565bce2f4a3f72d25"
+      }
+    },
+    {
+      "player": "Virgil van Dijk",
+      "id": "97032",
+      "role": "CB",
+      "inspiration": "Van Dijk-inspired",
+      "season": "2018/19",
+      "minutes": 3385.0,
+      "appearances": 38.0,
+      "counts": {
+        "passes": 3037.0,
+        "shots": 23.0,
+        "takeons": 9.0,
+        "tackles": 38.0,
+        "interceptions": 40.0,
+        "long_passes": 203.0,
+        "clearances": 199.0,
+        "aerials": 182.0,
+        "shot_assists": 5.0,
+        "goals": 4.0,
+        "assists": 2.0,
+        "box_touches": 70.0,
+        "recoveries": 193.0,
+        "saves": null,
+        "conceded": 22.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2018/players/97032/stats",
+        "checked_at": "2026-10-25T02:11:16.275464+00:00",
+        "sha256": "58f03eee63d09efcf36cda922d7d5ddbb493174262bce3c344446271a6d38403",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "c13873dde58a499e7b9040ba6f5f197863e0312956764a91b85095d139551892"
+      }
+    },
+    {
+      "player": "Petr Cech",
+      "id": "11334",
+      "role": "GK",
+      "inspiration": "Cech-inspired",
+      "season": "2013/14",
+      "minutes": 3060.0,
+      "appearances": 34.0,
+      "counts": {
+        "passes": 783.0,
+        "shots": null,
+        "takeons": 1.0,
+        "tackles": null,
+        "interceptions": null,
+        "long_passes": 227.0,
+        "clearances": 22.0,
+        "aerials": 8.0,
+        "shot_assists": 2.0,
+        "goals": null,
+        "assists": null,
+        "box_touches": null,
+        "recoveries": 266.0,
+        "saves": 81.0,
+        "conceded": 24.0,
+        "punches": 12.0
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2013/players/11334/stats",
+        "checked_at": "2026-10-25T02:11:18.823461+00:00",
+        "sha256": "f19dbf099362b077a2413f3aa94c320aa3cb815d112033cbd6cfe015071ff8ce",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "2354ebb76befbdca58daaa6fea243e4255bd258e21ca884fd35cac1439b2c727"
+      }
+    },
+    {
+      "player": "Alisson Becker",
+      "id": "116535",
+      "role": "GK",
+      "inspiration": "Alisson-inspired",
+      "season": "2018/19",
+      "minutes": 3420.0,
+      "appearances": 38.0,
+      "counts": {
+        "passes": 1076.0,
+        "shots": null,
+        "takeons": 2.0,
+        "tackles": 2.0,
+        "interceptions": 1.0,
+        "long_passes": 183.0,
+        "clearances": 31.0,
+        "aerials": 11.0,
+        "shot_assists": null,
+        "goals": null,
+        "assists": null,
+        "box_touches": null,
+        "recoveries": 334.0,
+        "saves": 76.0,
+        "conceded": 22.0,
+        "punches": 17.0
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2018/players/116535/stats",
+        "checked_at": "2026-10-25T02:11:18.828032+00:00",
+        "sha256": "23c8b9c249c46fd3e1f2b3bd0c606d122cb2499500b7eac70dde6e5468db8097",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "6606ba013413d22c06a1a10d80a4e86d5ee61faf0faac1f71639382bc2cade96"
+      }
+    },
+    {
+      "player": "Ashley Cole",
+      "id": "3785",
+      "role": "FB",
+      "inspiration": "Ashley Cole-inspired",
+      "season": "2009/10",
+      "minutes": 2155.0,
+      "appearances": 27.0,
+      "counts": {
+        "passes": 1037.0,
+        "shots": 11.0,
+        "takeons": 24.0,
+        "tackles": 65.0,
+        "interceptions": 61.0,
+        "long_passes": 44.0,
+        "clearances": 77.0,
+        "aerials": 13.0,
+        "shot_assists": 26.0,
+        "goals": 4.0,
+        "assists": 3.0,
+        "box_touches": 51.0,
+        "recoveries": 129.0,
+        "saves": null,
+        "conceded": 16.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2009/players/3785/stats",
+        "checked_at": "2026-10-25T02:11:18.826689+00:00",
+        "sha256": "d177ab83a871c9854d2aa675e41613dd1311972f0c9e152bb0b5bb5a229462da",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "dfbe0cba572821b40c2845f4ee0f1e770db94bfb4570c846e2cb9a2a8cfbfa4e"
+      }
+    },
+    {
+      "player": "Kyle Walker",
+      "id": "58621",
+      "role": "FB",
+      "inspiration": "Kyle Walker-inspired",
+      "season": "2017/18",
+      "minutes": 2787.0,
+      "appearances": 32.0,
+      "counts": {
+        "passes": 2362.0,
+        "shots": 10.0,
+        "takeons": 26.0,
+        "tackles": 47.0,
+        "interceptions": 29.0,
+        "long_passes": 87.0,
+        "clearances": 67.0,
+        "aerials": 70.0,
+        "shot_assists": 24.0,
+        "goals": null,
+        "assists": 6.0,
+        "box_touches": 36.0,
+        "recoveries": 175.0,
+        "saves": null,
+        "conceded": 22.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2017/players/58621/stats",
+        "checked_at": "2026-10-25T02:11:21.152025+00:00",
+        "sha256": "14f188f204dffe4b93c55e87f17060ef9aab3b6546fa12c41a318f5b967e31fe",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "3f5feed77e33fa59b87572d555a31d2dfbc20fbdc0189716796e84478fb797e5"
+      }
+    },
+    {
+      "player": "Trent Alexander-Arnold",
+      "id": "169187",
+      "role": "FB",
+      "inspiration": "Alexander-Arnold-inspired",
+      "season": "2019/20",
+      "minutes": 3176.0,
+      "appearances": 38.0,
+      "counts": {
+        "passes": 2440.0,
+        "shots": 27.0,
+        "takeons": 21.0,
+        "tackles": 55.0,
+        "interceptions": 45.0,
+        "long_passes": 192.0,
+        "clearances": 70.0,
+        "aerials": 16.0,
+        "shot_assists": 74.0,
+        "goals": 4.0,
+        "assists": 13.0,
+        "box_touches": 55.0,
+        "recoveries": 221.0,
+        "saves": null,
+        "conceded": 32.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2019/players/169187/stats",
+        "checked_at": "2026-10-25T02:11:21.190735+00:00",
+        "sha256": "9867b987d9e26580e646c20444d226b2a745fdc01df0fd678b52c89b971b0a8f",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "968c049af4c1c051909fe2fa1e4ead99ad1d086a7e015f09889cc3b3a2dfd1e8"
+      }
+    },
+    {
+      "player": "N'Golo Kanté",
+      "id": "116594",
+      "role": "CDM",
+      "inspiration": "Kante-inspired",
+      "season": "2016/17",
+      "minutes": 3139.0,
+      "appearances": 35.0,
+      "counts": {
+        "passes": 2122.0,
+        "shots": 17.0,
+        "takeons": 36.0,
+        "tackles": 127.0,
+        "interceptions": 82.0,
+        "long_passes": 136.0,
+        "clearances": 41.0,
+        "aerials": 19.0,
+        "shot_assists": 21.0,
+        "goals": 1.0,
+        "assists": 1.0,
+        "box_touches": 20.0,
+        "recoveries": 275.0,
+        "saves": null,
+        "conceded": 33.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2016/players/116594/stats",
+        "checked_at": "2026-10-25T02:11:21.237979+00:00",
+        "sha256": "ca0316a33d5bb502b0092b41d3f487c64a237edacdccb9668153d0349cfe148a",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "7c4e63a877d743dc81e036b66779ad16a8f2eb030e6a55881772f3060ca9ff35"
+      }
+    },
+    {
+      "player": "Rodri",
+      "id": "220566",
+      "role": "CDM",
+      "inspiration": "Rodri-inspired",
+      "season": "2022/23",
+      "minutes": 2920.0,
+      "appearances": 36.0,
+      "counts": {
+        "passes": 2977.0,
+        "shots": 33.0,
+        "takeons": 26.0,
+        "tackles": 66.0,
+        "interceptions": 33.0,
+        "long_passes": 171.0,
+        "clearances": 42.0,
+        "aerials": 72.0,
+        "shot_assists": 26.0,
+        "goals": 2.0,
+        "assists": 6.0,
+        "box_touches": 61.0,
+        "recoveries": 301.0,
+        "saves": null,
+        "conceded": 26.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2022/players/220566/stats",
+        "checked_at": "2026-10-25T02:11:23.672377+00:00",
+        "sha256": "eb5e85acc8a43df01ca112d7c0e65ca787c97d6b88cc042730b86b94168b6e4a",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "4c6151f894196ce902387a22f83afc8d41d764aba28b23c1ac34d75f3986e433"
+      }
+    },
+    {
+      "player": "Eden Hazard",
+      "id": "42786",
+      "role": "WING",
+      "inspiration": "Hazard-inspired",
+      "season": "2018/19",
+      "minutes": 2925.0,
+      "appearances": 37.0,
+      "counts": {
+        "passes": 1819.0,
+        "shots": 59.0,
+        "takeons": 138.0,
+        "tackles": 14.0,
+        "interceptions": 12.0,
+        "long_passes": 100.0,
+        "clearances": 4.0,
+        "aerials": 20.0,
+        "shot_assists": 83.0,
+        "goals": 16.0,
+        "assists": 15.0,
+        "box_touches": 240.0,
+        "recoveries": 103.0,
+        "saves": null,
+        "conceded": 35.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2018/players/42786/stats",
+        "checked_at": "2026-10-25T02:11:23.773305+00:00",
+        "sha256": "36dcb8ba8bd429d86746c3bcfa7ac13e2eed23f44191c026c02cd20a9605b35c",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "31e03739fbb22b0791bfd23ce9802fe5a1a3f65a8999965552b7ef96b382dcb0"
+      }
+    },
+    {
+      "player": "Mohamed Salah",
+      "id": "118748",
+      "role": "WING",
+      "inspiration": "Salah-inspired",
+      "season": "2017/18",
+      "minutes": 2921.0,
+      "appearances": 36.0,
+      "counts": {
+        "passes": 946.0,
+        "shots": 111.0,
+        "takeons": 79.0,
+        "tackles": 12.0,
+        "interceptions": 5.0,
+        "long_passes": 18.0,
+        "clearances": 3.0,
+        "aerials": 13.0,
+        "shot_assists": 52.0,
+        "goals": 32.0,
+        "assists": 10.0,
+        "box_touches": 282.0,
+        "recoveries": 122.0,
+        "saves": null,
+        "conceded": 30.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2017/players/118748/stats",
+        "checked_at": "2026-10-25T02:11:26.664542+00:00",
+        "sha256": "a6ce5567b2ebbdf50e99a0cf14ff06e240f214f46ef262f39796688793d1b7cc",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "314de5757fde9635794c3f11d3b8ff8fd947e895414dbc6d40e724df03ba7319"
+      }
+    },
+    {
+      "player": "Didier Drogba",
+      "id": "12303",
+      "role": "ST",
+      "inspiration": "Drogba-inspired",
+      "season": "2009/10",
+      "minutes": 2774.0,
+      "appearances": 32.0,
+      "counts": {
+        "passes": 640.0,
+        "shots": 143.0,
+        "takeons": 38.0,
+        "tackles": 23.0,
+        "interceptions": 31.0,
+        "long_passes": 24.0,
+        "clearances": 48.0,
+        "aerials": 57.0,
+        "shot_assists": 46.0,
+        "goals": 29.0,
+        "assists": 10.0,
+        "box_touches": 255.0,
+        "recoveries": 62.0,
+        "saves": null,
+        "conceded": 27.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2009/players/12303/stats",
+        "checked_at": "2026-10-25T02:11:26.657057+00:00",
+        "sha256": "e84c4e2ed1eb31496884af3388cd9e24fa630c702bba464d7bf269deece52a26",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "0c19f7b79f1946828d13357b9a4dbe32733fc677eed1749715451bec4fc6fbcf"
+      }
+    },
+    {
+      "player": "Wayne Rooney",
+      "id": "13017",
+      "role": "ST",
+      "inspiration": "Rooney-inspired",
+      "season": "2011/12",
+      "minutes": 2839.0,
+      "appearances": 34.0,
+      "counts": {
+        "passes": 1712.0,
+        "shots": 120.0,
+        "takeons": 33.0,
+        "tackles": 22.0,
+        "interceptions": 15.0,
+        "long_passes": 181.0,
+        "clearances": 20.0,
+        "aerials": 26.0,
+        "shot_assists": 49.0,
+        "goals": 27.0,
+        "assists": 4.0,
+        "box_touches": 121.0,
+        "recoveries": 138.0,
+        "saves": null,
+        "conceded": 26.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2011/players/13017/stats",
+        "checked_at": "2026-10-25T02:11:29.077167+00:00",
+        "sha256": "cc593f9630371a380673df354076113271e6f18c480e277884badad74ff1c4d7",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "5a72d0ed9639af9fda1c545cbcdacbf802e05354e19d8124456667f29e6e908a"
+      }
+    }
+  ],
+  "unavailable_references": [
+    {
+      "unavailable": true,
+      "player": "Peter Schmeichel",
+      "inspiration": "Schmeichel-inspired",
+      "role": "GK",
+      "season": "1995/96",
+      "source_url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/1995/players/3952/stats",
+      "reason": "Detailed comparable fields are not consistently covered before 2006/07; no rates are inferred."
+    },
+    {
+      "unavailable": true,
+      "player": "Claude Makélélé",
+      "inspiration": "Makelele-inspired",
+      "role": "CDM",
+      "season": "2006/07",
+      "source_url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2006/players/6083/stats",
+      "reason": "Source returned HTTP 404 for this season."
+    },
+    {
+      "unavailable": true,
+      "player": "Cristiano Ronaldo",
+      "inspiration": "Ronaldo-inspired",
+      "role": "WING",
+      "season": "2007/08",
+      "source_url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2007/players/14937/stats",
+      "reason": "Source returned HTTP 404 for this season."
+    },
+    {
+      "unavailable": true,
+      "player": "Thierry Henry",
+      "inspiration": "Henry-inspired",
+      "role": "ST",
+      "season": "2006/07",
+      "source_url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2006/players/1619/stats",
+      "reason": "Source returned HTTP 404 for this season."
+    },
+    {
+      "unavailable": true,
+      "player": "Alan Shearer",
+      "inspiration": "Shearer-inspired",
+      "role": "ST",
+      "season": "1994/95",
+      "source_url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/1994/players/1/stats",
+      "reason": "Detailed comparable fields are not consistently covered before 2006/07; no rates are inferred."
+    }
+  ],
+  "targets": {
+    "401879256:265958": {
+      "player": {
+        "id": "265958",
+        "name": "Zion Suzuki",
+        "team_id": "362",
+        "team": "Aston Villa",
+        "source_position": "Goalkeeper"
+      },
+      "role": "GK",
+      "fixture": {
+        "id": "401879256",
+        "name": "Aston Villa vs Manchester City",
+        "date": "2026-10-24T11:30Z",
+        "state": "post",
+        "status": "Full Time",
+        "clock": "",
+        "period": null,
+        "home": "Aston Villa",
+        "away": "Manchester City",
+        "score": "2–1",
+        "source_page": "https://www.espn.com/soccer/matchstats/_/gameId/401879256"
+      },
+      "summary_source": {
+        "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/summary?event=401879256",
+        "checked_at": "2026-10-25T02:01:40.894056+00:00",
+        "sha256": "34c3ae0b0e019a1ab7a34a62c6eae281a7bf8c849dce6bbb3b5360af3f1b7f49",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "797b213f8e0375e7ac84c9cc1d002b1d35faa791f7539ec4fb46a7608aee5a29"
+      },
+      "snapshot": {
+        "minutes": 90.0,
+        "counts": {
+          "passes": 46.0,
+          "shots": 0.0,
+          "takeons": 0.0,
+          "tackles": 0.0,
+          "interceptions": 0.0,
+          "long_passes": 5.0,
+          "clearances": 1.0,
+          "aerials": 0.0,
+          "shot_assists": 0.0,
+          "goals": 0.0,
+          "assists": 0.0,
+          "box_touches": 0.0,
+          "recoveries": 8.0,
+          "saves": 6.0,
+          "conceded": 1.0,
+          "punches": 1.0
+        },
+        "execution": {
+          "Pass completion": {
+            "successful": 33.0,
+            "attempted": 46.0,
+            "percentage": 71.73913043478261
+          }
+        },
+        "goals": 0.0,
+        "assists": 0.0,
+        "source": {
+          "url": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/events/401879256/competitions/401879256/competitors/362/roster/265958/statistics/0?lang=en&region=us",
+          "checked_at": "2026-10-25T02:11:34.946521+00:00",
+          "sha256": "8d836fd0ccc2c15e0948e1d36b46b5ae538e56a5c07f9d8f14fe0098f4cd89f9",
+          "http_age_seconds": null,
+          "http_last_modified": null,
+          "canonical_sha256": "a2c9b495cba41c840e577cc09ee7dca1c091c0ef4c009e1e15e7e28f6d3196ee"
+        },
+        "warnings": [
+          "Source shot totals do not reconcile to inside-box + outside-box attempts; shots are excluded from the fit."
+        ],
+        "excluded_metrics": [
+          "shots"
+        ]
+      },
+      "official_fixture_id": "2645266",
+      "fixture_check": "Date, home/away teams and final score match the Premier League results feed."
+    },
+    "401879262:157892": {
+      "player": {
+        "id": "157892",
+        "name": "Virgil van Dijk",
+        "team_id": "364",
+        "team": "Liverpool",
+        "source_position": "Center Left Defender"
+      },
+      "role": "CB",
+      "fixture": {
+        "id": "401879262",
+        "name": "Brentford vs Liverpool",
+        "date": "2026-10-17T14:00Z",
+        "state": "post",
+        "status": "Full Time",
+        "clock": "",
+        "period": null,
+        "home": "Brentford",
+        "away": "Liverpool",
+        "score": "1–2",
+        "source_page": "https://www.espn.com/soccer/matchstats/_/gameId/401879262"
+      },
+      "summary_source": {
+        "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/summary?event=401879262",
+        "checked_at": "2026-10-25T02:01:40.913891+00:00",
+        "sha256": "a5cccf1ae65fc3f6e167235773581442ed1a4a3eaafcee0052397a31812ab43d",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "4056503e1573bd48ad29bfc8d38602977777f62d2f2d46118de3f27ef8a3225d"
+      },
+      "snapshot": {
+        "minutes": 90.0,
+        "counts": {
+          "passes": 63.0,
+          "shots": 1.0,
+          "takeons": 0.0,
+          "tackles": 1.0,
+          "interceptions": 1.0,
+          "long_passes": 2.0,
+          "clearances": 11.0,
+          "aerials": 5.0,
+          "shot_assists": 1.0,
+          "goals": 0.0,
+          "assists": 0.0,
+          "box_touches": 1.0,
+          "recoveries": 5.0,
+          "saves": 0.0,
+          "conceded": 1.0,
+          "punches": 0.0
+        },
+        "execution": {
+          "Pass completion": {
+            "successful": 59.0,
+            "attempted": 63.0,
+            "percentage": 93.65079365079364
+          },
+          "Tackles won": {
+            "successful": 1.0,
+            "attempted": 1.0,
+            "percentage": 100.0
+          },
+          "Duels won": {
+            "successful": 6.0,
+            "attempted": 6.0,
+            "percentage": 100.0
+          }
+        },
+        "goals": 0.0,
+        "assists": 0.0,
+        "source": {
+          "url": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/events/401879262/competitions/401879262/competitors/364/roster/157892/statistics/0?lang=en&region=us",
+          "checked_at": "2026-10-25T02:11:37.886127+00:00",
+          "sha256": "b79516143d8fcee52f8c45e564a77765c0996fdf8fe931cbcf559674fa604247",
+          "http_age_seconds": null,
+          "http_last_modified": null,
+          "canonical_sha256": "1ee448e34402ab81e6ffd124a78be71e42eed3097bd7f79fd3f74c77a35012bb"
+        },
+        "warnings": [
+          "Source shot totals do not reconcile to inside-box + outside-box attempts; shots are excluded from the fit."
+        ],
+        "excluded_metrics": [
+          "shots"
+        ]
+      },
+      "official_fixture_id": "2645256",
+      "fixture_check": "Date, home/away teams and final score match the Premier League results feed."
+    },
+    "401879255:222396": {
+      "player": {
+        "id": "222396",
+        "name": "Antonee Robinson",
+        "team_id": "370",
+        "team": "Fulham",
+        "source_position": "Left Back"
+      },
+      "role": "FB",
+      "fixture": {
+        "id": "401879255",
+        "name": "Coventry City vs Fulham",
+        "date": "2026-10-24T14:00Z",
+        "state": "post",
+        "status": "Full Time",
+        "clock": "",
+        "period": null,
+        "home": "Coventry City",
+        "away": "Fulham",
+        "score": "0–1",
+        "source_page": "https://www.espn.com/soccer/matchstats/_/gameId/401879255"
+      },
+      "summary_source": {
+        "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/summary?event=401879255",
+        "checked_at": "2026-10-25T02:01:38.210082+00:00",
+        "sha256": "d56d882815779269595d1fcd538d96130f3ab90ede120fd07258373a65ebee51",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "58601875beff5bff253a93b16e708ada2af3396a4521bd98f25151203e85fa8c"
+      },
+      "snapshot": {
+        "minutes": 90.0,
+        "counts": {
+          "passes": 46.0,
+          "shots": 0.0,
+          "takeons": 0.0,
+          "tackles": 2.0,
+          "interceptions": 1.0,
+          "long_passes": 0.0,
+          "clearances": 9.0,
+          "aerials": 4.0,
+          "shot_assists": 0.0,
+          "goals": 0.0,
+          "assists": 0.0,
+          "box_touches": 1.0,
+          "recoveries": 0.0,
+          "saves": 0.0,
+          "conceded": 0.0,
+          "punches": 0.0
+        },
+        "execution": {
+          "Pass completion": {
+            "successful": 35.0,
+            "attempted": 46.0,
+            "percentage": 76.08695652173913
+          },
+          "Tackles won": {
+            "successful": 2.0,
+            "attempted": 2.0,
+            "percentage": 100.0
+          },
+          "Duels won": {
+            "successful": 7.0,
+            "attempted": 18.0,
+            "percentage": 38.888888888888886
+          }
+        },
+        "goals": 0.0,
+        "assists": 0.0,
+        "source": {
+          "url": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/events/401879255/competitions/401879255/competitors/370/roster/222396/statistics/0?lang=en&region=us",
+          "checked_at": "2026-10-25T02:11:40.714166+00:00",
+          "sha256": "cc25a8049e5769f9d8fb68b572f382cf8a6d31a8dddcdf8003cdc2a55f3f60cd",
+          "http_age_seconds": null,
+          "http_last_modified": null,
+          "canonical_sha256": "aa6674cb97bde306f95acd3d7ecf5bf6d8a0ac3c6569b5cff7e595ea73ac2cad"
+        },
+        "warnings": [
+          "Source shot totals do not reconcile to inside-box + outside-box attempts; shots are excluded from the fit."
+        ],
+        "excluded_metrics": [
+          "shots"
+        ]
+      },
+      "official_fixture_id": "2645268",
+      "fixture_check": "Date, home/away teams and final score match the Premier League results feed."
+    },
+    "401878767:289877": {
+      "player": {
+        "id": "289877",
+        "name": "Moisés Caicedo",
+        "team_id": "363",
+        "team": "Chelsea",
+        "source_position": "Center Right Midfielder"
+      },
+      "role": "CDM",
+      "fixture": {
+        "id": "401878767",
+        "name": "Chelsea vs Tottenham Hotspur",
+        "date": "2026-10-24T16:30Z",
+        "state": "post",
+        "status": "Full Time",
+        "clock": "",
+        "period": null,
+        "home": "Chelsea",
+        "away": "Tottenham Hotspur",
+        "score": "0–2",
+        "source_page": "https://www.espn.com/soccer/matchstats/_/gameId/401878767"
+      },
+      "summary_source": {
+        "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/summary?event=401878767",
+        "checked_at": "2026-10-25T02:01:38.817899+00:00",
+        "sha256": "72ad0aa337bb0fff514430921e289e660d10425608b4b6a426ea69cb892013dc",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "5b000b98a067bbf368b9c524d26d8b0a58f92913f62edcbaa892c107a094d5b6"
+      },
+      "snapshot": {
+        "minutes": 90.0,
+        "counts": {
+          "passes": 33.0,
+          "shots": 0.0,
+          "takeons": 0.0,
+          "tackles": 2.0,
+          "interceptions": 4.0,
+          "long_passes": 0.0,
+          "clearances": 1.0,
+          "aerials": 1.0,
+          "shot_assists": 0.0,
+          "goals": 0.0,
+          "assists": 0.0,
+          "box_touches": 1.0,
+          "recoveries": 2.0,
+          "saves": 0.0,
+          "conceded": 2.0,
+          "punches": 0.0
+        },
+        "execution": {
+          "Pass completion": {
+            "successful": 26.0,
+            "attempted": 33.0,
+            "percentage": 78.78787878787878
+          },
+          "Tackles won": {
+            "successful": 2.0,
+            "attempted": 2.0,
+            "percentage": 100.0
+          },
+          "Duels won": {
+            "successful": 5.0,
+            "attempted": 9.0,
+            "percentage": 55.55555555555556
+          }
+        },
+        "goals": 0.0,
+        "assists": 0.0,
+        "source": {
+          "url": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/events/401878767/competitions/401878767/competitors/363/roster/289877/statistics/0?lang=en&region=us",
+          "checked_at": "2026-10-25T02:11:43.470183+00:00",
+          "sha256": "6a1492448d76f0764f197db8b1987326a9e856f84e568186bbc10a1b9f5d6c67",
+          "http_age_seconds": null,
+          "http_last_modified": null,
+          "canonical_sha256": "502252d5231625da2eb9b7de77da17c68573dbc53db2d9c34d4d8f8b64ad8140"
+        },
+        "warnings": [
+          "Source shot totals do not reconcile to inside-box + outside-box attempts; shots are excluded from the fit."
+        ],
+        "excluded_metrics": [
+          "shots"
+        ]
+      },
+      "official_fixture_id": "2645267",
+      "fixture_check": "Date, home/away teams and final score match the Premier League results feed."
+    },
+    "401879256:285450": {
+      "player": {
+        "id": "285450",
+        "name": "Enzo Fernández",
+        "team_id": "382",
+        "team": "Manchester City",
+        "source_position": "Left Midfielder"
+      },
+      "role": "CM",
+      "fixture": {
+        "id": "401879256",
+        "name": "Aston Villa vs Manchester City",
+        "date": "2026-10-24T11:30Z",
+        "state": "post",
+        "status": "Full Time",
+        "clock": "",
+        "period": null,
+        "home": "Aston Villa",
+        "away": "Manchester City",
+        "score": "2–1",
+        "source_page": "https://www.espn.com/soccer/matchstats/_/gameId/401879256"
+      },
+      "summary_source": {
+        "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/summary?event=401879256",
+        "checked_at": "2026-10-25T02:01:40.894056+00:00",
+        "sha256": "34c3ae0b0e019a1ab7a34a62c6eae281a7bf8c849dce6bbb3b5360af3f1b7f49",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "797b213f8e0375e7ac84c9cc1d002b1d35faa791f7539ec4fb46a7608aee5a29"
+      },
+      "snapshot": {
+        "minutes": 90.0,
+        "counts": {
+          "passes": 78.0,
+          "shots": 1.0,
+          "takeons": 0.0,
+          "tackles": 0.0,
+          "interceptions": 0.0,
+          "long_passes": 6.0,
+          "clearances": 0.0,
+          "aerials": 0.0,
+          "shot_assists": 2.0,
+          "goals": 0.0,
+          "assists": 0.0,
+          "box_touches": 2.0,
+          "recoveries": 1.0,
+          "saves": 0.0,
+          "conceded": 2.0,
+          "punches": 0.0
+        },
+        "execution": {
+          "Pass completion": {
+            "successful": 75.0,
+            "attempted": 78.0,
+            "percentage": 96.15384615384616
+          },
+          "Duels won": {
+            "successful": 3.0,
+            "attempted": 8.0,
+            "percentage": 37.5
+          }
+        },
+        "goals": 0.0,
+        "assists": 0.0,
+        "source": {
+          "url": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/events/401879256/competitions/401879256/competitors/382/roster/285450/statistics/0?lang=en&region=us",
+          "checked_at": "2026-10-25T02:11:46.034192+00:00",
+          "sha256": "a1a2ac0c0eba15104ee346a060bb68a99c3e988ef43ee5c8b16e03530679b8e7",
+          "http_age_seconds": null,
+          "http_last_modified": null,
+          "canonical_sha256": "6f55079e5444ddbfcf18e0e45c3867f3115586fb61feb022ae8420cc337afa81"
+        },
+        "warnings": [
+          "Source shot totals do not reconcile to inside-box + outside-box attempts; shots are excluded from the fit."
+        ],
+        "excluded_metrics": [
+          "shots"
+        ]
+      },
+      "official_fixture_id": "2645266",
+      "fixture_check": "Date, home/away teams and final score match the Premier League results feed."
+    },
+    "401879260:124091": {
+      "player": {
+        "id": "124091",
+        "name": "Bruno Fernandes",
+        "team_id": "360",
+        "team": "Manchester United",
+        "source_position": "Attacking Midfielder Left"
+      },
+      "role": "CAM",
+      "fixture": {
+        "id": "401879260",
+        "name": "Leeds United vs Manchester United",
+        "date": "2026-10-18T13:00Z",
+        "state": "post",
+        "status": "Full Time",
+        "clock": "",
+        "period": null,
+        "home": "Leeds United",
+        "away": "Manchester United",
+        "score": "1–1",
+        "source_page": "https://www.espn.com/soccer/matchstats/_/gameId/401879260"
+      },
+      "summary_source": {
+        "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/summary?event=401879260",
+        "checked_at": "2026-10-25T02:11:31.898095+00:00",
+        "sha256": "794576d40bf93beb63f1c906faaf5af1ccad0e3bb3b2aad7bfabe00cdbdca298",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "e1f164dbfb9f90d4cefa7b0dd3e67dfbf3afb9f7e323e540ffa2c2137ade2042"
+      },
+      "snapshot": {
+        "minutes": 90.0,
+        "counts": {
+          "passes": 37.0,
+          "shots": 3.0,
+          "takeons": 0.0,
+          "tackles": 1.0,
+          "interceptions": 1.0,
+          "long_passes": 2.0,
+          "clearances": 0.0,
+          "aerials": 0.0,
+          "shot_assists": 1.0,
+          "goals": 0.0,
+          "assists": 0.0,
+          "box_touches": 1.0,
+          "recoveries": 4.0,
+          "saves": 0.0,
+          "conceded": 1.0,
+          "punches": 0.0
+        },
+        "execution": {
+          "Pass completion": {
+            "successful": 23.0,
+            "attempted": 37.0,
+            "percentage": 62.16216216216216
+          },
+          "Tackles won": {
+            "successful": 1.0,
+            "attempted": 1.0,
+            "percentage": 100.0
+          },
+          "Duels won": {
+            "successful": 1.0,
+            "attempted": 6.0,
+            "percentage": 16.666666666666668
+          }
+        },
+        "goals": 0.0,
+        "assists": 0.0,
+        "source": {
+          "url": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/events/401879260/competitions/401879260/competitors/360/roster/124091/statistics/0?lang=en&region=us",
+          "checked_at": "2026-10-25T02:11:48.754389+00:00",
+          "sha256": "17aa0dea31ad71f344e5cef3be660295cd33d216896773167d51483152588ea2",
+          "http_age_seconds": null,
+          "http_last_modified": null,
+          "canonical_sha256": "1dc30696405a7391e991adbaede8557a7f48e89f892beab6e10b8b0f033b7e59"
+        },
+        "warnings": [
+          "Source shot totals do not reconcile to inside-box + outside-box attempts; shots are excluded from the fit."
+        ],
+        "excluded_metrics": [
+          "shots"
+        ]
+      },
+      "official_fixture_id": "2645260",
+      "fixture_check": "Date, home/away teams and final score match the Premier League results feed."
+    },
+    "401879261:192278": {
+      "player": {
+        "id": "192278",
+        "name": "Diego Gómez",
+        "team_id": "331",
+        "team": "Brighton & Hove Albion",
+        "source_position": "Attacking Midfielder Right"
+      },
+      "role": "WING",
+      "fixture": {
+        "id": "401879261",
+        "name": "Brighton & Hove Albion vs Crystal Palace",
+        "date": "2026-10-18T13:00Z",
+        "state": "post",
+        "status": "Full Time",
+        "clock": "",
+        "period": null,
+        "home": "Brighton & Hove Albion",
+        "away": "Crystal Palace",
+        "score": "5–0",
+        "source_page": "https://www.espn.com/soccer/matchstats/_/gameId/401879261"
+      },
+      "summary_source": {
+        "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/summary?event=401879261",
+        "checked_at": "2026-10-25T02:11:31.998059+00:00",
+        "sha256": "5b4a495521e43dceb9038a6e1767264b1f44e4871ca7ee7d838d561ab016b585",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "17d57c6475033d736b7d0be2257fe82a9761060a99e7b53f1ce3dfb4c65130b7"
+      },
+      "snapshot": {
+        "minutes": 90.0,
+        "counts": {
+          "passes": 36.0,
+          "shots": 1.0,
+          "takeons": 3.0,
+          "tackles": 1.0,
+          "interceptions": 0.0,
+          "long_passes": 0.0,
+          "clearances": 2.0,
+          "aerials": 0.0,
+          "shot_assists": 0.0,
+          "goals": 1.0,
+          "assists": 0.0,
+          "box_touches": 4.0,
+          "recoveries": 6.0,
+          "saves": 0.0,
+          "conceded": 0.0,
+          "punches": 0.0
+        },
+        "execution": {
+          "Pass completion": {
+            "successful": 26.0,
+            "attempted": 36.0,
+            "percentage": 72.22222222222223
+          },
+          "Tackles won": {
+            "successful": 0.0,
+            "attempted": 1.0,
+            "percentage": 0.0
+          },
+          "Duels won": {
+            "successful": 4.0,
+            "attempted": 7.0,
+            "percentage": 57.142857142857146
+          }
+        },
+        "goals": 1.0,
+        "assists": 0.0,
+        "source": {
+          "url": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/events/401879261/competitions/401879261/competitors/331/roster/192278/statistics/0?lang=en&region=us",
+          "checked_at": "2026-10-25T02:11:51.078007+00:00",
+          "sha256": "e971c92986759dcab014a7eabd7025a6a87f7d541751eaacd5ac61c745d92f2c",
+          "http_age_seconds": null,
+          "http_last_modified": null,
+          "canonical_sha256": "135c9a009950b0ce118dd927ea9ed67b85534c7340d52e5f866e0e130c98b544"
+        },
+        "warnings": [
+          "Source shot totals do not reconcile to inside-box + outside-box attempts; shots are excluded from the fit."
+        ],
+        "excluded_metrics": [
+          "shots"
+        ]
+      },
+      "official_fixture_id": "2645257",
+      "fixture_check": "Date, home/away teams and final score match the Premier League results feed."
+    },
+    "401879262:301894": {
+      "player": {
+        "id": "301894",
+        "name": "Igor Thiago",
+        "team_id": "337",
+        "team": "Brentford",
+        "source_position": "Forward"
+      },
+      "role": "ST",
+      "fixture": {
+        "id": "401879262",
+        "name": "Brentford vs Liverpool",
+        "date": "2026-10-17T14:00Z",
+        "state": "post",
+        "status": "Full Time",
+        "clock": "",
+        "period": null,
+        "home": "Brentford",
+        "away": "Liverpool",
+        "score": "1–2",
+        "source_page": "https://www.espn.com/soccer/matchstats/_/gameId/401879262"
+      },
+      "summary_source": {
+        "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/summary?event=401879262",
+        "checked_at": "2026-10-25T02:01:40.913891+00:00",
+        "sha256": "a5cccf1ae65fc3f6e167235773581442ed1a4a3eaafcee0052397a31812ab43d",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "4056503e1573bd48ad29bfc8d38602977777f62d2f2d46118de3f27ef8a3225d"
+      },
+      "snapshot": {
+        "minutes": 90.0,
+        "counts": {
+          "passes": 25.0,
+          "shots": 3.0,
+          "takeons": 1.0,
+          "tackles": 0.0,
+          "interceptions": 1.0,
+          "long_passes": 0.0,
+          "clearances": 2.0,
+          "aerials": 3.0,
+          "shot_assists": 1.0,
+          "goals": 0.0,
+          "assists": 1.0,
+          "box_touches": 10.0,
+          "recoveries": 5.0,
+          "saves": 0.0,
+          "conceded": 2.0,
+          "punches": 0.0
+        },
+        "execution": {
+          "Pass completion": {
+            "successful": 13.0,
+            "attempted": 25.0,
+            "percentage": 52.0
+          },
+          "Duels won": {
+            "successful": 5.0,
+            "attempted": 24.0,
+            "percentage": 20.833333333333332
+          }
+        },
+        "goals": 0.0,
+        "assists": 1.0,
+        "source": {
+          "url": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/eng.1/events/401879262/competitions/401879262/competitors/337/roster/301894/statistics/0?lang=en&region=us",
+          "checked_at": "2026-10-25T02:11:53.802123+00:00",
+          "sha256": "75233a2c397a9c5f77c2e71b3a8f5e7d4374b150a624b3b3fb12f7613960fda6",
+          "http_age_seconds": null,
+          "http_last_modified": null,
+          "canonical_sha256": "33a2598f6b1e67653fddaadf347837c8ee07bfea04c3982c0628fe97cf0a6239"
+        },
+        "warnings": [
+          "Source shot totals do not reconcile to inside-box + outside-box attempts; shots are excluded from the fit."
+        ],
+        "excluded_metrics": [
+          "shots"
+        ]
+      },
+      "official_fixture_id": "2645256",
+      "fixture_check": "Date, home/away teams and final score match the Premier League results feed."
+    }
+  },
+  "official_fixture_source": {
+    "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/matches?competition=8&season=2026&period=FullTime&_limit=100&_sort=kickoff:desc&kickoff%3C2026-10-25",
+    "checked_at": "2026-10-25T02:11:56.363176+00:00",
+    "sha256": "e1640d9bb745342aae534e04fa1507f6b0ae848399179b694ac657e28898e2ff",
+    "http_age_seconds": null,
+    "http_last_modified": null,
+    "canonical_sha256": "7eb9c72aa3d8aba2613728f0f5d44f96ae6d0fd2e8df73374c05a312f4a48acb"
+  }
+}

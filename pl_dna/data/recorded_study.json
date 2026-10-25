@@ -1,0 +1,187 @@
+{
+  "source": "StatsBomb Open Data",
+  "source_commit": "4b73468fc5b0f1950f9f66fada70ad3a4f9327cb",
+  "checked_on": "2026-10-23",
+  "reference": {
+    "counts": {
+      "non_penalty_shots": 187,
+      "completed_takeons": 148,
+      "shot_assists": 76,
+      "passes_into_box": 77,
+      "forward_passes": 165
+    },
+    "actions": 1720,
+    "goals": 30,
+    "appearances": 37,
+    "rates": {
+      "non_penalty_shots": 10.872093023255815,
+      "completed_takeons": 8.604651162790697,
+      "shot_assists": 4.4186046511627906,
+      "passes_into_box": 4.476744186046512,
+      "forward_passes": 9.593023255813954
+    }
+  },
+  "reference_without_liverpool": {
+    "counts": {
+      "non_penalty_shots": 178,
+      "completed_takeons": 145,
+      "shot_assists": 75,
+      "passes_into_box": 77,
+      "forward_passes": 163
+    },
+    "actions": 1680,
+    "goals": 27,
+    "appearances": 36,
+    "rates": {
+      "non_penalty_shots": 10.595238095238095,
+      "completed_takeons": 8.630952380952381,
+      "shot_assists": 4.464285714285714,
+      "passes_into_box": 4.583333333333333,
+      "forward_passes": 9.702380952380953
+    }
+  },
+  "targets": {
+    "Vardy · Newcastle 0–3 Leicester · 21 Nov 2015": {
+      "counts": {
+        "non_penalty_shots": 6,
+        "completed_takeons": 2,
+        "shot_assists": 0,
+        "passes_into_box": 1,
+        "forward_passes": 0
+      },
+      "actions": 24,
+      "goals": 1,
+      "appearances": 1,
+      "rates": {
+        "non_penalty_shots": 25.0,
+        "completed_takeons": 8.333333333333334,
+        "shot_assists": 0.0,
+        "passes_into_box": 4.166666666666667,
+        "forward_passes": 0.0
+      },
+      "match_id": 3754211,
+      "player": "Jamie Vardy"
+    },
+    "Henry · Arsenal 4–2 Liverpool · 9 Apr 2004": {
+      "counts": {
+        "non_penalty_shots": 9,
+        "completed_takeons": 3,
+        "shot_assists": 1,
+        "passes_into_box": 0,
+        "forward_passes": 2
+      },
+      "actions": 40,
+      "goals": 3,
+      "appearances": 1,
+      "rates": {
+        "non_penalty_shots": 22.5,
+        "completed_takeons": 7.5,
+        "shot_assists": 2.5,
+        "passes_into_box": 0.0,
+        "forward_passes": 5.0
+      },
+      "match_id": 3749448,
+      "player": "Thierry Henry"
+    }
+  },
+  "checks": [
+    {
+      "status": "PASS",
+      "description": "38 Arsenal fixtures available; Henry appears in 37. Published season total: 37 appearances.",
+      "source": "https://www.statmuse.com/fc/ask/henry-03-04"
+    },
+    {
+      "status": "PASS",
+      "description": "Henry goal events total 30; official season review reports 30 PL goals.",
+      "source": "https://www.premierleague.com/en/news/59016"
+    },
+    {
+      "status": "PASS",
+      "description": "Goal events reconcile to match metadata for 39/39 matches. Own goals counted once for the opposing team.",
+      "source": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/matches/2/44.json"
+    },
+    {
+      "status": "PASS",
+      "description": "Vardy scores once in Newcastle 0–3 Leicester, matching the published match report.",
+      "source": "https://www.newcastleunited.com/en/matches/mens-team/newcastle-united-v-leicester-city-english-premier-league-20151121"
+    },
+    {
+      "status": "PASS",
+      "description": "Henry scores three in Arsenal 4–2 Liverpool, matching Arsenal’s published account.",
+      "source": "https://www.arsenal.com/news/features/20141216/thierry-henry?page=1"
+    },
+    {
+      "status": "PASS",
+      "description": "Each input has unique event IDs; shot-assist links resolve to shots in the same match. The identical function calculates both player profiles."
+    },
+    {
+      "status": "PASS",
+      "description": "Henry’s Liverpool match is removed from the Henry baseline when that match is selected: 36 other appearances, preventing self-inclusion."
+    },
+    {
+      "status": "UNVERIFIED",
+      "description": "No independent second-provider validation of each pass, dribble or shot count has been completed. Goal reconciliation does not verify every event annotation."
+    }
+  ],
+  "score_discrepancies": [],
+  "definitions": {
+    "denominator": "All player Pass, Shot and Dribble events in periods 1–2, including added time. Carries and receptions are excluded to avoid counting consecutive representations of the same action.",
+    "non_penalty_shots": "Shot events whose shot.type is not Penalty. Includes free-kick shots.",
+    "completed_takeons": "Dribble events with dribble.outcome = Complete. Not carries.",
+    "shot_assists": "Pass events with an assisted_shot_id linking to an actual Shot in the same match. Includes passes assisting goals; no inferred assists.",
+    "passes_into_box": "Pass events without a pass.outcome (StatsBomb completion convention), starting outside and ending inside x≥102, 18≤y≤62 on the StatsBomb 120×80 pitch. Includes set plays.",
+    "forward_passes": "Completed passes ending at least 10 StatsBomb x-units farther toward the opposition goal. This custom definition is NOT the synthetic wheel’s 25% distance-reduction rule.",
+    "rates": "100 × summed qualifying events / summed Pass+Shot+Dribble events. Pool counts first, never average match percentages."
+  },
+  "source_sha256": {
+    "data/events/3749493.json": "cb02a3010ae24a39e1c7ea6b30edb0c1091c8f51d340bdbc65ad62af1264db19",
+    "data/events/3749448.json": "4aacf0c58e5468a159a5520e56b9772d8d617a961ee6199f695e8ff1ae01c04e",
+    "data/events/3749196.json": "1081f75e6f322ab949393635dc20e88097270acd646cff8fa722d7e2a78879c0",
+    "data/events/3749454.json": "fa4b03fbbe8e9c617b0dc3f67269f8ef640220ad98cd05bed31dc953642f958a",
+    "data/events/3749603.json": "be5836d25e610dd69c99558b5976e07dcbf01ff15f7e1d1b268b90a45f8771d0",
+    "data/events/3749052.json": "3e1d404b353e260b98e06aeafb56d0cd07f4fd8836a027f4c04cb0f1b9e38b43",
+    "data/events/3749296.json": "c6f6556e48b0e2d09739b62930e8244b8c5d337851b67aeadf2e5939c9699324",
+    "data/events/3749522.json": "881b994b0311ee1c65bbed851c2262cd74c44ed9078d42af73bbe8caac844676",
+    "data/events/3749246.json": "57fae6a4b3b7af323caf863b078243670d5caff0e5395a05f8d91f0ab0c6a1e0",
+    "data/events/3749257.json": "b38b90aeab8ce95ecbd96d1e99cc22c3641e16b1dfa99792d9152425ffb06512",
+    "data/events/3749642.json": "ff4a4d4a01af478fe58894052148512a96c136d4a6f682ff9ef9e8d846dc226a",
+    "data/events/3749358.json": "ea112af55333673cce2b4ef6fa7e7472c20b86a197715da003a37d8cddbc2d17",
+    "data/events/3749346.json": "68dcde54fc4686e62aefca93c29c5b97f3713e1cd3e59ecbb8fc10884f1e50b1",
+    "data/events/3749253.json": "c4d8d7437db86594da5c8eec733d0157509c4613eda049aa151f14b7987e1012",
+    "data/events/3749079.json": "645eaad6dbfd19f7f91b92ece272f6cc0fe450d0910ec6879137e45b0b1a6112",
+    "data/events/3749465.json": "3c0dfb78a7bc5f6eb5992eef7a344ecbf54d1d59e9fbddb69dd67b27b196643c",
+    "data/events/3749133.json": "674fc4e720581f0421c9ea3e533f321d24701a4acdbb13dc25efb973dd3c04d6",
+    "data/events/3749528.json": "256000fcf1c1ef4b74e3a74edb9f0117e5cd9675cfc723c405a3b15da12923b3",
+    "data/events/3749233.json": "0b5432745b3f26207f4d9112515b545d5488b7fa0a6f832486b95f770ce9432c",
+    "data/events/3749462.json": "fce6583832025fddb6c08f9356a7f5b31fbae4f376f1dbbd3195b8d69a5882a7",
+    "data/events/3749552.json": "642521bff1ce0c05633ebb8bdf5c54f81e9e21855e168e7dc93d60388c4d4379",
+    "data/events/3749276.json": "8065581fe4812f5548531c984968113f7739ca5ae40282439afcfc87b3a20c7a",
+    "data/events/3749068.json": "6545fe48490807058553b12d63f8443ab1e1c734bde5a3d3b10e21751d0e5264",
+    "data/events/3749310.json": "90ae3b8e274307978bcab8ea3243f0e37096fce1e7b7e73f48ec39e93bb0a5e8",
+    "data/events/3749434.json": "687c1c8b6c22dd0940bdf140510932d1bc56340aa1cb7404ade98371ffff71bd",
+    "data/events/3749192.json": "b85a0a220557f789cb1b7117124751656c07732c5e6e47e7ca1f37b3e4e6517a",
+    "data/events/3749360.json": "a5014788e3147fcdab46810ce8dfeaeb2effa93d791f42463c2a009426168139",
+    "data/events/3749453.json": "0f44b5a4e3ff143f5a023656eda21228e59372e2ba8619192621a54b2a681247",
+    "data/events/3749278.json": "26f68f551201cb02efed3ff091c5168ee6c4c78f32d417f1ad7ba9fe51351c57",
+    "data/events/3749274.json": "d032a99f9ecda50b537f55c79192ab4582f17f51541cda804804ebbd8270a2b7",
+    "data/events/3749590.json": "80bf273bbba55468dc549219b15ca0a2fe8597baacb162e61a7c6907560286a3",
+    "data/events/3749631.json": "5323a4ba734b93c818f0bb2a8e17e231d36663141dcfbe87102714325b55671b",
+    "data/events/3749117.json": "bcbfce35a3ecb6710133d158b47dda7b64c7cab101c5c42ac40c198b1504d90f",
+    "data/events/3749108.json": "1bc4f25893ce6a5fef4a041e9edbcb20f425ac8bdc40830a5cbae431ec62201f",
+    "data/events/3749153.json": "78ef32fcafb917ce024a0d5d7870cc634a2442382b9f6b991d05731479cae07a",
+    "data/events/3749403.json": "bda2932f8ec283bd7abc0cd46f05ac17900ea8136fd53bf7bbb6ab5bc0e823ed",
+    "data/events/3749526.json": "73c630fb369870fa2bf375a450841f9b5a5d3af870eae97645f738ee96c1b686",
+    "data/events/3749431.json": "d933563049551ffcf56cf750146ec90b405bc6b18d3679595103c8113f15c0ca",
+    "data/events/3754211.json": "9e6e5f71eef1ebd9adb8d2902868741f53bcaaac18e1ca89c913c725306c7ed1"
+  },
+  "limitations": [
+    "This is a selected-season reference, NOT a career average. Henry’s other PL seasons are not in this reference.",
+    "The target is one archived match, not a current match or a stable estimate of long-term style. It was selected before inspecting the computed comparison.",
+    "Per-100-action rates describe on-ball event mix, not tempo per minute, off-ball runs, overall quality or the probability of resembling a legend.",
+    "No synthetic events enter this study. Its denominator and metrics differ from the synthetic dashboard. Connecting them still requires one shared event schema and definition policy.",
+    "Five axes overlap; values need not add to 100. A weighted overall similarity model has not been validated.",
+    "Different tactical roles, teammates, eras and annotation practices can affect frequencies even within one provider.",
+    "Rates pool counts across all available Henry season appearances. Averages of match percentages are not used.",
+    "Raw StatsBomb event files are not redistributed. This is an attributed research analysis; public/commercial reuse remains subject to the publisher’s terms."
+  ]
+}

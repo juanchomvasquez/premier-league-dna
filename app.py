@@ -69,7 +69,7 @@ def render_insight(package, audience, player, start, end):
     language = language_col.selectbox("Insight language", ["English", "Spanish"], key="insight_language")
     mode = source_col.radio("Insight source", ["Local calculated summary", "Microsoft AI"], horizontal=True, key="insight_source")
     if mode == "Microsoft AI":
-        st.info("For the Microsoft legend story, choose Recorded midfield comparison under Data source. The synthetic demo does not have compatible historical reference rates.")
+        st.info("For the Microsoft legend story, choose This season & live under Data source. The synthetic demo does not have compatible historical reference rates.")
         return
     context_key = (player, start, end, language, mode, audience)
     package["audience"] = audience.lower()
@@ -190,9 +190,13 @@ def main():
     st.title("Every player has a blend.")
     st.write("Explore the contribution. Understand the profile. Follow the evidence.")
     audience = "Fan"  # One public dashboard; this preserves the internal narrative schema.
-    source = st.radio("Data source", ["Recorded midfield comparison", "Eight-position synthetic demo"],
+    source = st.radio("Data source", ["This season & live", "Eight-position synthetic demo", "Archived midfield research"],
                       horizontal=True, key="data_source")
-    if source == "Recorded midfield comparison":
+    if source == "This season & live":
+        from pl_dna.current_dashboard import render_current_dashboard
+        render_current_dashboard()
+        return
+    if source == "Archived midfield research":
         from pl_dna.blend_dashboard import render_blend_dashboard
         render_blend_dashboard(st, audience)
         return

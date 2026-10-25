@@ -45,7 +45,7 @@ class DashboardTests(unittest.TestCase):
             at = self.app()
             at.radio(key="insight_source").set_value("Microsoft AI").run()
             self.assert_healthy(at)
-            self.assertTrue(any("Recorded midfield comparison" in c.value for c in at.info))
+            self.assertTrue(any("This season & live" in c.value for c in at.info))
             factory.assert_not_called()
 
     def test_updated_striker_cards_include_henry_and_rooney_without_changing_data(self):

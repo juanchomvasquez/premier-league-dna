@@ -98,7 +98,7 @@ class RecordedEventsTests(unittest.TestCase):
             at=test_dashboard.DashboardTests().app()
             self.assertIn('177</strong>',test_dashboard.html(at))
             self.assertIn('West Ham United',test_dashboard.html(at))
-            at.radio(key='data_source').set_value('Recorded midfield comparison').run()
+            at.radio(key='data_source').set_value('Archived midfield research').run()
             self.assertEqual(list(at.exception), [])
             self.assertTrue(any('Estimated blend' in m.value for m in at.markdown))
             self.assertEqual(sum(int(m.value.rstrip('%')) for m in at.metric), 100)
