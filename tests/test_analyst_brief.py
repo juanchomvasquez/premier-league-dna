@@ -54,7 +54,7 @@ class AnalystTests(unittest.TestCase):
         for phase in ('match_in_progress', 'full_time_recap'):
             for focus, lower, upper in [('Fan explanation',35,80), ('Broadcast talking point',20,50)]:
                 p=self.payload();p.update(focus=focus,phase=phase)
-                for words, accepted in [(lower-1,False),(lower,True),(upper,True),(upper+1,False)]:
+                for words, accepted in [(lower-1,False),(lower,True),(upper,True),(111,False)]:
                     reply=simulated_brief(p);reply['narrative']=' '.join(['football']*words)
                     result=generate_analyst_brief(p,lambda _:reply)
                     self.assertEqual(result['status']=='evidence_checked',accepted,(phase,focus,words))
@@ -67,6 +67,27 @@ class AnalystTests(unittest.TestCase):
             result=generate_analyst_brief(p,provider)
             self.assertEqual(result['status'],'evidence_checked')
             provider.assert_called_once()
+
+    def test_overlength_brief_uses_complete_sentences_without_another_call(self):
+        p=self.payload();p['focus']='Broadcast talking point'
+        opening='The player gets into the box and takes shots, while passing the ball forward adds another strand to the recorded performance.'
+        for count in (54,58):
+            reply=simulated_brief(p)
+            reply['narrative']=opening+' '+' '.join(['football']*(count-len(opening.split())))+'.'
+            provider=Mock(return_value=reply)
+            result=generate_analyst_brief(p,provider)
+            self.assertEqual(result['status'],'evidence_checked')
+            self.assertEqual(result['text'],opening)
+            self.assertTrue(result['shortened'])
+            self.assertEqual(result['original_text'],reply['narrative'])
+            provider.assert_called_once()
+
+    def test_long_single_sentence_is_retained_with_style_note(self):
+        p=self.payload();p['focus']='Broadcast talking point'
+        reply=simulated_brief(p);reply['narrative']=' '.join(['football']*58)+'.'
+        result=generate_analyst_brief(p,lambda _:reply)
+        self.assertEqual(result['text'],reply['narrative'])
+        self.assertFalse(result['shortened']);self.assertIn('retained intact',result['style_note'])
 
     def test_synthetic_trend_requires_cited_change_not_just_available_change(self):
         from pl_dna.synthetic_replay import synthetic_brief_payload
@@ -83,9 +104,9 @@ class AnalystTests(unittest.TestCase):
 
     def test_safe_rejection_reason_identifies_length_and_missing_citations(self):
         p=self.payload();p['focus']='Broadcast talking point'
-        reply=simulated_brief(p);reply['narrative']=' '.join(['football']*55)
+        reply=simulated_brief(p);reply['narrative']=' '.join(['football']*111)
         result=generate_analyst_brief(p,lambda _:reply)
-        self.assertIn('55 words',result['reason']);self.assertIn('20–50',result['reason'])
+        self.assertIn('111 words',result['reason']);self.assertIn('20–110',result['reason'])
         reply['narrative']=' '.join(['football']*25)
         reply['evidence_ids']=['secret-provider-value','unknown']
         result=generate_analyst_brief(p,lambda _:reply)

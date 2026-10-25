@@ -15,6 +15,42 @@ def brief_word_limits(payload):
     return (20, 110)  # Retained research requests without an audience selection.
 
 
+def compact_brief(narrative, maximum):
+    """Extract complete opening sentences, never rewrite facts or call a model."""
+    if len(narrative.split()) <= maximum:return narrative,False
+    sentences=re.split(r'(?<=[.!?])\s+',narrative.strip())
+    kept=[]
+    for sentence in sentences:
+        if len((' '.join(kept+[sentence])).split())>maximum:break
+        kept.append(sentence)
+    # A long single sentence stays intact; silently cutting a clause may change its meaning.
+    return (' '.join(kept),True) if kept else (narrative,False)
+
+
+def calculated_profile_story(payload):
+    """A factual, local explanation survives missing/rejected AI prose."""
+    comparison=payload.get('illustrative_comparison') or {}
+    candidates=comparison.get('candidates',[])
+    spanish=payload.get('language')=='Spanish'
+    if not candidates:
+        if comparison.get('status')=='no_clear_profile':
+            return 'Sin un perfil ilustrativo claro; eso no significa un mal rendimiento.' if spanish else 'No clear illustrative profile match; this does not mean poor performance.'
+        return ''
+    labels=[]
+    for c in candidates:
+        # Describe the two closest nonzero dimensions, not unsupported tactical reasons.
+        axes=sorted([a for a in c['axes'] if a['observed_per_100_sequences']>0],key=lambda a:a['normalized_difference'])[:2]
+        metrics=', '.join(a['metric'].lower() for a in axes)
+        name=c['legend_label']
+        if spanish:
+            translations={'blocks':'bloqueos','successful take-ons':'regates completados','successful tackles':'entradas ganadas','interceptions':'intercepciones','aerial duels won':'duelos aéreos ganados','completed progressive passes':'pases completados hacia adelante','ball recoveries':'recuperaciones','shots':'remates','box arrivals':'llegadas al área','completed link-up passes':'pases de asociación completados','completed progressive carries':'conducciones progresivas completadas','completed switches':'cambios de orientación completados','saves':'paradas','successful claims':'balones aéreos atrapados','sweeper interventions':'intervenciones fuera del área','completed long distribution':'envíos largos completados','completed crosses':'centros completados','chances created':'ocasiones creadas','completed through balls':'pases al espacio completados','passes entering final third':'pases al último tercio','successful dribbles':'regates completados','touches in box':'toques en el área'}
+            metrics=', '.join(translations.get(a['metric'].lower(),a['metric'].lower()) for a in axes)
+            labels.append(f"perfil inspirado en {name.removesuffix('-inspired')}: mayor cercanía en {metrics}")
+        else:labels.append(f"{name}: closest dimensions include {metrics}")
+    prefix='Comparación ilustrativa con perfiles inventados. ' if spanish else 'Illustrative comparison with invented profiles. '
+    suffix=' No es una semejanza histórica validada ni una mezcla porcentual.' if spanish else 'This is not validated historical similarity or a percentage blend.'
+    return prefix+'; '.join(labels)+'.'+suffix
+
 def generate_analyst_brief(payload, provider):
     trusted = deepcopy(payload)
     if trusted['availability'] and not trusted.get('interpretation_available'):
@@ -33,8 +69,8 @@ def generate_analyst_brief(payload, provider):
         minimum, maximum = brief_word_limits(trusted)
         if not 3 <= len(headline.split()) <= 14:
             return {'status':'fallback','reason':f'Microsoft headline had {len(headline.split())} words; it must have 3–14. No brief was accepted; recorded facts remain available.'}
-        if not minimum <= len(narrative.split()) <= maximum:
-            return {'status':'fallback','reason':f'Microsoft brief had {len(narrative.split())} words; this mode requires {minimum}–{maximum}. No brief was accepted; recorded facts remain available.'}
+        if not minimum <= len(narrative.split()) <= 110:
+            return {'status':'fallback','reason':f'Microsoft brief had {len(narrative.split())} words; the safety range is {minimum}–110. No brief was accepted; recorded facts remain available.'}
         text = headline+' '+narrative
         # Numbers are shown only in exact source facts below the interpretation.
         if re.search(r'[\d%<>{}\[\]]|https?://',text):raise ValueError('Prose must not introduce numerical claims or markup')
@@ -67,7 +103,10 @@ def generate_analyst_brief(payload, provider):
             for name,r in trusted['references'].items():
                 if name.casefold() in text.casefold() or r.get('short_label',name).casefold() in text.casefold():
                     raise ValueError('No legend resemblance is supported')
-        return {'status':'evidence_checked','headline':headline.strip(),'text':narrative.strip(),
+        displayed,shortened=compact_brief(narrative.strip(),maximum)
+        return {'status':'evidence_checked','headline':headline.strip(),'text':displayed,
+            'original_text':narrative.strip(),'shortened':shortened,
+            'style_note':'Complete opening sentences shown; full wording is available below.' if shortened else ('Brief exceeds the style target; retained intact to avoid changing its meaning.' if len(displayed.split())>maximum else ''),
             'facts':[e['sentence'] for e in facts], 'evidence_ids':ids,
             'illustrative_comparison':deepcopy(trusted.get('illustrative_comparison'))}
     except (ValueError,KeyError,TypeError) as error:

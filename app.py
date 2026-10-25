@@ -79,6 +79,20 @@ def render_insight(package, audience, player, start, end):
             view=package["view"],language=language,focus=focus)
         with st.expander("Calculated snapshot · no AI call"):
             st.write(generate_narrative(package,language=language)["text"])
+            for fact in payload["evidence"]:
+                if fact.get("kind")=="window_change":st.write(fact["sentence"])
+        from pl_dna.analyst_brief import calculated_profile_story
+        profile_story=calculated_profile_story(payload)
+        if profile_story:
+            st.markdown("**Calculated style comparison · selected window**")
+            st.write(profile_story)
+            current_comparison=payload["illustrative_comparison"]
+            for candidate in current_comparison["candidates"]:
+                st.caption(f"{candidate['legend_label']} · independent illustrative score {candidate['score']}/100")
+            with st.expander("Profile calculation and supporting dimensions"):
+                st.write(current_comparison["score_meaning"])
+                st.write(current_comparison["policy"])
+                st.json(current_comparison["candidates"])
         if payload["availability"]:
             st.info(payload["availability"])
             return
@@ -112,20 +126,10 @@ def render_insight(package, audience, player, start, end):
                 st.caption("Synthetic full-time recap · Microsoft AI" if saved.get('minute',end)==90 else "Synthetic match interpretation · Microsoft AI")
                 st.caption(f"As of synthetic minute {saved.get('minute',end)} · evidence window ({saved.get('start',start)}, {saved.get('minute',end)}].")
                 st.caption("Cited facts and format checked; the AI interpretation is not independently verified. This is fictional match data, not a real legend comparison.")
-                comparison=result.get("illustrative_comparison") or {}
-                if comparison.get("candidates"):
-                    st.caption(comparison["label"])
-                    for candidate in comparison["candidates"]:
-                        st.write(f"{candidate['legend_label']} · {candidate['profile']} · independent illustrative score {candidate['score']}/100")
-                    with st.expander("How the illustrative comparison is calculated"):
-                        st.write(comparison["score_meaning"])
-                        st.write(comparison["policy"])
-                        st.json(comparison["candidates"])
-                elif comparison.get("status")=="no_clear_profile":
-                    st.caption("No clear illustrative profile match. This does not mean poor performance.")
+                if result.get("style_note"):st.caption(result["style_note"])
                 with st.expander("Supporting facts & copy brief"):
                     for fact in result["facts"]:st.write(fact)
-                    st.code(result["headline"]+"\n\n"+result["text"],language=None,wrap_lines=True)
+                    st.code(result["headline"]+"\n\n"+result.get("original_text",result["text"]),language=None,wrap_lines=True)
             else:st.info(result["reason"])
         else:
             st.caption("The brief will use only events observed by the current replay minute. Pause the replay to read a fixed-window interpretation.")

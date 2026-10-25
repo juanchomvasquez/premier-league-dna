@@ -116,6 +116,19 @@ class ReplayTests(unittest.TestCase):
   earlier=data[data.minute.le(43)].copy()
   self.assertEqual(p['illustrative_comparison'],illustrative_profile_context(earlier,'Alex Morganfield',0,43))
 
+ def test_calculated_legend_explanation_survives_ai_failure(self):
+  from pl_dna.analyst_brief import calculated_profile_story
+  data=generate_role_events(42)
+  p=synthetic_brief_payload(data,'Noah Bennett',0,67)
+  story=calculated_profile_story(p)
+  self.assertIn('Terry-inspired',story);self.assertIn('Vidic-inspired',story)
+  self.assertIn('invented profiles',story);self.assertIn('not validated historical',story)
+  self.assertNotIn('%',story)
+  result=generate_analyst_brief(p,Mock(side_effect=ValueError('offline')))
+  self.assertEqual(result['status'],'fallback')
+  self.assertEqual(calculated_profile_story(p),story)
+  p['language']='Spanish';self.assertIn('perfiles inventados',calculated_profile_story(p))
+
  def test_optional_auto_cost_guard(self):
   state={'synthetic_last_ai_key':'old','synthetic_last_ai_attempt':100}
   self.assertTrue(auto_brief_due(True,True,43,'new',state,130))

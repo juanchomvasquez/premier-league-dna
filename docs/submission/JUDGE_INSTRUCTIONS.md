@@ -36,3 +36,5 @@ Requires Python 3.10 or later and the dependencies in requirements.txt.
 Without Azure settings, replay and local calculations work; Microsoft generation is unavailable. Private configuration details are in docs/MICROSOFT_SETUP.md. Do not place credentials in GitHub or testing instructions.
 
 Microsoft briefs can explain the closest illustrative legend-inspired profile or two close profiles. Their independent scores are calculated locally and shown with the brief, with calculation details available. These are invented design references, not validated historical player likeness or percentage blends.
+
+The calculated style explanation is separate from Microsoft-written commentary and remains available even if Microsoft generation fails. Modest word overruns can be shortened using complete opening sentences without another request; the full accepted wording remains available under Supporting facts & copy brief. This preserves the evidence checks and does not guarantee every AI interpretation is semantically correct.
