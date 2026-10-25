@@ -33,6 +33,7 @@ def source(metadata):
     return data
 
 for r in study['references']:
+    if r.get('reference_kind')=='match_sample':continue  # Recounted by audit_cdm_samples.py.
     a=source(r['source'])
     assert a['player']['id']==r['id']
     for key,(_,pl) in fields.items():
@@ -76,5 +77,5 @@ for entry in study['targets'].values():
     print('PASS performance',entry['player']['name'],entry['fixture']['id'],'and official fixture',entry['official_fixture_id'])
 assert len({e['role'] for e in study['targets'].values()})==8
 assert len({e['player']['team_id'] for e in study['targets'].values()})==8
-print(f"PASS: {len(study['references'])} reference seasons, {len(study['targets'])} performances across eight roles and clubs, cached digests, identities, minutes, execution facts and numerical fields; fixture scores agree with PL and team/player shot totals reconcile.")
+print(f"PASS: {sum(r.get('reference_kind')!='match_sample' for r in study['references'])} reference seasons, {len(study['targets'])} performances across eight roles and clubs, cached digests, identities, minutes, execution facts and numerical fields; fixture scores agree with PL and team/player shot totals reconcile. CDM match samples are checked separately by audit_cdm_samples.py.")
 print('LIMIT: detailed shot-location fields disagree, so shots are excluded from the blend. This audit does not establish full cross-provider definition equivalence or validate style similarity.')

@@ -1,0 +1,565 @@
+{
+  "Van der Sar-inspired": {
+    "career": {
+      "appearances": 313,
+      "clubs": [
+        [
+          "Manchester United",
+          186
+        ],
+        [
+          "Fulham",
+          127
+        ]
+      ],
+      "checked_on": "25 Oct 2026",
+      "sources": [
+        [
+          "Premier League · complete PL career",
+          "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/4058/stats"
+        ],
+        [
+          "PL club appearance records",
+          "https://www.myfootballfacts.com/premier-league/all-time-premier-league/appearances/all-time-300-or-more-players-premier-league-appearances/"
+        ]
+      ],
+      "provenance": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/4058/stats",
+        "checked_at": "2026-10-25T04:25:04.473506+00:00",
+        "sha256": "203b3f87746c7e556bfc140268ad433ea9bf4ae955aaae0abbf952072ab5308d",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "62a75fa526e3953fab8b5243d5a5c18c7077e4fa14e7ee8e5dc635a3a9cf7924"
+      },
+      "coverage": "Complete recorded PL career",
+      "note": "Club colour widths use Premier League appearances only. Career totals do not enter the comparison.",
+      "clean_sheets": 132,
+      "titles": null
+    },
+    "season": {
+      "player": "Edwin van der Sar",
+      "club": "Manchester United",
+      "season": "2008/09",
+      "appearances": 33,
+      "goals": null,
+      "assists": null,
+      "selection": "Selected identified PL season. Chosen for a relevant career period and source availability, not claimed to be the best overall season.",
+      "coverage_note": "Season facts and career totals are separate from fitted rates. Missing source fields remain unavailable.",
+      "sources": [
+        {
+          "title": "Premier League · selected season",
+          "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2008/players/4058/stats"
+        }
+      ],
+      "provenance": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2008/players/4058/stats",
+        "checked_at": "2026-10-25T04:26:50.334913+00:00",
+        "sha256": "6c17f022bddfd153373b884f87976db5ded8d2ca14a8318c91adb0c040481f12",
+        "http_age_seconds": "64",
+        "http_last_modified": null,
+        "canonical_sha256": "7976b451605c0c4234388087b7d1799c78108b8e9aa7756a2ace894b84b688ce"
+      },
+      "clean_sheets": 21,
+      "goals_conceded": 21,
+      "display_fields": [
+        [
+          "appearances",
+          "PL appearances"
+        ],
+        [
+          "clean_sheets",
+          "PL clean sheets"
+        ],
+        [
+          "goals_conceded",
+          "Goals conceded"
+        ]
+      ]
+    },
+    "id": "4058",
+    "club": "Manchester United"
+  },
+  "Rio Ferdinand-inspired": {
+    "career": {
+      "appearances": 504,
+      "clubs": [
+        [
+          "Manchester United",
+          312
+        ],
+        [
+          "West Ham United",
+          127
+        ],
+        [
+          "Leeds United",
+          54
+        ],
+        [
+          "Queens Park Rangers",
+          11
+        ]
+      ],
+      "checked_on": "25 Oct 2026",
+      "sources": [
+        [
+          "Premier League · complete PL career",
+          "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/2034/stats"
+        ],
+        [
+          "PL club appearance records",
+          "https://www.statmuse.com/fc/ask/rio-ferdinand-appearances-by-club"
+        ]
+      ],
+      "provenance": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/2034/stats",
+        "checked_at": "2026-10-25T04:26:50.391629+00:00",
+        "sha256": "e8692dd638804ac1c4cf3b83d909b58b4f4e81696e4e3e1ec68db910a322d8c1",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "6691ef21bc2a8d44bd9b0cbbeabedcf516bc6ed769cb5d3ac300d34dd6d7d815"
+      },
+      "coverage": "Complete recorded PL career",
+      "note": "Club colour widths use Premier League appearances only. Career totals do not enter the comparison.",
+      "goals": 11,
+      "assists": 8
+    },
+    "season": {
+      "player": "Rio Ferdinand",
+      "club": "Manchester United",
+      "season": "2012/13",
+      "appearances": 28,
+      "goals": 1,
+      "assists": 1,
+      "selection": "Selected identified PL season. Chosen for a relevant career period and source availability, not claimed to be the best overall season.",
+      "coverage_note": "Season facts and career totals are separate from fitted rates. Missing source fields remain unavailable.",
+      "sources": [
+        {
+          "title": "Premier League · selected season",
+          "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2012/players/2034/stats"
+        }
+      ],
+      "provenance": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2012/players/2034/stats",
+        "checked_at": "2026-10-25T04:28:01.885809+00:00",
+        "sha256": "71b5351de180bcd630b015b4922c4ac7f2199b60baa3c09f8e3bde94904cad95",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "bab5c1965d60fc8af02ceec68dfe1b7200a578f0c8ed171aedfea18986262154"
+      }
+    },
+    "id": "2034",
+    "club": "Manchester United"
+  },
+  "Gary Neville-inspired": {
+    "career": {
+      "appearances": 400,
+      "clubs": [
+        [
+          "Manchester United",
+          400
+        ]
+      ],
+      "checked_on": "25 Oct 2026",
+      "sources": [
+        [
+          "Premier League · complete PL career",
+          "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/1807/stats"
+        ],
+        [
+          "PL club appearance records",
+          "https://www.premierleague.com/en/events/hall-of-fame/inductees/gary-neville"
+        ]
+      ],
+      "provenance": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/1807/stats",
+        "checked_at": "2026-10-25T04:26:50.491051+00:00",
+        "sha256": "2141f9afe0b4350dd31cb78553b5e85aa2ecee90c35936b8925cf22b7ef0c5d7",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "2e77d07b8bf5820430bc906d7403f385490ab63e67c5e4e976c1e5cbb5ee2d84"
+      },
+      "coverage": "Complete recorded PL career",
+      "note": "Club colour widths use Premier League appearances only. Career totals do not enter the comparison.",
+      "goals": 5,
+      "assists": 35
+    },
+    "season": {
+      "player": "Gary Neville",
+      "club": "Manchester United",
+      "season": "2008/09",
+      "appearances": 16,
+      "goals": null,
+      "assists": null,
+      "selection": "Selected identified PL season. Chosen for a relevant career period and source availability, not claimed to be the best overall season.",
+      "coverage_note": "Season facts and career totals are separate from fitted rates. Missing source fields remain unavailable.",
+      "sources": [
+        {
+          "title": "Premier League · selected season",
+          "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2008/players/1807/stats"
+        }
+      ],
+      "provenance": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2008/players/1807/stats",
+        "checked_at": "2026-10-25T04:28:04.318298+00:00",
+        "sha256": "3af411a0c5fe1c76290272c9148ee424b11c3b9724c4000576a01199cab3afa4",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "36944e544de4242715a1f1fddd9fddf1782a3be8792f1a443c39a0de0e10412c"
+      }
+    },
+    "id": "1807",
+    "club": "Manchester United"
+  },
+  "Baines-inspired": {
+    "career": {
+      "appearances": 420,
+      "clubs": [
+        [
+          "Everton",
+          348
+        ],
+        [
+          "Wigan Athletic",
+          72
+        ]
+      ],
+      "checked_on": "25 Oct 2026",
+      "sources": [
+        [
+          "Premier League · complete PL career",
+          "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/12745/stats"
+        ],
+        [
+          "PL club appearance records",
+          "https://www.statmuse.com/fc/ask/leighton-baines-stats-with-wigan-athletic"
+        ]
+      ],
+      "provenance": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/12745/stats",
+        "checked_at": "2026-10-25T04:26:54.081756+00:00",
+        "sha256": "795114400d10d73860a14e39ba6b7ab360783a4521da10cf6496adb6a1f47cac",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "78c387e82156178271f801b17cce5fa08717b139f08fc0bd485954532cdc962d"
+      },
+      "coverage": "Complete recorded PL career",
+      "note": "Club colour widths use Premier League appearances only. Career totals do not enter the comparison.",
+      "goals": 32,
+      "assists": 53
+    },
+    "season": {
+      "player": "Leighton Baines",
+      "club": "Everton",
+      "season": "2012/13",
+      "appearances": 38,
+      "goals": 5,
+      "assists": 5,
+      "selection": "Selected identified PL season. Chosen for a relevant career period and source availability, not claimed to be the best overall season.",
+      "coverage_note": "Season facts and career totals are separate from fitted rates. Missing source fields remain unavailable.",
+      "sources": [
+        {
+          "title": "Premier League · selected season",
+          "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2012/players/12745/stats"
+        }
+      ],
+      "provenance": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2012/players/12745/stats",
+        "checked_at": "2026-10-25T04:26:56.771293+00:00",
+        "sha256": "e203780360807dd9d06110e2d3adfffba34295542b71da2cd5df32333e67b6fd",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "81547f6c7894e43b7aa1f01b3208ce8a4b64a0aa5732b34d2a73a1736490227c"
+      }
+    },
+    "id": "12745",
+    "club": "Everton"
+  },
+  "Vieira-inspired": {
+    "career": {
+      "appearances": 307,
+      "clubs": [
+        [
+          "Arsenal",
+          279
+        ],
+        [
+          "Manchester City",
+          28
+        ]
+      ],
+      "checked_on": "25 Oct 2026",
+      "sources": [
+        [
+          "Premier League · complete PL career",
+          "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/1593/stats"
+        ],
+        [
+          "PL club appearance records",
+          "https://fbref.com/en/players/f90f1086/Patrick-Vieira"
+        ]
+      ],
+      "provenance": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/1593/stats",
+        "checked_at": "2026-10-25T04:26:56.773109+00:00",
+        "sha256": "90187e2ef1a7b027aff1feabf0f2669c0b633294e5c73046676617fc7a1291d5",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "d541f988978bc0b652598338dabcd5d560e7d9380540721c9f92decbed8772d3"
+      },
+      "coverage": "Complete recorded PL career",
+      "note": "Club colour widths use Premier League appearances only. Career totals do not enter the comparison.",
+      "goals": 31,
+      "assists": 34
+    },
+    "season": {
+      "player": "Patrick Vieira",
+      "club": "Arsenal",
+      "season": "2004/05",
+      "appearances": null,
+      "goals": null,
+      "assists": null,
+      "selection": "Selected identified PL season. Chosen for a relevant career period and source availability, not claimed to be the best overall season.",
+      "coverage_note": "Season facts and career totals are separate from fitted rates. Missing source fields remain unavailable. Detailed pre-2006/07 metrics are not used to infer a style profile. This season endpoint returned HTTP 404; no season totals or rates are invented.",
+      "sources": [
+        {
+          "title": "Premier League · selected season",
+          "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2004/players/1593/stats"
+        }
+      ],
+      "provenance": null
+    },
+    "id": "1593",
+    "club": "Arsenal"
+  },
+  "Keane-inspired": {
+    "career": {
+      "appearances": 366,
+      "clubs": [
+        [
+          "Manchester United",
+          326
+        ],
+        [
+          "Nottingham Forest",
+          40
+        ]
+      ],
+      "checked_on": "25 Oct 2026",
+      "sources": [
+        [
+          "Premier League · complete PL career",
+          "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/361/stats"
+        ],
+        [
+          "PL club appearance records",
+          "https://www.statmuse.com/fc/ask/how-many-premier-league-appearances-did-roy-keane-make"
+        ]
+      ],
+      "provenance": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/361/stats",
+        "checked_at": "2026-10-25T04:37:18.322527+00:00",
+        "sha256": "14a839a9f45838f4c907510e2b8856d579a90326d3d9ce3a359c921b118ed33c",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "80d819e29a89e06675adb618a979165f604feacb0025b2a63f4abc9b728ee4e9"
+      },
+      "coverage": "Complete recorded PL career",
+      "note": "Club colour widths use Premier League appearances only. Career totals do not enter the comparison.",
+      "goals": 39,
+      "assists": 33
+    },
+    "season": {
+      "player": "Roy Keane",
+      "club": "Manchester United",
+      "season": "1999/00",
+      "appearances": null,
+      "goals": null,
+      "assists": null,
+      "selection": "Selected identified PL season. Chosen for a relevant career period and source availability, not claimed to be the best overall season.",
+      "coverage_note": "Season facts and career totals are separate from fitted rates. Missing source fields remain unavailable. Detailed pre-2006/07 metrics are not used to infer a style profile. This season endpoint returned HTTP 404; no season totals or rates are invented.",
+      "sources": [
+        {
+          "title": "Premier League · selected season",
+          "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/1999/players/361/stats"
+        }
+      ],
+      "provenance": null
+    },
+    "id": "361",
+    "club": "Manchester United"
+  },
+  "Bergkamp-inspired": {
+    "career": {
+      "appearances": 315,
+      "clubs": [
+        [
+          "Arsenal",
+          315
+        ]
+      ],
+      "checked_on": "25 Oct 2026",
+      "sources": [
+        [
+          "Premier League · complete PL career",
+          "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/1608/stats"
+        ],
+        [
+          "PL club appearance records",
+          "https://www.premierleague.com/es/news/2147141"
+        ]
+      ],
+      "provenance": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/1608/stats",
+        "checked_at": "2026-10-25T04:26:59.322192+00:00",
+        "sha256": "a5c3b899760872d127d14135fe05b27508d9bf288613c8448bffb12e1516c82c",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "7d4b63173f2e37e068105b85368fdf9f165739be20433085b49d738729381f26"
+      },
+      "coverage": "Complete recorded PL career",
+      "note": "Club colour widths use Premier League appearances only. Career totals do not enter the comparison.",
+      "goals": 87,
+      "assists": 94
+    },
+    "season": {
+      "player": "Dennis Bergkamp",
+      "club": "Arsenal",
+      "season": "1997/98",
+      "appearances": null,
+      "goals": null,
+      "assists": null,
+      "selection": "Selected identified PL season. Chosen for a relevant career period and source availability, not claimed to be the best overall season.",
+      "coverage_note": "Season facts and career totals are separate from fitted rates. Missing source fields remain unavailable. Detailed pre-2006/07 metrics are not used to infer a style profile. This season endpoint returned HTTP 404; no season totals or rates are invented.",
+      "sources": [
+        {
+          "title": "Premier League · selected season",
+          "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/1997/players/1608/stats"
+        }
+      ],
+      "provenance": null
+    },
+    "id": "1608",
+    "club": "Arsenal"
+  },
+  "Giggs-inspired": {
+    "career": {
+      "appearances": 632,
+      "clubs": [
+        [
+          "Manchester United",
+          632
+        ]
+      ],
+      "checked_on": "25 Oct 2026",
+      "sources": [
+        [
+          "Premier League · complete PL career",
+          "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/3/stats"
+        ],
+        [
+          "PL club appearance records",
+          "https://www.premierleague.com/en/news/1251148"
+        ]
+      ],
+      "provenance": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/3/stats",
+        "checked_at": "2026-10-25T04:27:02.119837+00:00",
+        "sha256": "50065f0278f35d2b0d06780c69d4c49652f43c9d1a8a6542c82772dea00566e5",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "38ae650ec3fea5b8ee7cf3f360f90d8498371db73df2d267578abed48311de11"
+      },
+      "coverage": "Complete recorded PL career",
+      "note": "Club colour widths use Premier League appearances only. Career totals do not enter the comparison.",
+      "goals": 109,
+      "assists": 162
+    },
+    "season": {
+      "player": "Ryan Giggs",
+      "club": "Manchester United",
+      "season": "2008/09",
+      "appearances": 28,
+      "goals": 2,
+      "assists": 7,
+      "selection": "Selected identified PL season. Chosen for a relevant career period and source availability, not claimed to be the best overall season.",
+      "coverage_note": "Season facts and career totals are separate from fitted rates. Missing source fields remain unavailable.",
+      "sources": [
+        {
+          "title": "Premier League · selected season",
+          "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2008/players/3/stats"
+        }
+      ],
+      "provenance": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2008/players/3/stats",
+        "checked_at": "2026-10-25T04:28:08.110872+00:00",
+        "sha256": "948792820f1b5e2422e816fce8fde6ee703038a6448d1d0a6435a5b20c26e8f9",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "2d8214b58636ff4ce686484593dd11fa0619263c140300ce239228959fd164eb"
+      }
+    },
+    "id": "3",
+    "club": "Manchester United"
+  },
+  "Bale-inspired": {
+    "career": {
+      "appearances": 166,
+      "clubs": [
+        [
+          "Tottenham Hotspur",
+          166
+        ]
+      ],
+      "checked_on": "25 Oct 2026",
+      "sources": [
+        [
+          "Premier League · complete PL career",
+          "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/36903/stats"
+        ],
+        [
+          "PL club appearance records",
+          "https://www.premierleague.com/en/news/3014385"
+        ]
+      ],
+      "provenance": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/players/36903/stats",
+        "checked_at": "2026-10-25T04:27:02.120041+00:00",
+        "sha256": "a38f650f006a23ece9640523b721f762be85cbddbfe408409c010fb208d1c33b",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "b845c963acf58ab06bdc86dee1569b4f31b1f26258cb40c1ebff8b409fc7490e"
+      },
+      "coverage": "Complete recorded PL career",
+      "note": "Club colour widths use Premier League appearances only. Career totals do not enter the comparison.",
+      "goals": 53,
+      "assists": 22
+    },
+    "season": {
+      "player": "Gareth Bale",
+      "club": "Tottenham Hotspur",
+      "season": "2012/13",
+      "appearances": 33,
+      "goals": 21,
+      "assists": 4,
+      "selection": "Selected identified PL season. Chosen for a relevant career period and source availability, not claimed to be the best overall season.",
+      "coverage_note": "Season facts and career totals are separate from fitted rates. Missing source fields remain unavailable.",
+      "sources": [
+        {
+          "title": "Premier League · selected season",
+          "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2012/players/36903/stats"
+        }
+      ],
+      "provenance": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2012/players/36903/stats",
+        "checked_at": "2026-10-25T04:27:04.635513+00:00",
+        "sha256": "3ed45449ebb88d66802224aaf8c0ac21fd4a19c1101624eb40982b1e1e53e675",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "7502f8928c963467b9c216fb242e72cf3d9f61ab096920e2ba5a0e83eaa464a0"
+      }
+    },
+    "id": "36903",
+    "club": "Tottenham Hotspur"
+  }
+}

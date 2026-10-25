@@ -23,8 +23,8 @@ Execution facts are separate from playing style; no overall grade is inferred.
 Insufficient minutes or shared fields has a separate unavailable state.
 
 [Current-season data, live behavior, sources and limits](docs/CURRENT_SEASON_AND_LIVE.md)
-documents the 20 usable historical season references and five unavailable ones.
-All 25 career cards remain accessible with club colours weighted by PL appearances.
+documents the 18 full-season references, three CDM match-sample references and four unavailable selected seasons.
+All 25 career cards remain accessible with club colours weighted by PL appearances. The legend pool is retired-only; Van Dijk remains a current example. CDM uses explicitly labelled real 2003/04 match samples for Roy Keane, Patrick Vieira and Claude Makélélé. These are small recorded samples, not season/career averages; full equivalence with current-match summary fields is unverified.
 The fitted mix is exploratory; neither provider equivalence nor style similarity
 has been independently validated.
 
@@ -82,7 +82,7 @@ of a complete match. See [build checkpoints](docs/BUILD_PLAN.md) and
 ## Player DNA visual preview
 
 The dashboard includes a selectable radar wheel and club-coloured legend season card.
-Sourced full-season facts are loaded for all 25 legends across eight positions. They are displayed separately from the synthetic performance wheel; the current-season mode separately uses sourced season-rate references. Neither mode supplies validated similarity scores. The invented
+Sourced career cards cover all 25 retired legends across eight positions; selected-season headlines are shown where available. They are displayed separately from the synthetic performance wheel; the current-season mode separately uses sourced season-rate references. Neither mode supplies validated similarity scores. The invented
 overlay is an explicit design-preview option, off by default.
 See [historical sources, selection criteria and upload instructions](docs/HISTORICAL_SEASONS.md).
 

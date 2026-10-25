@@ -57,9 +57,12 @@ def auto_story_due(enabled, state, changed, now, last_attempt, stale=False):
 
 def wheel(payload):
     keys = payload['metric_keys']
-    selected = [100*payload['target_rates'][k]/payload['scales'][k] for k in keys]
-    fitted = [100*payload['fitted_rates'][k]/payload['scales'][k] for k in keys]
-    show_mix = payload.get('fit_status') != 'no_clear_match'
+    comparable = 'fit' in payload
+    scales = payload.get('scales', {k:1 for k in keys})
+    rates = payload.get('target_rates', {k:90*payload['target']['counts'][k]/payload['minute'] for k in keys})
+    selected = [100*rates[k]/scales[k] for k in keys]
+    fitted = [100*payload['fitted_rates'][k]/scales[k] for k in keys] if comparable else []
+    show_mix = comparable and payload.get('fit_status') != 'no_clear_match'
     ceiling = max(100, math.ceil(max(selected+(fitted if show_mix else []))/25)*25)
     cx, cy, radius = 330, 235, 135
     angles = [-math.pi/2+2*math.pi*i/len(keys) for i in range(len(keys))]
@@ -67,10 +70,10 @@ def wheel(payload):
         return ' '.join(f'{cx+radius*v/ceiling*math.cos(a):.2f},{cy+radius*v/ceiling*math.sin(a):.2f}' for v, a in zip(values, angles))
     svg = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 455" role="img" aria-label="Recorded match and fitted reference-season mix">',
         '<rect width="660" height="455" rx="20" fill="#101d30"/>',
-        '<text x="24" y="30" fill="#dce8fb" font-size="14">RECORDED MATCH / REFERENCE SEASONS</text>']
+        '<text x="24" y="30" fill="#dce8fb" font-size="14">RECORDED MATCH / IDENTIFIED REFERENCES</text>']
     for f in (.25,.5,.75,1):
         svg += [f'<polygon points="{points([ceiling*f]*len(keys))}" fill="none" stroke="#35465d"/>',
-            f'<text x="335" y="{cy-radius*f+12}" fill="#9caec5" font-size="11">{ceiling*f/100:g}×</text>']
+            f'<text x="335" y="{cy-radius*f+12}" fill="#9caec5" font-size="11">{ceiling*f/100:g}{"×" if comparable else ""}</text>']
     for a, key in zip(angles, keys):
         x, y = cx+radius*1.4*math.cos(a), cy+radius*1.4*math.sin(a)
         anchor = 'middle' if abs(math.cos(a)) < .1 else 'start' if math.cos(a) > 0 else 'end'
@@ -80,9 +83,10 @@ def wheel(payload):
     series = ([(fitted,'#b69aff','7 5')] if show_mix else []) + [(selected,'#39dfbc','none')]
     for values, color, dash in series:
         svg.append(f'<polygon points="{points(values)}" fill="{color}" fill-opacity=".13" stroke="{color}" stroke-width="2.5" stroke-dasharray="{dash}"/>')
-    legend = 'Teal: selected match rates · Purple: fitted season mix' if show_mix else 'Teal: selected match rates · No composite reference shown'
+    legend = 'Teal: selected match rates · Purple: fitted reference mix' if show_mix else 'Teal: selected match rates · No composite reference shown'
+    scale_note = '1× = highest selected reference rate on that axis · not an ability rating' if comparable else 'Recorded counts per 90 played minutes · shared count scale · no historical fit'
     svg += [f'<text x="24" y="420" fill="#39dfbc" font-size="13">{legend}</text>',
-        '<text x="24" y="443" fill="#aabbd0" font-size="11">1× = highest reference-season rate on that axis · not an ability rating</text></svg>']
+        f'<text x="24" y="443" fill="#aabbd0" font-size="11">{scale_note}</text></svg>']
     return ''.join(svg)
 
 
@@ -149,8 +153,21 @@ def render_performance(entry, references, live=False, stale=False, unavailable_r
             st.caption('Recorded action outcomes, not an overall match grade. A familiar style can coexist with poor execution; a different style can be effective.')
     payload = compare_season_player(player, snapshot, fixture, references, role)
     payload['unavailable_references'] = [r for r in unavailable_references if r['role']==role]
+    if payload.get('reference_kind')=='match_sample':
+        st.info('CDM reference coverage: selected 2003/04 Premier League matches — Keane 2, Vieira 3, Makélélé 2. These are small match samples, not season or career averages.')
+        st.caption('Historical pass, tackle-duel, interception and ball-recovery events come from StatsBomb Open Data. Exact equivalence to the current ESPN summary definitions is unverified; long-pass rates are omitted.')
     if payload['availability']:
         st.info(payload['availability'])
+        if payload.get('interpretation_available'):
+            render_story(payload,live,stale)
+            st.image(wheel(payload),width='stretch')
+            st.caption('Recorded performance only. No legend mixture or historical scale is inferred from missing references.')
+        choices=dict(payload['references'])
+        choices.update({r['player']:r for r in payload['unavailable_references']})
+        if choices:
+            from pl_dna.historical import sourced_season_card
+            selected=st.selectbox('Explore a retired legend card',list(choices),key='season_reference')
+            st.html(sourced_season_card(choices[selected]['inspiration']))
     else:
         if payload['fit_status']=='no_clear_match':
             st.info('No clear match to the loaded legend profiles for this performance.')
@@ -182,18 +199,24 @@ def render_performance(entry, references, live=False, stale=False, unavailable_r
         rows = []
         for k in ROLE_METRIC_ORDER(role):
             row = {'Measurement': FIELDS[k][0], 'Match count': snapshot['counts'].get(k),
-                'Used in fit': k in payload.get('metric_keys', [])}
-            if k in payload.get('metric_keys', []):
+                'Used in fit': 'fit' in payload and k in payload.get('metric_keys', [])}
+            if k in payload.get('target_rates', {}):
                 row['Match /90'] = payload['target_rates'][k]
                 row.update({n+' /90': payload['reference_rates'][n][k] for n in payload['references']})
             rows.append(row)
         st.dataframe(pd.DataFrame(rows), hide_index=True, width='stretch')
         st.markdown(f"[Selected match statistics]({fixture['source_page']}) · [Selected player-stat response]({snapshot['source']['url']})")
-        st.caption('Current match data: ESPN public website feed. Historical references: Premier League website data (Opta). These website endpoints are undocumented and can change; this is not an official data-service partnership.')
+        st.caption('Current match data: ESPN public website feed. Historical sources: Premier League website season data or explicitly identified StatsBomb Open Data match samples. Website feeds may change; this is not an official data-service partnership.')
+        if payload.get('reference_kind')=='match_sample':
+            st.image(str(Path(__file__).parent/'data/statsbomb-logo.png'),width=140)
+            st.markdown('[StatsBomb Open Data — source, attribution and licence](https://github.com/statsbomb/open-data)')
         st.caption('Some fields may use different provider conventions. Missing/disputed fields are omitted, never filled with zero. Cross-provider equivalence and the style-fit model have not been independently validated.')
         st.write('Method: per-90 counts, divided on each axis by the maximum rate among the selected reference seasons; nonnegative least-squares weights sum to one. Minutes and all included counts must be present. At least three shared metrics and 30 played minutes are required; these are display rules, not reliability guarantees.')
         for n, r in payload['references'].items():
             st.markdown(f"[{n} · {r['season']} · {r['minutes']:g} minutes]({r['source']['url']})")
+            if r.get('reference_kind')=='match_sample':
+                for match in r['matches']:
+                    st.markdown(f"- [{match['date']} · {match['name']}]({match['event_source']['url']}) · {match['minutes']:g} played minutes")
         st.json({'match_source': entry['summary_source'], 'player_source': snapshot['source'],
                  'omitted_metrics': payload.get('omitted_metrics', []), 'fit_status':payload.get('fit_status'),
                  'fit_checks':payload.get('fit_checks'), 'unavailable_references':payload['unavailable_references'],

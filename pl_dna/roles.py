@@ -45,27 +45,27 @@ ROLE_DEFINITIONS = {
         "legend_inspirations": {},
     },
 }
-ROLE_DEFINITIONS["CB"]["legend_inspirations"] = {"Defensive stopper": "Terry-inspired", "Aerial defender": "Vidic-inspired", "Ball-playing defender": "Van Dijk-inspired"}
-ROLE_DEFINITIONS["FB"]["legend_inspirations"] = {"Defensive full-back": "Ashley Cole-inspired", "Defensive carrier": "Kyle Walker-inspired", "Creative full-back": "Alexander-Arnold-inspired"}
-ROLE_DEFINITIONS["CAM"]["legend_inspirations"] = {"Chance creator": "Ozil-inspired", "Attacking playmaker": "De Bruyne-inspired", "Advanced distributor": "Fabregas-inspired"}
+ROLE_DEFINITIONS["CB"]["legend_inspirations"] = {"Defensive stopper": "Terry-inspired", "Aerial defender": "Vidic-inspired", "Ball-playing defender": "Rio Ferdinand-inspired"}
+ROLE_DEFINITIONS["FB"]["legend_inspirations"] = {"Defensive full-back": "Ashley Cole-inspired", "Defensive carrier": "Gary Neville-inspired", "Creative full-back": "Baines-inspired"}
+ROLE_DEFINITIONS["CAM"]["legend_inspirations"] = {"Chance creator": "Ozil-inspired", "Attacking playmaker": "Bergkamp-inspired", "Advanced distributor": "Fabregas-inspired"}
 ROLE_DEFINITIONS["ST"]["legend_inspirations"] = {"Penalty-area finisher": "Shearer-inspired", "Target forward": "Drogba-inspired", "Scoring and link-up forward": "Henry-inspired", "Link-up forward": "Rooney-inspired"}
 ROLE_DEFINITIONS["GK"] = {
     "label": "Goalkeeper",
     "metrics": {"Saves": "save", "Successful claims": "claim", "Sweeper interventions": "sweeper_intervention", "Completed progressive passes": "progressive_pass", "Completed long distribution": "long_distribution"},
     "profiles": {"Shot stopper": [35, 20, 8, 10, 15], "Area-command keeper": [30, 30, 10, 12, 18], "Sweeper keeper": [20, 12, 30, 25, 15]},
-    "legend_inspirations": {"Shot stopper": "Schmeichel-inspired", "Area-command keeper": "Cech-inspired", "Sweeper keeper": "Alisson-inspired"},
+    "legend_inspirations": {"Shot stopper": "Schmeichel-inspired", "Area-command keeper": "Cech-inspired", "Sweeper keeper": "Van der Sar-inspired"},
 }
 ROLE_DEFINITIONS["WING"] = {
     "label": "Winger",
     "metrics": {"Successful take-ons": "take_on", "Completed crosses": "cross", "Completed progressive carries": "progressive_carry", "Shots": "shot", "Chances created": "chance_created"},
     "profiles": {"Direct goalscorer": [20, 10, 20, 35, 10], "Dribbling creator": [35, 15, 30, 15, 20], "Inside forward": [20, 8, 25, 30, 20]},
-    "legend_inspirations": {"Direct goalscorer": "Ronaldo-inspired", "Dribbling creator": "Hazard-inspired", "Inside forward": "Salah-inspired"},
+    "legend_inspirations": {"Direct goalscorer": "Giggs-inspired", "Dribbling creator": "Hazard-inspired", "Inside forward": "Bale-inspired"},
 }
 ROLE_DEFINITIONS["CDM"] = {
     "label": "Defensive midfield",
     "metrics": {"Successful tackles": "tackle", "Interceptions": "interception", "Ball recoveries": "recovery", "Completed progressive passes": "progressive_pass", "Completed switches": "switch"},
     "profiles": {"Ball winner": [30, 30, 25, 10, 5], "Holding anchor": [25, 30, 30, 15, 5], "Deep controller": [10, 18, 18, 30, 30]},
-    "legend_inspirations": {"Ball winner": "Kante-inspired", "Holding anchor": "Makelele-inspired", "Deep controller": "Rodri-inspired"},
+    "legend_inspirations": {"Ball winner": "Vieira-inspired", "Holding anchor": "Makelele-inspired", "Deep controller": "Keane-inspired"},
 }
 # Names are optional design inspirations only; no historical data calibrates them.
 PLAYERS = {"Noah Bennett": "CB", "Leo Serrano": "FB", "Alex Morganfield": "CM", "Diego Mercer": "CAM", "Sam Okafor": "ST", "Ethan Vale": "GK", "Mateo Silva": "WING", "Owen Reed": "CDM"}

@@ -117,8 +117,9 @@ def story_text(payload, candidate):
         return (f"No clear match to the loaded legend profiles for {payload['player']} under the current display checks. "
                 'This is not an overall performance grade. ' + ' '.join(e['sentence'] for e in evidence))
     parts = [f"{pct}% {payload['references'][name].get('short_label', name.split()[-1])}" for name, pct in sorted(payload['fit']['percentages'].items(), key=lambda x: -x[1]) if pct]
-    if payload.get('comparison_scope') == 'season_rates':
-        summary = f"{payload['player']}’s recorded match rates fit {' / '.join(parts)} relative to the selected reference seasons. This is an exploratory comparison."
+    if payload.get('comparison_scope') in ('season_rates','match_sample_rates'):
+        period = 'selected recorded match samples' if payload.get('reference_kind')=='match_sample' else 'selected reference seasons'
+        summary = f"{payload['player']}’s recorded match rates fit {' / '.join(parts)} relative to the {period}. This is an exploratory comparison."
     else:
         summary = f"Through {payload['minute']} minutes, {payload['player']}’s recorded action mix fits {' / '.join(parts)} within these three match samples."
     return summary + ' ' + ' '.join(e['sentence'] for e in evidence)

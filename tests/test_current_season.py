@@ -42,7 +42,11 @@ class CurrentSeasonTests(unittest.TestCase):
             self.assertEqual(e['fixture']['state'],'post')
             self.assertEqual(len(e['snapshot']['source']['sha256']),64)
             p = self.payload(e)
-            self.assertEqual(p['availability'],'')
+            if p['availability']:
+                self.assertEqual(e['role'],'CDM')
+                self.assertTrue(p['interpretation_available'])
+                self.assertNotIn('fit',p)
+                continue
             self.assertEqual(sum(p['fit']['percentages'].values()),100)
             self.assertTrue(all(v>=0 for v in p['fit']['weights'].values()))
             self.assertNotIn('shots',p['metric_keys'])  # Explicit source disagreement is preserved.

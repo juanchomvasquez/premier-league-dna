@@ -39,9 +39,9 @@ class HistoricalTests(unittest.TestCase):
         self.assertIn("—", sourced_season_card("Schmeichel-inspired"))
         self.assertEqual(season_facts("Shearer-inspired")["club"], "Blackburn Rovers")
         self.assertEqual(season_facts("Fabregas-inspired")["club"], "Chelsea")
-        self.assertIn("Completed passes", sourced_season_card("Rodri-inspired"))
-        self.assertIn("Interceptions", sourced_season_card("Kante-inspired"))
-        self.assertIn("0</strong>", sourced_season_card("Kyle Walker-inspired"))
+        self.assertEqual(season_facts('Keane-inspired')['season'],'1999/00')
+        self.assertEqual(season_facts('Baines-inspired')['assists'],5)
+        self.assertIsNone(season_facts('Bergkamp-inspired')['appearances'])
         for name in LEGEND_CLUBS:
             self.assertNotIn("SOURCE COVERAGE PENDING", sourced_season_card(name))
 

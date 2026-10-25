@@ -27,22 +27,22 @@ REFERENCES = [
     ('CM', 'Scholes-inspired', 363, 2010),
     ('CAM', 'Fabregas-inspired', 17878, 2014),
     ('CAM', 'Ozil-inspired', 37605, 2015),
-    ('CAM', 'De Bruyne-inspired', 61366, 2019),
+    ('CAM', 'Bergkamp-inspired', 1608, 1997),
     ('CB', 'Terry-inspired', 1718, 2014),
     ('CB', 'Vidic-inspired', 14965, 2010),
-    ('CB', 'Van Dijk-inspired', 97032, 2018),
+    ('CB', 'Rio Ferdinand-inspired', 2034, 2012),
     ('GK', 'Cech-inspired', 11334, 2013),
-    ('GK', 'Alisson-inspired', 116535, 2018),
+    ('GK', 'Van der Sar-inspired', 4058, 2008),
     ('GK', 'Schmeichel-inspired', 3952, 1995),
     ('FB', 'Ashley Cole-inspired', 3785, 2009),
-    ('FB', 'Kyle Walker-inspired', 58621, 2017),
-    ('FB', 'Alexander-Arnold-inspired', 169187, 2019),
-    ('CDM', 'Kante-inspired', 116594, 2016),
+    ('FB', 'Gary Neville-inspired', 1807, 2008),
+    ('FB', 'Baines-inspired', 12745, 2012),
+    ('CDM', 'Vieira-inspired', 1593, 2004),
     ('CDM', 'Makelele-inspired', 6083, 2006),
-    ('CDM', 'Rodri-inspired', 220566, 2022),
+    ('CDM', 'Keane-inspired', 361, 1999),
     ('WING', 'Hazard-inspired', 42786, 2018),
-    ('WING', 'Ronaldo-inspired', 14937, 2007),
-    ('WING', 'Salah-inspired', 118748, 2017),
+    ('WING', 'Giggs-inspired', 3, 2008),
+    ('WING', 'Bale-inspired', 36903, 2012),
     ('ST', 'Drogba-inspired', 12303, 2009),
     ('ST', 'Rooney-inspired', 13017, 2011),
     ('ST', 'Henry-inspired', 1619, 2006),
@@ -98,6 +98,12 @@ def build(cache):
         all_references = list(ex.map(reference, REFERENCES))
     references=[r for r in all_references if not r.get('unavailable')]
     unavailable=[r for r in all_references if r.get('unavailable')]
+    sample_path=ROOT/'pl_dna/data/cdm_match_samples.json'
+    if sample_path.exists():
+        samples=json.loads(sample_path.read_text())['references']
+        replacements={r['inspiration'] for r in samples}
+        references=[r for r in references if r['inspiration'] not in replacements]+samples
+        unavailable=[r for r in unavailable if r['inspiration'] not in replacements]
     def match(mid):
         raw, source = get(f'{SITE}/summary?event={mid}')
         return mid, (raw, source)

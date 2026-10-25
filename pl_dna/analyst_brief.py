@@ -8,7 +8,7 @@ import re
 
 def generate_analyst_brief(payload, provider):
     trusted = deepcopy(payload)
-    if trusted['availability']:
+    if trusted['availability'] and not trusted.get('interpretation_available'):
         return {'status':'insufficient','reason':trusted['availability']}
     request = deepcopy(trusted)
     request['task'] = 'performance_interpretation'
@@ -34,7 +34,7 @@ def generate_analyst_brief(payload, provider):
         facts=[index[i] for i in ids]
         if len({e['metric'] for e in facts}) < 2:raise ValueError('Multiple measurements required')
         if any(narrative.strip()==e['sentence'].strip() for e in facts):raise ValueError('A fact copy is not an interpretation')
-        if trusted.get('fit_status')=='no_clear_match':
+        if trusted.get('fit_status')!='candidate_mix':
             for name,r in trusted['references'].items():
                 if name.casefold() in text.casefold() or r.get('short_label',name).casefold() in text.casefold():
                     raise ValueError('No legend resemblance is supported')

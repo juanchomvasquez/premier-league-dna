@@ -371,6 +371,10 @@ SEASON_FACTS.update({'Schmeichel-inspired': {'player': 'Peter Schmeichel',
                                       'playing-style benchmark. No compatible historical wheel rates are '
                                       'loaded.'}})
 
+from pl_dna.retired_roster import apply_roster
+apply_roster(SEASON_FACTS,'season')
+CHECKED_ON = '2026-10-25'
+
 def season_facts(name):
     """Return a separate snapshot with explicit coverage rather than fake zeros."""
     record = SEASON_FACTS.get(name)
@@ -415,7 +419,7 @@ def sourced_season_card(name, show_career=True):
             f'<div class="season-facts">{facts}</div><p>{escape(record["selection"])}</p>'
             f'<p class="dna-note">{escape(record["coverage_note"])}</p>'
             f'<ul class="season-sources">{sources}</ul><p class="dna-note">Source check: {CHECKED_ON}. '
-            'Historical style index unavailable: compatible event rates have not been loaded.</p>' + season_close + '</section>')
+            'Career and selected-season headlines do not enter the wheel; any comparison uses separately sourced rates.</p>' + season_close + '</section>')
 
 
 def observed_wheel_svg(rows, player, scale_max, show_observed):

@@ -12,6 +12,8 @@ ROLE_AREAS = {"GK": (12, 50), "CB": (28, 50), "FB": (37, 16), "CDM": (44, 50),
 # Selected club-era inspirations, not claims of an exclusive or current club.
 # Approximate club-inspired accents; dark tints preserve readable card text.
 CLUB_COLOURS = {
+    "Everton": ("#1455d9", "#13274a"),
+    "Tottenham Hotspur": ("#f4f5f7", "#1b2443"),
     "Chelsea": ("#2463eb", "#142b52"),
     "Arsenal": ("#ef3340", "#3d202e"),
     "Manchester United": ("#da291c", "#3c222d"),
@@ -87,3 +89,9 @@ def insight_card(text, audience):
     title = {"Fan": "The match story", "Broadcaster": "Talking point", "Expert": "Evidence-grounded summary"}[audience]
     return (f'<section class="insight-card"><div class="eyebrow">{title.upper()}</div>'
             f'<p>{escape(text)}</p></section>')
+
+
+# The public legend pool contains retired players only.
+from pl_dna.retired_roster import REPLACEMENTS, records as retired_records
+for _old in REPLACEMENTS: LEGEND_CLUBS.pop(_old, None)
+LEGEND_CLUBS.update({name:r['club'] for name,r in retired_records().items()})

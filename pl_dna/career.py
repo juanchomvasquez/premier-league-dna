@@ -196,6 +196,9 @@ CAREERS.update({'Shearer-inspired': {'appearances': 441,
                       'note': 'Clean sheets: 95 through 2024/25 plus 8 in 2025/26 = 103. Title total remains unavailable.'}})
 
 
+from pl_dna.retired_roster import apply_roster
+apply_roster(CAREERS,'career')
+
 # Club-inspired primary colours used consistently in the background and legend.
 from pl_dna.presentation import CLUB_COLOURS
 CAREER_COLOURS = dict(CLUB_COLOURS, **{
@@ -207,6 +210,11 @@ CAREER_COLOURS = dict(CLUB_COLOURS, **{
     'Tottenham Hotspur': ('#f4f5f7', '#1b2443'),
     'Burnley': ('#6c1d45', '#302239'),
     'Southampton': ('#d71920', '#3c202b'),
+    'Fulham': ('#eeeeee', '#252b34'),
+    'Leeds United': ('#f1c232', '#303124'),
+    'Queens Park Rangers': ('#2367be', '#172d45'),
+    'Wigan Athletic': ('#2367be', '#172d45'),
+    'Nottingham Forest': ('#e53233', '#3c202b'),
 })
 
 

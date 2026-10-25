@@ -1,0 +1,282 @@
+{
+  "provider": "StatsBomb Open Data",
+  "source_commit": "4b73468fc5b0f1950f9f66fada70ad3a4f9327cb",
+  "definitions": {
+    "passes": "All Pass events",
+    "tackles": "Duel events whose duel type is Tackle",
+    "interceptions": "All Interception events",
+    "recoveries": "Ball Recovery events without recovery_failure"
+  },
+  "references": [
+    {
+      "player": "Roy Keane",
+      "inspiration": "Keane-inspired",
+      "role": "CDM",
+      "club": "Manchester United",
+      "minutes": 180.0,
+      "counts": {
+        "passes": 137,
+        "shots": null,
+        "takeons": null,
+        "tackles": 7,
+        "interceptions": 0,
+        "long_passes": null,
+        "clearances": null,
+        "aerials": null,
+        "shot_assists": null,
+        "goals": null,
+        "assists": null,
+        "box_touches": null,
+        "recoveries": 13,
+        "saves": null,
+        "conceded": null,
+        "punches": null
+      },
+      "matches": [
+        {
+          "id": 3749246,
+          "date": "2004-03-28",
+          "player_id": 24805,
+          "name": "Arsenal 1–1 Manchester United",
+          "minutes": 90.0,
+          "counts": {
+            "passes": 62,
+            "tackles": 2,
+            "interceptions": 0,
+            "recoveries": 7
+          },
+          "event_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3749246.json",
+            "sha256": "57fae6a4b3b7af323caf863b078243670d5caff0e5395a05f8d91f0ab0c6a1e0"
+          },
+          "lineup_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/lineups/3749246.json",
+            "sha256": "0238e92cdd7e38de0104c206aa8d728b6ae29a851fde87854dadb2f8f4e6ea00"
+          }
+        },
+        {
+          "id": 3749552,
+          "date": "2003-09-21",
+          "player_id": 24805,
+          "name": "Manchester United 0–0 Arsenal",
+          "minutes": 90.0,
+          "counts": {
+            "passes": 75,
+            "tackles": 5,
+            "interceptions": 0,
+            "recoveries": 6
+          },
+          "event_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3749552.json",
+            "sha256": "642521bff1ce0c05633ebb8bdf5c54f81e9e21855e168e7dc93d60388c4d4379"
+          },
+          "lineup_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/lineups/3749552.json",
+            "sha256": "468b8fd6ccf5ab86963b78e6cd6e509f51b5d62d37be6c697912177b54cf9ad9"
+          }
+        }
+      ],
+      "id": "statsbomb:24805",
+      "reference_kind": "match_sample",
+      "provider": "StatsBomb Open Data",
+      "season": "2003/04 · 2 recorded PL matches",
+      "source": {
+        "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/matches/2/44.json",
+        "checked_at": "2026-10-25",
+        "sha256": "bb4dda2763385050725507de76719f11d506b14a66148c7348950a02eadfcf35"
+      },
+      "limitations": [
+        "Selected matches involving Arsenal, not complete-season or career rates. Different sample sizes and opponents are not adjusted for.",
+        "Minutes are the union of source lineup position intervals on a regulation-minute clock, capped at ninety; counts include first/second-half added time.",
+        "Pass events, tackle duels, interception events and successful ball recoveries are explicit StatsBomb definitions. Complete equivalence to ESPN/Opta summary fields is not established. Long-pass counts are withheld."
+      ]
+    },
+    {
+      "player": "Patrick Vieira",
+      "inspiration": "Vieira-inspired",
+      "role": "CDM",
+      "club": "Arsenal",
+      "minutes": 270.0,
+      "counts": {
+        "passes": 133,
+        "shots": null,
+        "takeons": null,
+        "tackles": 13,
+        "interceptions": 2,
+        "long_passes": null,
+        "clearances": null,
+        "aerials": null,
+        "shot_assists": null,
+        "goals": null,
+        "assists": null,
+        "box_touches": null,
+        "recoveries": 22,
+        "saves": null,
+        "conceded": null,
+        "punches": null
+      },
+      "matches": [
+        {
+          "id": 3749246,
+          "date": "2004-03-28",
+          "player_id": 15515,
+          "name": "Arsenal 1–1 Manchester United",
+          "minutes": 90.0,
+          "counts": {
+            "passes": 33,
+            "tackles": 8,
+            "interceptions": 1,
+            "recoveries": 5
+          },
+          "event_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3749246.json",
+            "sha256": "57fae6a4b3b7af323caf863b078243670d5caff0e5395a05f8d91f0ab0c6a1e0"
+          },
+          "lineup_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/lineups/3749246.json",
+            "sha256": "0238e92cdd7e38de0104c206aa8d728b6ae29a851fde87854dadb2f8f4e6ea00"
+          }
+        },
+        {
+          "id": 3749552,
+          "date": "2003-09-21",
+          "player_id": 15515,
+          "name": "Manchester United 0–0 Arsenal",
+          "minutes": 90.0,
+          "counts": {
+            "passes": 56,
+            "tackles": 1,
+            "interceptions": 0,
+            "recoveries": 10
+          },
+          "event_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3749552.json",
+            "sha256": "642521bff1ce0c05633ebb8bdf5c54f81e9e21855e168e7dc93d60388c4d4379"
+          },
+          "lineup_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/lineups/3749552.json",
+            "sha256": "468b8fd6ccf5ab86963b78e6cd6e509f51b5d62d37be6c697912177b54cf9ad9"
+          }
+        },
+        {
+          "id": 3749276,
+          "date": "2004-02-21",
+          "player_id": 15515,
+          "name": "Chelsea 1–2 Arsenal",
+          "minutes": 90.0,
+          "counts": {
+            "passes": 44,
+            "tackles": 4,
+            "interceptions": 1,
+            "recoveries": 7
+          },
+          "event_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3749276.json",
+            "sha256": "8065581fe4812f5548531c984968113f7739ca5ae40282439afcfc87b3a20c7a"
+          },
+          "lineup_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/lineups/3749276.json",
+            "sha256": "d9463c0fe28d269177c0eb5b982c42022a6ee21a962f6d27737a0f813fc04b74"
+          }
+        }
+      ],
+      "id": "statsbomb:15515",
+      "reference_kind": "match_sample",
+      "provider": "StatsBomb Open Data",
+      "season": "2003/04 · 3 recorded PL matches",
+      "source": {
+        "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/matches/2/44.json",
+        "checked_at": "2026-10-25",
+        "sha256": "bb4dda2763385050725507de76719f11d506b14a66148c7348950a02eadfcf35"
+      },
+      "limitations": [
+        "Selected matches involving Arsenal, not complete-season or career rates. Different sample sizes and opponents are not adjusted for.",
+        "Minutes are the union of source lineup position intervals on a regulation-minute clock, capped at ninety; counts include first/second-half added time.",
+        "Pass events, tackle duels, interception events and successful ball recoveries are explicit StatsBomb definitions. Complete equivalence to ESPN/Opta summary fields is not established. Long-pass counts are withheld."
+      ]
+    },
+    {
+      "player": "Claude Makelele",
+      "inspiration": "Makelele-inspired",
+      "role": "CDM",
+      "club": "Chelsea",
+      "minutes": 180.0,
+      "counts": {
+        "passes": 113,
+        "shots": null,
+        "takeons": null,
+        "tackles": 4,
+        "interceptions": 3,
+        "long_passes": null,
+        "clearances": null,
+        "aerials": null,
+        "shot_assists": null,
+        "goals": null,
+        "assists": null,
+        "box_touches": null,
+        "recoveries": 19,
+        "saves": null,
+        "conceded": null,
+        "punches": null
+      },
+      "matches": [
+        {
+          "id": 3749079,
+          "date": "2003-10-18",
+          "player_id": 20254,
+          "name": "Arsenal 2–1 Chelsea",
+          "minutes": 90.0,
+          "counts": {
+            "passes": 56,
+            "tackles": 1,
+            "interceptions": 3,
+            "recoveries": 8
+          },
+          "event_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3749079.json",
+            "sha256": "645eaad6dbfd19f7f91b92ece272f6cc0fe450d0910ec6879137e45b0b1a6112"
+          },
+          "lineup_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/lineups/3749079.json",
+            "sha256": "efe9acabf5cbd8202f38155660d48fc2b7d181c2bd3dee4303e433903068fa59"
+          }
+        },
+        {
+          "id": 3749276,
+          "date": "2004-02-21",
+          "player_id": 20254,
+          "name": "Chelsea 1–2 Arsenal",
+          "minutes": 90.0,
+          "counts": {
+            "passes": 57,
+            "tackles": 3,
+            "interceptions": 0,
+            "recoveries": 11
+          },
+          "event_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3749276.json",
+            "sha256": "8065581fe4812f5548531c984968113f7739ca5ae40282439afcfc87b3a20c7a"
+          },
+          "lineup_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/lineups/3749276.json",
+            "sha256": "d9463c0fe28d269177c0eb5b982c42022a6ee21a962f6d27737a0f813fc04b74"
+          }
+        }
+      ],
+      "id": "statsbomb:20254",
+      "reference_kind": "match_sample",
+      "provider": "StatsBomb Open Data",
+      "season": "2003/04 · 2 recorded PL matches",
+      "source": {
+        "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/matches/2/44.json",
+        "checked_at": "2026-10-25",
+        "sha256": "bb4dda2763385050725507de76719f11d506b14a66148c7348950a02eadfcf35"
+      },
+      "limitations": [
+        "Selected matches involving Arsenal, not complete-season or career rates. Different sample sizes and opponents are not adjusted for.",
+        "Minutes are the union of source lineup position intervals on a regulation-minute clock, capped at ninety; counts include first/second-half added time.",
+        "Pass events, tackle duels, interception events and successful ball recoveries are explicit StatsBomb definitions. Complete equivalence to ESPN/Opta summary fields is not established. Long-pass counts are withheld."
+      ]
+    }
+  ]
+}

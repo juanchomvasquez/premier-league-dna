@@ -1,7 +1,7 @@
 {
   "version": 2,
   "season": "2026/27",
-  "checked_at": "2026-10-25T03:31:11.084192+00:00",
+  "checked_at": "2026-10-25T04:38:25.935308+00:00",
   "selection": "One sourced performance for each of eight position groups, from eight different clubs, across fixtures completed by 24 Oct 2026. The named examples were fixed before calculating their legend blends. This is a varied convenience sample, not a representative random league sample or a claim that every example is a standout.",
   "references": [
     {
@@ -180,41 +180,6 @@
       }
     },
     {
-      "player": "Kevin De Bruyne",
-      "id": "61366",
-      "role": "CAM",
-      "inspiration": "De Bruyne-inspired",
-      "season": "2019/20",
-      "minutes": 2798.0,
-      "appearances": 35.0,
-      "counts": {
-        "passes": 1907.0,
-        "shots": 70.0,
-        "takeons": 48.0,
-        "tackles": 45.0,
-        "interceptions": 18.0,
-        "long_passes": 121.0,
-        "clearances": 23.0,
-        "aerials": 17.0,
-        "shot_assists": 116.0,
-        "goals": 13.0,
-        "assists": 20.0,
-        "box_touches": 159.0,
-        "recoveries": 136.0,
-        "saves": null,
-        "conceded": 22.0,
-        "punches": null
-      },
-      "source": {
-        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2019/players/61366/stats",
-        "checked_at": "2026-10-25T02:11:13.513470+00:00",
-        "sha256": "73d8134adfc5320e604cd3885d0480cad4b9918e764bca1c326afff1aedfe7a2",
-        "http_age_seconds": null,
-        "http_last_modified": null,
-        "canonical_sha256": "88000c73565b43ddfaf4e21464783217c59c8619aaa7fc54e8c7d660f0cef4dc"
-      }
-    },
-    {
       "player": "John Terry",
       "id": "1718",
       "role": "CB",
@@ -285,38 +250,38 @@
       }
     },
     {
-      "player": "Virgil van Dijk",
-      "id": "97032",
+      "player": "Rio Ferdinand",
+      "id": "2034",
       "role": "CB",
-      "inspiration": "Van Dijk-inspired",
-      "season": "2018/19",
-      "minutes": 3385.0,
-      "appearances": 38.0,
+      "inspiration": "Rio Ferdinand-inspired",
+      "season": "2012/13",
+      "minutes": 2323.0,
+      "appearances": 28.0,
       "counts": {
-        "passes": 3037.0,
-        "shots": 23.0,
-        "takeons": 9.0,
-        "tackles": 38.0,
-        "interceptions": 40.0,
-        "long_passes": 203.0,
-        "clearances": 199.0,
-        "aerials": 182.0,
-        "shot_assists": 5.0,
-        "goals": 4.0,
-        "assists": 2.0,
-        "box_touches": 70.0,
-        "recoveries": 193.0,
+        "passes": 1299.0,
+        "shots": 2.0,
+        "takeons": 7.0,
+        "tackles": 35.0,
+        "interceptions": 41.0,
+        "long_passes": 139.0,
+        "clearances": 222.0,
+        "aerials": 46.0,
+        "shot_assists": 4.0,
+        "goals": 1.0,
+        "assists": 1.0,
+        "box_touches": 2.0,
+        "recoveries": 126.0,
         "saves": null,
-        "conceded": 22.0,
+        "conceded": 32.0,
         "punches": null
       },
       "source": {
-        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2018/players/97032/stats",
-        "checked_at": "2026-10-25T02:11:16.275464+00:00",
-        "sha256": "58f03eee63d09efcf36cda922d7d5ddbb493174262bce3c344446271a6d38403",
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2012/players/2034/stats",
+        "checked_at": "2026-10-25T04:28:01.885809+00:00",
+        "sha256": "71b5351de180bcd630b015b4922c4ac7f2199b60baa3c09f8e3bde94904cad95",
         "http_age_seconds": null,
         "http_last_modified": null,
-        "canonical_sha256": "c13873dde58a499e7b9040ba6f5f197863e0312956764a91b85095d139551892"
+        "canonical_sha256": "bab5c1965d60fc8af02ceec68dfe1b7200a578f0c8ed171aedfea18986262154"
       }
     },
     {
@@ -355,38 +320,38 @@
       }
     },
     {
-      "player": "Alisson Becker",
-      "id": "116535",
+      "player": "Edwin van der Sar",
+      "id": "4058",
       "role": "GK",
-      "inspiration": "Alisson-inspired",
-      "season": "2018/19",
-      "minutes": 3420.0,
-      "appearances": 38.0,
+      "inspiration": "Van der Sar-inspired",
+      "season": "2008/09",
+      "minutes": 2913.0,
+      "appearances": 33.0,
       "counts": {
-        "passes": 1076.0,
+        "passes": 880.0,
         "shots": null,
-        "takeons": 2.0,
-        "tackles": 2.0,
-        "interceptions": 1.0,
-        "long_passes": 183.0,
-        "clearances": 31.0,
-        "aerials": 11.0,
-        "shot_assists": null,
+        "takeons": null,
+        "tackles": null,
+        "interceptions": 4.0,
+        "long_passes": 223.0,
+        "clearances": 33.0,
+        "aerials": null,
+        "shot_assists": 2.0,
         "goals": null,
         "assists": null,
         "box_touches": null,
-        "recoveries": 334.0,
-        "saves": 76.0,
-        "conceded": 22.0,
-        "punches": 17.0
+        "recoveries": 358.0,
+        "saves": 71.0,
+        "conceded": 21.0,
+        "punches": 16.0
       },
       "source": {
-        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2018/players/116535/stats",
-        "checked_at": "2026-10-25T02:11:18.828032+00:00",
-        "sha256": "23c8b9c249c46fd3e1f2b3bd0c606d122cb2499500b7eac70dde6e5468db8097",
-        "http_age_seconds": null,
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2008/players/4058/stats",
+        "checked_at": "2026-10-25T04:26:50.334913+00:00",
+        "sha256": "6c17f022bddfd153373b884f87976db5ded8d2ca14a8318c91adb0c040481f12",
+        "http_age_seconds": "64",
         "http_last_modified": null,
-        "canonical_sha256": "6606ba013413d22c06a1a10d80a4e86d5ee61faf0faac1f71639382bc2cade96"
+        "canonical_sha256": "7976b451605c0c4234388087b7d1799c78108b8e9aa7756a2ace894b84b688ce"
       }
     },
     {
@@ -425,143 +390,73 @@
       }
     },
     {
-      "player": "Kyle Walker",
-      "id": "58621",
+      "player": "Gary Neville",
+      "id": "1807",
       "role": "FB",
-      "inspiration": "Kyle Walker-inspired",
-      "season": "2017/18",
-      "minutes": 2787.0,
-      "appearances": 32.0,
+      "inspiration": "Gary Neville-inspired",
+      "season": "2008/09",
+      "minutes": 1073.0,
+      "appearances": 16.0,
       "counts": {
-        "passes": 2362.0,
-        "shots": 10.0,
-        "takeons": 26.0,
-        "tackles": 47.0,
-        "interceptions": 29.0,
-        "long_passes": 87.0,
-        "clearances": 67.0,
-        "aerials": 70.0,
-        "shot_assists": 24.0,
+        "passes": 588.0,
+        "shots": 2.0,
+        "takeons": 3.0,
+        "tackles": 21.0,
+        "interceptions": 24.0,
+        "long_passes": 43.0,
+        "clearances": 68.0,
+        "aerials": 14.0,
+        "shot_assists": 6.0,
         "goals": null,
-        "assists": 6.0,
-        "box_touches": 36.0,
-        "recoveries": 175.0,
+        "assists": null,
+        "box_touches": 6.0,
+        "recoveries": 64.0,
         "saves": null,
-        "conceded": 22.0,
+        "conceded": 9.0,
         "punches": null
       },
       "source": {
-        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2017/players/58621/stats",
-        "checked_at": "2026-10-25T02:11:21.152025+00:00",
-        "sha256": "14f188f204dffe4b93c55e87f17060ef9aab3b6546fa12c41a318f5b967e31fe",
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2008/players/1807/stats",
+        "checked_at": "2026-10-25T04:28:04.318298+00:00",
+        "sha256": "3af411a0c5fe1c76290272c9148ee424b11c3b9724c4000576a01199cab3afa4",
         "http_age_seconds": null,
         "http_last_modified": null,
-        "canonical_sha256": "3f5feed77e33fa59b87572d555a31d2dfbc20fbdc0189716796e84478fb797e5"
+        "canonical_sha256": "36944e544de4242715a1f1fddd9fddf1782a3be8792f1a443c39a0de0e10412c"
       }
     },
     {
-      "player": "Trent Alexander-Arnold",
-      "id": "169187",
+      "player": "Leighton Baines",
+      "id": "12745",
       "role": "FB",
-      "inspiration": "Alexander-Arnold-inspired",
-      "season": "2019/20",
-      "minutes": 3176.0,
+      "inspiration": "Baines-inspired",
+      "season": "2012/13",
+      "minutes": 3420.0,
       "appearances": 38.0,
       "counts": {
-        "passes": 2440.0,
-        "shots": 27.0,
-        "takeons": 21.0,
-        "tackles": 55.0,
-        "interceptions": 45.0,
-        "long_passes": 192.0,
-        "clearances": 70.0,
-        "aerials": 16.0,
-        "shot_assists": 74.0,
-        "goals": 4.0,
-        "assists": 13.0,
-        "box_touches": 55.0,
-        "recoveries": 221.0,
+        "passes": 1663.0,
+        "shots": 23.0,
+        "takeons": 30.0,
+        "tackles": 92.0,
+        "interceptions": 57.0,
+        "long_passes": 49.0,
+        "clearances": 75.0,
+        "aerials": 11.0,
+        "shot_assists": 111.0,
+        "goals": 5.0,
+        "assists": 5.0,
+        "box_touches": 46.0,
+        "recoveries": 158.0,
         "saves": null,
-        "conceded": 32.0,
+        "conceded": 40.0,
         "punches": null
       },
       "source": {
-        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2019/players/169187/stats",
-        "checked_at": "2026-10-25T02:11:21.190735+00:00",
-        "sha256": "9867b987d9e26580e646c20444d226b2a745fdc01df0fd678b52c89b971b0a8f",
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2012/players/12745/stats",
+        "checked_at": "2026-10-25T04:26:56.771293+00:00",
+        "sha256": "e203780360807dd9d06110e2d3adfffba34295542b71da2cd5df32333e67b6fd",
         "http_age_seconds": null,
         "http_last_modified": null,
-        "canonical_sha256": "968c049af4c1c051909fe2fa1e4ead99ad1d086a7e015f09889cc3b3a2dfd1e8"
-      }
-    },
-    {
-      "player": "N'Golo Kanté",
-      "id": "116594",
-      "role": "CDM",
-      "inspiration": "Kante-inspired",
-      "season": "2016/17",
-      "minutes": 3139.0,
-      "appearances": 35.0,
-      "counts": {
-        "passes": 2122.0,
-        "shots": 17.0,
-        "takeons": 36.0,
-        "tackles": 127.0,
-        "interceptions": 82.0,
-        "long_passes": 136.0,
-        "clearances": 41.0,
-        "aerials": 19.0,
-        "shot_assists": 21.0,
-        "goals": 1.0,
-        "assists": 1.0,
-        "box_touches": 20.0,
-        "recoveries": 275.0,
-        "saves": null,
-        "conceded": 33.0,
-        "punches": null
-      },
-      "source": {
-        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2016/players/116594/stats",
-        "checked_at": "2026-10-25T02:11:21.237979+00:00",
-        "sha256": "ca0316a33d5bb502b0092b41d3f487c64a237edacdccb9668153d0349cfe148a",
-        "http_age_seconds": null,
-        "http_last_modified": null,
-        "canonical_sha256": "7c4e63a877d743dc81e036b66779ad16a8f2eb030e6a55881772f3060ca9ff35"
-      }
-    },
-    {
-      "player": "Rodri",
-      "id": "220566",
-      "role": "CDM",
-      "inspiration": "Rodri-inspired",
-      "season": "2022/23",
-      "minutes": 2920.0,
-      "appearances": 36.0,
-      "counts": {
-        "passes": 2977.0,
-        "shots": 33.0,
-        "takeons": 26.0,
-        "tackles": 66.0,
-        "interceptions": 33.0,
-        "long_passes": 171.0,
-        "clearances": 42.0,
-        "aerials": 72.0,
-        "shot_assists": 26.0,
-        "goals": 2.0,
-        "assists": 6.0,
-        "box_touches": 61.0,
-        "recoveries": 301.0,
-        "saves": null,
-        "conceded": 26.0,
-        "punches": null
-      },
-      "source": {
-        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2022/players/220566/stats",
-        "checked_at": "2026-10-25T02:11:23.672377+00:00",
-        "sha256": "eb5e85acc8a43df01ca112d7c0e65ca787c97d6b88cc042730b86b94168b6e4a",
-        "http_age_seconds": null,
-        "http_last_modified": null,
-        "canonical_sha256": "4c6151f894196ce902387a22f83afc8d41d764aba28b23c1ac34d75f3986e433"
+        "canonical_sha256": "81547f6c7894e43b7aa1f01b3208ce8a4b64a0aa5732b34d2a73a1736490227c"
       }
     },
     {
@@ -600,38 +495,73 @@
       }
     },
     {
-      "player": "Mohamed Salah",
-      "id": "118748",
+      "player": "Ryan Giggs",
+      "id": "3",
       "role": "WING",
-      "inspiration": "Salah-inspired",
-      "season": "2017/18",
-      "minutes": 2921.0,
-      "appearances": 36.0,
+      "inspiration": "Giggs-inspired",
+      "season": "2008/09",
+      "minutes": 1500.0,
+      "appearances": 28.0,
       "counts": {
-        "passes": 946.0,
-        "shots": 111.0,
-        "takeons": 79.0,
-        "tackles": 12.0,
-        "interceptions": 5.0,
-        "long_passes": 18.0,
-        "clearances": 3.0,
-        "aerials": 13.0,
-        "shot_assists": 52.0,
-        "goals": 32.0,
-        "assists": 10.0,
-        "box_touches": 282.0,
-        "recoveries": 122.0,
+        "passes": 908.0,
+        "shots": 19.0,
+        "takeons": 19.0,
+        "tackles": 36.0,
+        "interceptions": 29.0,
+        "long_passes": 54.0,
+        "clearances": 14.0,
+        "aerials": 5.0,
+        "shot_assists": 54.0,
+        "goals": 2.0,
+        "assists": 7.0,
+        "box_touches": 51.0,
+        "recoveries": 117.0,
         "saves": null,
-        "conceded": 30.0,
+        "conceded": 10.0,
         "punches": null
       },
       "source": {
-        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2017/players/118748/stats",
-        "checked_at": "2026-10-25T02:11:26.664542+00:00",
-        "sha256": "a6ce5567b2ebbdf50e99a0cf14ff06e240f214f46ef262f39796688793d1b7cc",
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2008/players/3/stats",
+        "checked_at": "2026-10-25T04:28:08.110872+00:00",
+        "sha256": "948792820f1b5e2422e816fce8fde6ee703038a6448d1d0a6435a5b20c26e8f9",
         "http_age_seconds": null,
         "http_last_modified": null,
-        "canonical_sha256": "314de5757fde9635794c3f11d3b8ff8fd947e895414dbc6d40e724df03ba7319"
+        "canonical_sha256": "2d8214b58636ff4ce686484593dd11fa0619263c140300ce239228959fd164eb"
+      }
+    },
+    {
+      "player": "Gareth Bale",
+      "id": "36903",
+      "role": "WING",
+      "inspiration": "Bale-inspired",
+      "season": "2012/13",
+      "minutes": 2924.0,
+      "appearances": 33.0,
+      "counts": {
+        "passes": 1131.0,
+        "shots": 133.0,
+        "takeons": 59.0,
+        "tackles": 33.0,
+        "interceptions": 42.0,
+        "long_passes": 35.0,
+        "clearances": 60.0,
+        "aerials": 57.0,
+        "shot_assists": 71.0,
+        "goals": 21.0,
+        "assists": 4.0,
+        "box_touches": 152.0,
+        "recoveries": 109.0,
+        "saves": null,
+        "conceded": 36.0,
+        "punches": null
+      },
+      "source": {
+        "url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2012/players/36903/stats",
+        "checked_at": "2026-10-25T04:27:04.635513+00:00",
+        "sha256": "3ed45449ebb88d66802224aaf8c0ac21fd4a19c1101624eb40982b1e1e53e675",
+        "http_age_seconds": null,
+        "http_last_modified": null,
+        "canonical_sha256": "7502f8928c963467b9c216fb242e72cf3d9f61ab096920e2ba5a0e83eaa464a0"
       }
     },
     {
@@ -703,9 +633,288 @@
         "http_last_modified": null,
         "canonical_sha256": "5a72d0ed9639af9fda1c545cbcdacbf802e05354e19d8124456667f29e6e908a"
       }
+    },
+    {
+      "player": "Roy Keane",
+      "inspiration": "Keane-inspired",
+      "role": "CDM",
+      "club": "Manchester United",
+      "minutes": 180.0,
+      "counts": {
+        "passes": 137,
+        "shots": null,
+        "takeons": null,
+        "tackles": 7,
+        "interceptions": 0,
+        "long_passes": null,
+        "clearances": null,
+        "aerials": null,
+        "shot_assists": null,
+        "goals": null,
+        "assists": null,
+        "box_touches": null,
+        "recoveries": 13,
+        "saves": null,
+        "conceded": null,
+        "punches": null
+      },
+      "matches": [
+        {
+          "id": 3749246,
+          "date": "2004-03-28",
+          "player_id": 24805,
+          "name": "Arsenal 1–1 Manchester United",
+          "minutes": 90.0,
+          "counts": {
+            "passes": 62,
+            "tackles": 2,
+            "interceptions": 0,
+            "recoveries": 7
+          },
+          "event_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3749246.json",
+            "sha256": "57fae6a4b3b7af323caf863b078243670d5caff0e5395a05f8d91f0ab0c6a1e0"
+          },
+          "lineup_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/lineups/3749246.json",
+            "sha256": "0238e92cdd7e38de0104c206aa8d728b6ae29a851fde87854dadb2f8f4e6ea00"
+          }
+        },
+        {
+          "id": 3749552,
+          "date": "2003-09-21",
+          "player_id": 24805,
+          "name": "Manchester United 0–0 Arsenal",
+          "minutes": 90.0,
+          "counts": {
+            "passes": 75,
+            "tackles": 5,
+            "interceptions": 0,
+            "recoveries": 6
+          },
+          "event_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3749552.json",
+            "sha256": "642521bff1ce0c05633ebb8bdf5c54f81e9e21855e168e7dc93d60388c4d4379"
+          },
+          "lineup_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/lineups/3749552.json",
+            "sha256": "468b8fd6ccf5ab86963b78e6cd6e509f51b5d62d37be6c697912177b54cf9ad9"
+          }
+        }
+      ],
+      "id": "statsbomb:24805",
+      "reference_kind": "match_sample",
+      "provider": "StatsBomb Open Data",
+      "season": "2003/04 · 2 recorded PL matches",
+      "source": {
+        "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/matches/2/44.json",
+        "checked_at": "2026-10-25",
+        "sha256": "bb4dda2763385050725507de76719f11d506b14a66148c7348950a02eadfcf35"
+      },
+      "limitations": [
+        "Selected matches involving Arsenal, not complete-season or career rates. Different sample sizes and opponents are not adjusted for.",
+        "Minutes are the union of source lineup position intervals on a regulation-minute clock, capped at ninety; counts include first/second-half added time.",
+        "Pass events, tackle duels, interception events and successful ball recoveries are explicit StatsBomb definitions. Complete equivalence to ESPN/Opta summary fields is not established. Long-pass counts are withheld."
+      ]
+    },
+    {
+      "player": "Patrick Vieira",
+      "inspiration": "Vieira-inspired",
+      "role": "CDM",
+      "club": "Arsenal",
+      "minutes": 270.0,
+      "counts": {
+        "passes": 133,
+        "shots": null,
+        "takeons": null,
+        "tackles": 13,
+        "interceptions": 2,
+        "long_passes": null,
+        "clearances": null,
+        "aerials": null,
+        "shot_assists": null,
+        "goals": null,
+        "assists": null,
+        "box_touches": null,
+        "recoveries": 22,
+        "saves": null,
+        "conceded": null,
+        "punches": null
+      },
+      "matches": [
+        {
+          "id": 3749246,
+          "date": "2004-03-28",
+          "player_id": 15515,
+          "name": "Arsenal 1–1 Manchester United",
+          "minutes": 90.0,
+          "counts": {
+            "passes": 33,
+            "tackles": 8,
+            "interceptions": 1,
+            "recoveries": 5
+          },
+          "event_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3749246.json",
+            "sha256": "57fae6a4b3b7af323caf863b078243670d5caff0e5395a05f8d91f0ab0c6a1e0"
+          },
+          "lineup_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/lineups/3749246.json",
+            "sha256": "0238e92cdd7e38de0104c206aa8d728b6ae29a851fde87854dadb2f8f4e6ea00"
+          }
+        },
+        {
+          "id": 3749552,
+          "date": "2003-09-21",
+          "player_id": 15515,
+          "name": "Manchester United 0–0 Arsenal",
+          "minutes": 90.0,
+          "counts": {
+            "passes": 56,
+            "tackles": 1,
+            "interceptions": 0,
+            "recoveries": 10
+          },
+          "event_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3749552.json",
+            "sha256": "642521bff1ce0c05633ebb8bdf5c54f81e9e21855e168e7dc93d60388c4d4379"
+          },
+          "lineup_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/lineups/3749552.json",
+            "sha256": "468b8fd6ccf5ab86963b78e6cd6e509f51b5d62d37be6c697912177b54cf9ad9"
+          }
+        },
+        {
+          "id": 3749276,
+          "date": "2004-02-21",
+          "player_id": 15515,
+          "name": "Chelsea 1–2 Arsenal",
+          "minutes": 90.0,
+          "counts": {
+            "passes": 44,
+            "tackles": 4,
+            "interceptions": 1,
+            "recoveries": 7
+          },
+          "event_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3749276.json",
+            "sha256": "8065581fe4812f5548531c984968113f7739ca5ae40282439afcfc87b3a20c7a"
+          },
+          "lineup_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/lineups/3749276.json",
+            "sha256": "d9463c0fe28d269177c0eb5b982c42022a6ee21a962f6d27737a0f813fc04b74"
+          }
+        }
+      ],
+      "id": "statsbomb:15515",
+      "reference_kind": "match_sample",
+      "provider": "StatsBomb Open Data",
+      "season": "2003/04 · 3 recorded PL matches",
+      "source": {
+        "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/matches/2/44.json",
+        "checked_at": "2026-10-25",
+        "sha256": "bb4dda2763385050725507de76719f11d506b14a66148c7348950a02eadfcf35"
+      },
+      "limitations": [
+        "Selected matches involving Arsenal, not complete-season or career rates. Different sample sizes and opponents are not adjusted for.",
+        "Minutes are the union of source lineup position intervals on a regulation-minute clock, capped at ninety; counts include first/second-half added time.",
+        "Pass events, tackle duels, interception events and successful ball recoveries are explicit StatsBomb definitions. Complete equivalence to ESPN/Opta summary fields is not established. Long-pass counts are withheld."
+      ]
+    },
+    {
+      "player": "Claude Makelele",
+      "inspiration": "Makelele-inspired",
+      "role": "CDM",
+      "club": "Chelsea",
+      "minutes": 180.0,
+      "counts": {
+        "passes": 113,
+        "shots": null,
+        "takeons": null,
+        "tackles": 4,
+        "interceptions": 3,
+        "long_passes": null,
+        "clearances": null,
+        "aerials": null,
+        "shot_assists": null,
+        "goals": null,
+        "assists": null,
+        "box_touches": null,
+        "recoveries": 19,
+        "saves": null,
+        "conceded": null,
+        "punches": null
+      },
+      "matches": [
+        {
+          "id": 3749079,
+          "date": "2003-10-18",
+          "player_id": 20254,
+          "name": "Arsenal 2–1 Chelsea",
+          "minutes": 90.0,
+          "counts": {
+            "passes": 56,
+            "tackles": 1,
+            "interceptions": 3,
+            "recoveries": 8
+          },
+          "event_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3749079.json",
+            "sha256": "645eaad6dbfd19f7f91b92ece272f6cc0fe450d0910ec6879137e45b0b1a6112"
+          },
+          "lineup_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/lineups/3749079.json",
+            "sha256": "efe9acabf5cbd8202f38155660d48fc2b7d181c2bd3dee4303e433903068fa59"
+          }
+        },
+        {
+          "id": 3749276,
+          "date": "2004-02-21",
+          "player_id": 20254,
+          "name": "Chelsea 1–2 Arsenal",
+          "minutes": 90.0,
+          "counts": {
+            "passes": 57,
+            "tackles": 3,
+            "interceptions": 0,
+            "recoveries": 11
+          },
+          "event_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/events/3749276.json",
+            "sha256": "8065581fe4812f5548531c984968113f7739ca5ae40282439afcfc87b3a20c7a"
+          },
+          "lineup_source": {
+            "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/lineups/3749276.json",
+            "sha256": "d9463c0fe28d269177c0eb5b982c42022a6ee21a962f6d27737a0f813fc04b74"
+          }
+        }
+      ],
+      "id": "statsbomb:20254",
+      "reference_kind": "match_sample",
+      "provider": "StatsBomb Open Data",
+      "season": "2003/04 · 2 recorded PL matches",
+      "source": {
+        "url": "https://raw.githubusercontent.com/hudl/open-data/4b73468fc5b0f1950f9f66fada70ad3a4f9327cb/data/matches/2/44.json",
+        "checked_at": "2026-10-25",
+        "sha256": "bb4dda2763385050725507de76719f11d506b14a66148c7348950a02eadfcf35"
+      },
+      "limitations": [
+        "Selected matches involving Arsenal, not complete-season or career rates. Different sample sizes and opponents are not adjusted for.",
+        "Minutes are the union of source lineup position intervals on a regulation-minute clock, capped at ninety; counts include first/second-half added time.",
+        "Pass events, tackle duels, interception events and successful ball recoveries are explicit StatsBomb definitions. Complete equivalence to ESPN/Opta summary fields is not established. Long-pass counts are withheld."
+      ]
     }
   ],
   "unavailable_references": [
+    {
+      "unavailable": true,
+      "player": "Dennis Bergkamp",
+      "inspiration": "Bergkamp-inspired",
+      "role": "CAM",
+      "season": "1997/98",
+      "source_url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/1997/players/1608/stats",
+      "reason": "Detailed comparable fields are not consistently covered before 2006/07; no rates are inferred."
+    },
     {
       "unavailable": true,
       "player": "Peter Schmeichel",
@@ -714,24 +923,6 @@
       "season": "1995/96",
       "source_url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/1995/players/3952/stats",
       "reason": "Detailed comparable fields are not consistently covered before 2006/07; no rates are inferred."
-    },
-    {
-      "unavailable": true,
-      "player": "Claude Makélélé",
-      "inspiration": "Makelele-inspired",
-      "role": "CDM",
-      "season": "2006/07",
-      "source_url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2006/players/6083/stats",
-      "reason": "Source returned HTTP 404 for this season."
-    },
-    {
-      "unavailable": true,
-      "player": "Cristiano Ronaldo",
-      "inspiration": "Ronaldo-inspired",
-      "role": "WING",
-      "season": "2007/08",
-      "source_url": "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v2/competitions/8/seasons/2007/players/14937/stats",
-      "reason": "Source returned HTTP 404 for this season."
     },
     {
       "unavailable": true,

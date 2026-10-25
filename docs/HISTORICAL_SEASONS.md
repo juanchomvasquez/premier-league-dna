@@ -1,3 +1,5 @@
+> Historical documentation of the earlier card catalogue. The current retired-only roster, Roy Keane replacement and CDM match samples are documented in [CURRENT_SEASON_AND_LIVE.md](CURRENT_SEASON_AND_LIVE.md).
+
 # Sourced Premier League season facts
 
 Checked 23 October 2026. This is a small, manually reviewed factual snapshot with

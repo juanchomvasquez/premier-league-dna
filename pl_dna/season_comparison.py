@@ -9,6 +9,20 @@ from pl_dna.season_feed import FIELDS, ROLE_METRICS, ROLE_LABELS
 MAX_SCALED_RMSE = 0.5
 MAX_AXIS_ERROR = 1.0
 
+def _recorded_only(payload):
+    """A missing legend comparison must not erase a usable match performance."""
+    snapshot=payload['target'];minutes=snapshot['minutes']
+    keys=[k for k in ROLE_METRICS[payload['role']] if snapshot['counts'].get(k) is not None and k not in snapshot['excluded_metrics']]
+    payload['metric_keys']=keys
+    payload['fit_status']='comparison_unavailable'
+    payload['interpretation_available']=len(keys)>=2
+    payload['evidence']=[dict(id='recorded:'+k,kind='recorded',legend=None,metric=k,label=FIELDS[k][0],
+        sentence=f"{payload['player']} recorded {snapshot['counts'][k]:g} {FIELDS[k][0].lower()} in {minutes:g} minutes.") for k in keys]
+    for label,fact in snapshot.get('execution',{}).items():
+        payload['evidence'].append(dict(id='execution:'+label,kind='execution',legend=None,metric='execution:'+label,label=label,
+            sentence=f"{payload['player']} — {label.lower()}: {fact['successful']:g} of {fact['attempted']:g} ({fact['percentage']:.1f}%) in {minutes:g} minutes."))
+    return payload
+
 
 def compare_season_player(player, snapshot, fixture, references, role):
     refs = {r['player']: deepcopy(r) for r in references if r['role'] == role}
@@ -17,19 +31,24 @@ def compare_season_player(player, snapshot, fixture, references, role):
         target=deepcopy(snapshot), references=refs, fixture=deepcopy(fixture),
         minute=snapshot['minutes'], availability='', evidence=[],
         coverage='; '.join(f"{n} {r['season']} ({r['minutes']:g} PL minutes)" for n, r in refs.items()),
-        limitations=['Historical rates use one complete, identified PL season per reference, never a hybrid of career-high metrics.',
-            'Current match counts are from ESPN; historical season counts are from the Premier League website. Field mappings are explicit; complete cross-provider equivalence has not been independently established.',
+        limitations=['Historical coverage is identified for each reference: full selected seasons or explicitly labelled selected-match samples; never a hybrid of career-high metrics.',
+            'Current match counts are from ESPN; historical counts come from the identified Premier League season service or StatsBomb Open Data match samples. Complete cross-provider equivalence has not been independently established.',
             'Weights are a descriptive, reference-scaled fit, not probabilities, ability ratings, or validated career-style similarity.',
             'Short-match per-90 rates can be volatile. Team role, opponent, game state and era are not adjusted for.',
             'Missing or disputed metrics are excluded; missing is never interpreted as zero.'],
         warnings=deepcopy(snapshot['warnings']))
+    sample_refs=[r for r in refs.values() if r.get('reference_kind')=='match_sample']
+    if sample_refs:
+        p['comparison_scope']='match_sample_rates'
+        p['reference_kind']='match_sample'
+        p['limitations'].extend(sample_refs[0]['limitations'])
     minutes = snapshot['minutes']
     if minutes is None or minutes < 30:
         p['availability'] = 'At least 30 source-reported minutes are required for this exploratory comparison. This display floor is not a reliability guarantee.'
         return p
     if not 2 <= len(refs) <= 4:
         p['availability'] = 'At least two usable historical references are needed for this position.'
-        return p
+        return _recorded_only(p)
     keys = [k for k in ROLE_METRICS[role] if k not in snapshot['excluded_metrics']
         and snapshot['counts'][k] is not None and all(r['counts'][k] is not None for r in refs.values())]
     reference_rates = {n: {k: 90*r['counts'][k]/r['minutes'] for k in keys} for n, r in refs.items()}
@@ -37,14 +56,14 @@ def compare_season_player(player, snapshot, fixture, references, role):
     keys = [k for k in keys if scales[k] > 0]
     if len(keys) < 3:
         p['availability'] = 'Fewer than three usable shared metrics remain. The recorded counts are available; no blend is calculated.'
-        return p
+        return _recorded_only(p)
     target_rates = {k: 90*snapshot['counts'][k]/minutes for k in keys}
     scaled_refs = {n: {'rates': {k: reference_rates[n][k]/scales[k] for k in keys}} for n in refs}
     try:
         fit = fit_blend({'rates': {k: target_rates[k]/scales[k] for k in keys}}, scaled_refs, keys)
     except ValueError:
         p['availability'] = 'These shared metrics cannot identify a unique blend from the loaded references.'
-        return p
+        return _recorded_only(p)
     p.update(fit=fit, metric_keys=keys, target_rates=target_rates, reference_rates=reference_rates,
              scales={k: scales[k] for k in keys}, omitted_metrics=[k for k in ROLE_METRICS[role] if k not in keys],
              fitted_rates={k: fit['reconstructed_rates'][k]*scales[k] for k in keys})

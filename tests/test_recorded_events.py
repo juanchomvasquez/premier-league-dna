@@ -82,15 +82,12 @@ class RecordedEventsTests(unittest.TestCase):
         self.assertEqual(set(CAREERS), set(LEGEND_CLUBS))
         self.assertEqual(dict(CAREERS['Shearer-inspired']['clubs']), {'Newcastle United':303, 'Blackburn Rovers':138})
         self.assertEqual(dict(CAREERS['Rooney-inspired']['clubs']), {'Manchester United':393, 'Everton':98})
-        walker = dict(CAREERS['Kyle Walker-inspired']['clubs'])
-        self.assertEqual(walker['Tottenham Hotspur'],183)
-        self.assertEqual(walker['Burnley'],36)
-        self.assertNotIn('Queens Park Rangers',walker)
-        self.assertNotIn('Sheffield United',walker)
-        self.assertEqual(CAREERS['Van Dijk-inspired']['appearances'],339)
-        self.assertIn('through 2025/26',career_html('Van Dijk-inspired'))
-        self.assertIn('—',career_html('Alisson-inspired'))
-        self.assertNotIn('0</strong><span>PL clean sheets',career_html('Alisson-inspired'))
+        rio = dict(CAREERS['Rio Ferdinand-inspired']['clubs'])
+        self.assertEqual(rio,{'Manchester United':312,'West Ham United':127,'Leeds United':54,'Queens Park Rangers':11})
+        self.assertEqual(CAREERS['Van der Sar-inspired']['appearances'],313)
+        self.assertEqual(CAREERS['Van der Sar-inspired']['clean_sheets'],132)
+        self.assertIn('Fulham',career_html('Van der Sar-inspired'))
+        self.assertIn('—',career_html('Van der Sar-inspired'))
 
     def test_optional_study_and_career_card_render_without_network_or_model_calls(self):
         import test_dashboard

@@ -35,35 +35,69 @@ events. The recorded view has no match-minute slider and is not presented as liv
 
 ## Historical references
 
-| Group | Available reference seasons |
+| Group | Available reference coverage |
 |---|---|
-| GK | Cech 2013/14; Alisson 2018/19 |
-| CB | Terry 2014/15; Vidic 2010/11; Van Dijk 2018/19 |
-| FB | Ashley Cole 2009/10; Walker 2017/18; Alexander-Arnold 2019/20 |
-| CDM | Kanté 2016/17; Rodri 2022/23 |
-| CM | Lampard 2009/10; Gerrard 2008/09; Scholes 2010/11 |
-| CAM | Fabregas 2014/15; Özil 2015/16; De Bruyne 2019/20 |
-| Wing | Hazard 2018/19; Salah 2017/18 |
-| ST | Drogba 2009/10; Rooney 2011/12 |
+| GK | Petr Cech 2013/14; Edwin van der Sar 2008/09 |
+| CB | John Terry 2014/15; Nemanja Vidic 2010/11; Rio Ferdinand 2012/13 |
+| FB | Ashley Cole 2009/10; Gary Neville 2008/09; Leighton Baines 2012/13 |
+| CDM | Roy Keane 2003/04 · 2 recorded PL matches; Patrick Vieira 2003/04 · 3 recorded PL matches; Claude Makelele 2003/04 · 2 recorded PL matches |
+| CM | Frank Lampard 2009/10; Steven Gerrard 2008/09; Paul Scholes 2010/11 |
+| CAM | Cesc Fàbregas 2014/15; Mesut Özil 2015/16 |
+| WING | Eden Hazard 2018/19; Ryan Giggs 2008/09; Gareth Bale 2012/13 |
+| ST | Didier Drogba 2009/10; Wayne Rooney 2011/12 |
 
-These 20 references use single, complete Premier League seasons and actual
-reported minutes. A reference requires at least 900 minutes and three usable
-role fields. No hybrid of career-high metrics is created. The selected seasons
-are not claimed to be every player's best overall season. Scholes 2010/11 is an
-available late-career reference rather than an asserted peak.
+The public pool is retired-only. Van der Sar, Rio Ferdinand, Gary Neville,
+Baines, Vieira, **Roy Keane**, Bergkamp, Giggs and Bale replace the active
+references. Carrick is not in the approved pool. Van Dijk remains a current
+example, never a historical reference. All 25 career cards retain sourced PL
+headlines and club colours weighted by PL appearances. Roy Keane's 366 PL
+appearances comprise Manchester United 326 and Nottingham Forest 40.
 
-All 25 career cards remain available. Schmeichel and Shearer's selected seasons
-predate consistent detailed coverage; the attempted Henry, Ronaldo and Makelele
-season endpoints returned 404. Their rates are unavailable, not zero; their
-cards are context only and they do not enter a fit. Each omission is disclosed.
-Career totals and separately displayed peak-season facts never enter the wheel.
-Source position labels and the chosen reference group are shown separately;
-the latter is not an independently verified tactical-role classification.
+There are **18 full-season references plus three CDM match-sample references**.
+Four selected-season references remain unavailable: Bergkamp, Schmeichel and
+Shearer predate consistent detailed coverage; Henry's endpoint returned 404.
+Missing values are never filled with zero. Later-career selections such as
+Ferdinand 2012/13 and Neville/Giggs 2008/09 are identified references, not claims
+about every player's prime season or unchanged career-long role.
+
+### CDM: actual recorded match samples
+
+StatsBomb Open Data supplies event-level observations from selected 2003/04
+Premier League matches. Keane: two matches, 180 regulation minutes. Vieira:
+three matches, 270 minutes. Makélélé: two matches, 180 minutes. Fixtures and
+source hashes are retained per player; each selected game involves Arsenal.
+This is a small convenience sample with different opponents/sample sizes, not
+season or career averages. No invented reference rates are used.
+
+Passes count all Pass events; tackles count Tackle-type Duel events;
+interceptions count Interception events; recoveries count Ball Recovery events
+without recovery_failure. Long passes are omitted because no sufficiently
+verified equivalence was established. Current ESPN summary definitions and
+these historical StatsBomb definitions are **not independently harmonized**.
+The UI labels the source/sampling limitations; the fit remains exploratory.
+
+Minutes come from the union of source lineup position intervals on a regulation
+clock, capped at ninety per game; event counts include first/second-half added
+time. This is a standard regulation-minute exposure convention, not a claim
+that no added time was played. Small samples can yield volatile rates. No
+opponent/era adjustment or validated career resemblance is claimed.
+
+Tools/build_cdm_samples.py derives these counts from a pinned publisher snapshot.
+Tools/audit_cdm_samples.py independently recounts events with SQLite and checks
+lineup exposure and source SHA-256 hashes. Raw events are not included in the
+upload package. StatsBomb attribution, source links and its logo appear in the
+CDM source expander. Missing reference coverage remains a distinct fallback,
+keeping usable recorded facts/wheel/AI available rather than inventing a blend.
+
+Tools/build_retired_roster.py creates the nine new career cards. Its separate
+audit checks source digests, player identity and numerical headlines. Club sums
+reconcile; the linked records establish club attribution. Career and headline
+season facts do not enter the fit.
 
 ## The comparison
 
 Per-90 rates use source-reported player minutes. Each axis is divided by the
-highest rate among its available reference seasons, then a nonnegative least-squares
+highest rate among its available reference periods, then a nonnegative least-squares
 mixture is fitted with weights summing to one. Each included, scaled axis has
 equal weight. Percentages use largest-remainder rounding. The wheel is not a
 percentile, ability rating, probability or validated career-similarity score.
@@ -72,7 +106,7 @@ are not adjusted for. Cross-provider equivalence of every field definition has
 not been independently established; this remains an exploratory estimate.
 
 The code requires at least 30 source-reported minutes and three shared metrics
-to display a blend. These are display rules, not statistical reliability thresholds.
+to display a blend. A missing historical blend does not suppress a usable recorded-only performance or its optional analyst brief. These are display rules, not statistical reliability thresholds.
 Missing values remain unavailable and are never filled with zero. The exact
 ESPN-to-PL field mapping is in `pl_dna/season_feed.py`.
 
@@ -165,6 +199,8 @@ No paid Azure requests were used during development/testing of this update.
 ```bash
 python tools/build_current_season.py --cache-dir ../source-audit-cache
 python tools/audit_current_season.py ../source-audit-cache
+python tools/audit_retired_roster.py ../source-audit-cache
+python tools/audit_cdm_samples.py ../cdm-source-cache
 python -m unittest discover -s tests -q
 ```
 
@@ -173,7 +209,7 @@ byte hashes and canonical JSON hashes are stored separately. Raw provider
 responses are not redistributed in the update; the bundle contains selected
 derived facts and provenance. A new empty cache causes a fresh source read.
 
-The independent SQLite audit checks all 20 reference seasons and eight selected
+The independent SQLite audit checks all 18 full-season references and eight selected
 performances, including source identity, minute denominators, count fields, execution facts,
 cache fingerprints, fixture-score corroboration and team/player shot reconciliation.
 It does not establish full provider-definition equivalence or validate a style model.
