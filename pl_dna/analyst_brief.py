@@ -6,27 +6,6 @@ from copy import deepcopy
 import re
 
 
-def brief_word_limits(payload):
-    """Acceptance ceilings allow modest overruns of prompt targets and apply equally to live briefs and full-time recaps."""
-    if payload.get('focus') == 'Broadcast talking point':
-        return (20, 50)
-    if payload.get('focus') == 'Fan explanation':
-        return (35, 80)
-    return (20, 110)  # Retained research requests without an audience selection.
-
-
-def compact_brief(narrative, maximum):
-    """Extract complete opening sentences, never rewrite facts or call a model."""
-    if len(narrative.split()) <= maximum:return narrative,False
-    sentences=re.split(r'(?<=[.!?])\s+',narrative.strip())
-    kept=[]
-    for sentence in sentences:
-        if len((' '.join(kept+[sentence])).split())>maximum:break
-        kept.append(sentence)
-    # A long single sentence stays intact; silently cutting a clause may change its meaning.
-    return (' '.join(kept),True) if kept else (narrative,False)
-
-
 def calculated_profile_story(payload):
     """A factual, local explanation survives missing/rejected AI prose."""
     comparison=payload.get('illustrative_comparison') or {}
@@ -66,11 +45,7 @@ def generate_analyst_brief(payload, provider):
             raise ValueError('Unexpected structure')
         headline,narrative,ids = reply['headline'],reply['narrative'],reply['evidence_ids']
         if not isinstance(headline,str) or not isinstance(narrative,str):raise ValueError('Text required')
-        minimum, maximum = brief_word_limits(trusted)
-        if not 3 <= len(headline.split()) <= 14:
-            return {'status':'fallback','reason':f'Microsoft headline had {len(headline.split())} words; it must have 3–14. No brief was accepted; recorded facts remain available.'}
-        if not minimum <= len(narrative.split()) <= 110:
-            return {'status':'fallback','reason':f'Microsoft brief had {len(narrative.split())} words; the safety range is {minimum}–110. No brief was accepted; recorded facts remain available.'}
+        if not headline.strip() or not narrative.strip():raise ValueError('Text required')
         text = headline+' '+narrative
         # Numbers are shown only in exact source facts below the interpretation.
         if re.search(r'[\d%<>{}\[\]]|https?://',text):raise ValueError('Prose must not introduce numerical claims or markup')
@@ -103,10 +78,9 @@ def generate_analyst_brief(payload, provider):
             for name,r in trusted['references'].items():
                 if name.casefold() in text.casefold() or r.get('short_label',name).casefold() in text.casefold():
                     raise ValueError('No legend resemblance is supported')
-        displayed,shortened=compact_brief(narrative.strip(),maximum)
-        return {'status':'evidence_checked','headline':headline.strip(),'text':displayed,
-            'original_text':narrative.strip(),'shortened':shortened,
-            'style_note':'Complete opening sentences shown; full wording is available below.' if shortened else ('Brief exceeds the style target; retained intact to avoid changing its meaning.' if len(displayed.split())>maximum else ''),
+        return {'status':'evidence_checked','headline':headline.strip(),'text':narrative.strip(),
+            'original_text':narrative.strip(),'shortened':False,
+            'style_note':'',
             'facts':[e['sentence'] for e in facts], 'evidence_ids':ids,
             'illustrative_comparison':deepcopy(trusted.get('illustrative_comparison'))}
     except (ValueError,KeyError,TypeError) as error:

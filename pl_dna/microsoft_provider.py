@@ -1,7 +1,6 @@
 """Opt-in Azure OpenAI Responses adapter; construction makes no network calls."""
 import json
 import os
-from pl_dna.analyst_brief import brief_word_limits
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
@@ -110,11 +109,10 @@ def create_provider_from_env(environ=None, transport=None):
         if payload.get('task') == 'performance_interpretation':
             allowed=[e['id'] for e in payload['evidence']]
             if len(allowed)<2: raise ProviderError('no_comparisons')
-            minimum, maximum = brief_word_limits(payload)
             options['max_output_tokens']=2200
             options['input']=(
                 'Write a concise football analyst brief, not a repetition of the calculated snapshot. '
-                f'Return headline (three to fourteen words), narrative ({minimum} to {maximum} words), '
+                'Return a clear headline, a complete narrative with enough detail to explain the football, '
                 'and two or three distinct evidence_ids covering different measurements. '
                 'Synthesize the cited observations into the most useful pattern or tension for this '
                 'position: how the contributions fit together, what the reference comparison suggests, '
@@ -151,20 +149,19 @@ def create_provider_from_env(environ=None, transport=None):
                 'For non-synthetic research only, use supplied equal-window changes when useful, '
                 'without saying more activity necessarily means better performance. If phase is full_time_recap, '
                 'write a completed-performance recap in past tense, not a prediction or an in-progress update. '
-                'The same audience length limit applies to the recap. Follow the requested language. '
-                'AUDIENCE CONTRACT: For Fan explanation, use two or three short sentences, plain language, '
-                'and a friendly football explanation. Lead with the clearest contribution, explain what '
-                'that action means (for example, progressive passes are passes that move the ball forward), '
-                'then give one brief evidence limitation only if needed. No analyst jargon. '
-                'For Broadcast talking point, write one or two punchy sentences a commentator can read aloud. '
-                'Lead with the player and the strongest supported football pattern; add one supporting '
-                'contrast only when directly supported. No teaching definitions, analytical essay, stock '
-                'introduction, rhetorical question, prediction, or generic caveat paragraph. '
-                'These must be distinct experiences, not the same paragraph shortened. '
-                'Stay comfortably inside the word budget: aim for twenty-five to thirty words for '
-                'Broadcast and forty-five to fifty-five for Fan, counting the synthetic attribution '
-                'and illustrative legend qualification. These are writing targets; the larger '
-                'format bounds are acceptance ceilings, not a request to write longer. '
+                'Follow the requested language. There is no editorial word-count limit; do not omit '
+                'the supported legend-profile explanation merely to make the response shorter. '
+                'AUDIENCE CONTRACT: For Fan explanation, use conversational everyday football '
+                'language and explain unfamiliar terms. Develop the story: what the player contributed, '
+                'how the supplied illustrative profiles help describe those contributions, and any '
+                'important mismatch or limitation. Give enough detail for a fan to understand why. '
+                'For Broadcast talking point, write a presenter-ready paragraph in natural spoken '
+                'football language. Lead with the player and the main story, connect the supporting '
+                'actions to the illustrative profile comparison, and finish on the meaningful '
+                'contrast. Use energetic but measured delivery, not exaggerated quality claims. '
+                'It may be substantial; do not reduce it to a slogan or cut out the explanation. '
+                'Fan teaches and explains; Broadcast tells the story aloud. Distinguish them through '
+                'voice and structure, not arbitrary length limits. Avoid filler and repetition. '
                 'Mention only the two or three measurements you cite; do not add other uncited actions. '
                 'Describe activity, not ability or intent: shots show shooting activity, not high goal '
                 'threat or good finishing; aerial wins do not prove physical dominance; recoveries '

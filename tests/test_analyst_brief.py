@@ -50,44 +50,26 @@ class AnalystTests(unittest.TestCase):
         reply=simulated_brief(p);reply['evidence_ids']*=2
         self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'fallback')
 
-    def test_audience_limits_apply_to_both_interpretation_and_recap(self):
-        for phase in ('match_in_progress', 'full_time_recap'):
-            for focus, lower, upper in [('Fan explanation',35,80), ('Broadcast talking point',20,50)]:
-                p=self.payload();p.update(focus=focus,phase=phase)
-                for words, accepted in [(lower-1,False),(lower,True),(upper,True),(111,False)]:
-                    reply=simulated_brief(p);reply['narrative']=' '.join(['football']*words)
-                    result=generate_analyst_brief(p,lambda _:reply)
-                    self.assertEqual(result['status']=='evidence_checked',accepted,(phase,focus,words))
+    def test_complete_briefs_are_not_rejected_or_cut_for_editorial_length(self):
+        for phase in ('match_in_progress','full_time_recap'):
+            for focus in ('Fan explanation','Broadcast talking point'):
+                for words in (19,43,54,58,69,111,250):
+                    p=self.payload();p.update(focus=focus,phase=phase)
+                    reply=simulated_brief(p)
+                    reply['headline']='A detailed football headline that is allowed to exceed the old editorial headline word count limit'
+                    reply['narrative']=' '.join(['football']*words)+'.'
+                    provider=Mock(return_value=reply)
+                    result=generate_analyst_brief(p,provider)
+                    self.assertEqual(result['status'],'evidence_checked')
+                    self.assertEqual(result['text'],reply['narrative'])
+                    self.assertFalse(result['shortened'])
+                    provider.assert_called_once()
 
-    def test_reported_modest_word_overruns_are_accepted_without_retry(self):
-        for focus,words in [('Fan explanation',69),('Broadcast talking point',43)]:
-            p=self.payload();p['focus']=focus
-            reply=simulated_brief(p);reply['narrative']=' '.join(['football']*words)
-            provider=Mock(return_value=reply)
-            result=generate_analyst_brief(p,provider)
-            self.assertEqual(result['status'],'evidence_checked')
-            provider.assert_called_once()
-
-    def test_overlength_brief_uses_complete_sentences_without_another_call(self):
-        p=self.payload();p['focus']='Broadcast talking point'
-        opening='The player gets into the box and takes shots, while passing the ball forward adds another strand to the recorded performance.'
-        for count in (54,58):
-            reply=simulated_brief(p)
-            reply['narrative']=opening+' '+' '.join(['football']*(count-len(opening.split())))+'.'
-            provider=Mock(return_value=reply)
-            result=generate_analyst_brief(p,provider)
-            self.assertEqual(result['status'],'evidence_checked')
-            self.assertEqual(result['text'],opening)
-            self.assertTrue(result['shortened'])
-            self.assertEqual(result['original_text'],reply['narrative'])
-            provider.assert_called_once()
-
-    def test_long_single_sentence_is_retained_with_style_note(self):
-        p=self.payload();p['focus']='Broadcast talking point'
-        reply=simulated_brief(p);reply['narrative']=' '.join(['football']*58)+'.'
-        result=generate_analyst_brief(p,lambda _:reply)
-        self.assertEqual(result['text'],reply['narrative'])
-        self.assertFalse(result['shortened']);self.assertIn('retained intact',result['style_note'])
+    def test_empty_text_is_still_rejected(self):
+        p=self.payload()
+        for field in ('headline','narrative'):
+            reply=simulated_brief(p);reply[field]='   '
+            self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'fallback')
 
     def test_synthetic_trend_requires_cited_change_not_just_available_change(self):
         from pl_dna.synthetic_replay import synthetic_brief_payload
@@ -102,12 +84,8 @@ class AnalystTests(unittest.TestCase):
         reply['evidence_ids']=[change['id'],other['id']]
         self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'evidence_checked')
 
-    def test_safe_rejection_reason_identifies_length_and_missing_citations(self):
-        p=self.payload();p['focus']='Broadcast talking point'
-        reply=simulated_brief(p);reply['narrative']=' '.join(['football']*111)
-        result=generate_analyst_brief(p,lambda _:reply)
-        self.assertIn('111 words',result['reason']);self.assertIn('20–110',result['reason'])
-        reply['narrative']=' '.join(['football']*25)
+    def test_unknown_evidence_rejection_does_not_expose_ids(self):
+        p=self.payload();reply=simulated_brief(p)
         reply['evidence_ids']=['secret-provider-value','unknown']
         result=generate_analyst_brief(p,lambda _:reply)
         self.assertNotIn('secret-provider-value',result['reason'])
