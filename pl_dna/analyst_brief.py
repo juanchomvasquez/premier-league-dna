@@ -53,14 +53,23 @@ def generate_analyst_brief(payload, provider):
         if trusted.get('data_kind')=='synthetic':
             marker='sintétic' if trusted.get('language')=='Spanish' else 'synthetic'
             if marker not in narrative.casefold():raise ValueError('Synthetic attribution required')
-            if any(name.casefold() in text.casefold() for name in trusted.get('excluded_legend_names',[])):
+            candidates=trusted.get('illustrative_comparison',{}).get('candidates',[])
+            allowed={c['legend_label'].removesuffix('-inspired').casefold():c['legend_label'] for c in candidates}
+            mentioned=[name for name in trusted.get('excluded_legend_names',[]) if name.casefold() in text.casefold()]
+            if any(name.casefold() not in allowed for name in mentioned):
                 raise ValueError('No historical comparison in the synthetic brief')
+            if mentioned:
+                qualifier = r'inspirad' if trusted.get('language')=='Spanish' else r'-inspired'
+                label = r'ilustrativ|inventad' if trusted.get('language')=='Spanish' else r'illustrative|invented'
+                if not re.search(qualifier,narrative,re.I) or not re.search(label,narrative,re.I):
+                    raise ValueError('Illustrative qualification required')
         if trusted.get('fit_status')!='candidate_mix':
             for name,r in trusted['references'].items():
                 if name.casefold() in text.casefold() or r.get('short_label',name).casefold() in text.casefold():
                     raise ValueError('No legend resemblance is supported')
         return {'status':'evidence_checked','headline':headline.strip(),'text':narrative.strip(),
-            'facts':[e['sentence'] for e in facts], 'evidence_ids':ids}
+            'facts':[e['sentence'] for e in facts], 'evidence_ids':ids,
+            'illustrative_comparison':deepcopy(trusted.get('illustrative_comparison'))}
     except (ValueError,KeyError,TypeError) as error:
         # Only our own fixed validation labels are exposed, never provider text or unknown IDs.
         explanations = {
@@ -73,6 +82,7 @@ def generate_analyst_brief(payload, provider):
             'Multiple measurements required':'The response did not cite different measurements.',
             'A fact copy is not an interpretation':'The response copied a supporting fact instead of explaining the pattern.',
             'Synthetic attribution required':'The brief did not identify the performance as synthetic.',
+            'Illustrative qualification required':'The legend reference was not labelled as an invented or illustrative inspired profile.',
             'No historical comparison in the synthetic brief':'The response introduced an unsupported legend comparison.',
             'No legend resemblance is supported':'The response introduced an unsupported legend comparison.',
         }

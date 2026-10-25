@@ -112,6 +112,17 @@ def render_insight(package, audience, player, start, end):
                 st.caption("Synthetic full-time recap · Microsoft AI" if saved.get('minute',end)==90 else "Synthetic match interpretation · Microsoft AI")
                 st.caption(f"As of synthetic minute {saved.get('minute',end)} · evidence window ({saved.get('start',start)}, {saved.get('minute',end)}].")
                 st.caption("Cited facts and format checked; the AI interpretation is not independently verified. This is fictional match data, not a real legend comparison.")
+                comparison=result.get("illustrative_comparison") or {}
+                if comparison.get("candidates"):
+                    st.caption(comparison["label"])
+                    for candidate in comparison["candidates"]:
+                        st.write(f"{candidate['legend_label']} · {candidate['profile']} · independent illustrative score {candidate['score']}/100")
+                    with st.expander("How the illustrative comparison is calculated"):
+                        st.write(comparison["score_meaning"])
+                        st.write(comparison["policy"])
+                        st.json(comparison["candidates"])
+                elif comparison.get("status")=="no_clear_profile":
+                    st.caption("No clear illustrative profile match. This does not mean poor performance.")
                 with st.expander("Supporting facts & copy brief"):
                     for fact in result["facts"]:st.write(fact)
                     st.code(result["headline"]+"\n\n"+result["text"],language=None,wrap_lines=True)

@@ -34,3 +34,5 @@ Requires Python 3.10 or later and the dependencies in requirements.txt.
     python -m unittest discover -s tests -q
 
 Without Azure settings, replay and local calculations work; Microsoft generation is unavailable. Private configuration details are in docs/MICROSOFT_SETUP.md. Do not place credentials in GitHub or testing instructions.
+
+Microsoft briefs can explain the closest illustrative legend-inspired profile or two close profiles. Their independent scores are calculated locally and shown with the brief, with calculation details available. These are invented design references, not validated historical player likeness or percentage blends.

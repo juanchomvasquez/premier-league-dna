@@ -1,7 +1,7 @@
 """Clocked release of our own synthetic events into the Microsoft brief pipeline."""
 from copy import deepcopy
 import hashlib,json,math
-from pl_dna.roles import build_role_story_input,analyze_role_player,ROLE_DEFINITIONS
+from pl_dna.roles import build_role_story_input,analyze_role_player,ROLE_DEFINITIONS,score_role_profiles
 
 def advance_clock(state,now):
     if not state.get('replay_playing'):return
@@ -11,6 +11,38 @@ def advance_clock(state,now):
         state['minute']=min(90,int(state.get('minute',1))+ticks*int(state.get('replay_step',3)))
         state['replay_last_tick']=last+2*ticks
         if state['minute']==90:state['replay_playing']=False
+
+def illustrative_profile_context(data, player, start, end):
+    """Rank invented profiles; never convert independent scores into blend percentages."""
+    report=analyze_role_player(data,player,start,end)
+    scores=score_role_profiles(data,player,start,end)
+    context={'status':'insufficient', 'kind':'invented_legend_inspired_profiles',
+        'label':'Illustrative profile comparison · not historical player similarity',
+        'policy':'Demo display policy: distance at most 0.75; show a second eligible profile only within five score points of the first. Not calibrated against historical players.',
+        'score_meaning':'Independent scores = 100 / (1 + normalized distance), not percentages, probabilities, quality ratings or mixture weights.',
+        'candidates':[]}
+    if scores.empty:return context
+    eligible=scores[scores.weighted_distance.le(0.75)]
+    if eligible.empty:
+        context['status']='no_clear_profile';return context
+    top=float(eligible.iloc[0].experimental_resemblance_score)
+    config=ROLE_DEFINITIONS[report['role']]
+    counts={m['measurement']:m['count'] for m in report['measurements']}
+    for name,row in eligible.iterrows():
+        if len(context['candidates'])==2 or top-float(row.experimental_resemblance_score)>5:break
+        axes=[]
+        for i,metric in enumerate(config['metrics']):
+            observed=100*counts[metric]/report['action_sequences']
+            reference=config['profiles'][name][i]
+            scale=max(v[i] for v in config['profiles'].values()) or 1
+            axes.append({'metric':metric,'evidence_id':'observed:'+metric,
+                'observed_per_100_sequences':round(observed,3),'invented_reference_per_100_sequences':reference,
+                'normalized_difference':round(abs(observed-reference)/scale,4)})
+        context['candidates'].append({'profile':name,'legend_label':config['legend_inspirations'][name],
+            'score':round(float(row.experimental_resemblance_score),1),
+            'axes':axes})
+    context['status']='illustrative_candidates'
+    return context
 
 def synthetic_brief_payload(data,player,start,end,view='Match so far',language='English',focus='Fan explanation'):
     package=build_role_story_input(data,player,start,end,view=view)
@@ -41,7 +73,8 @@ def synthetic_brief_payload(data,player,start,end,view='Match so far',language='
                     event_ids=list(dict.fromkeys(old['event_ids']+new['event_ids'])),
                     supporting_event_ids=list(dict.fromkeys(old.get('supporting_event_ids',[])+new.get('supporting_event_ids',[]))),
                     sentence=f"Synthetic demonstration — {new['measurement']}: {new['count']} in minutes ({end-15}, {end}], versus {old['count']} in the preceding equal fifteen-minute window ({end-30}, {end-15}]."))
-    # The AI never receives invented reference scores or future event rows.
+    # Invented comparisons are separate, explicitly labelled context; no future rows.
+    p['illustrative_comparison']=illustrative_profile_context(data,player,start,end)
     from pl_dna.presentation import LEGEND_CLUBS
     p['excluded_legend_names']=[n.removesuffix('-inspired') for n in LEGEND_CLUBS]
     return p

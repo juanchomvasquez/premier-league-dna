@@ -82,6 +82,40 @@ class ReplayTests(unittest.TestCase):
   reply=simulated_synthetic_brief(p);reply['headline']='Lampard resemblance in the synthetic performance'
   self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'fallback')
 
+ def test_illustrative_candidates_reconstruct_existing_scores_and_reject_unqualified_claim(self):
+  from pl_dna.roles import score_role_profiles
+  data=generate_role_events(42)
+  for player in PLAYERS:
+   p=synthetic_brief_payload(data,player,0,90)
+   comparison=p['illustrative_comparison']
+   self.assertEqual(comparison['status'],'illustrative_candidates')
+   scores=score_role_profiles(data,player,0,90)
+   self.assertEqual(comparison['candidates'][0]['profile'],scores.index[0])
+   for c in comparison['candidates']:
+    self.assertEqual(c['score'],round(float(scores.loc[c['profile'],'experimental_resemblance_score']),1))
+    self.assertTrue(all(a['evidence_id'] in {e['id'] for e in p['evidence']} for a in c['axes']))
+  p=synthetic_brief_payload(data,'Alex Morganfield',0,90)
+  reply=simulated_synthetic_brief(p)
+  reply['narrative']='Morganfield shows a Lampard-inspired pattern in this synthetic demo, getting into the box and taking shots. This illustrative profile comparison describes recorded involvement against an invented reference, rather than establishing historical similarity or overall player quality.'
+  self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'evidence_checked')
+  reply['narrative']=reply['narrative'].replace('illustrative','recognizable').replace('invented','familiar')
+  self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'fallback')
+  reply['narrative']=reply['narrative'].replace('Lampard','Rooney')
+  self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'fallback')
+
+ def test_insufficient_and_distant_profiles_never_force_legend_candidates(self):
+  from pl_dna.synthetic_replay import illustrative_profile_context
+  import pandas as pd
+  data=generate_role_events(42)
+  self.assertEqual(illustrative_profile_context(data,'Alex Morganfield',0,1)['candidates'],[])
+  distant=pd.DataFrame({'weighted_distance':[3.0], 'experimental_resemblance_score':[25.0]},index=['Box-to-box attacker'])
+  with patch('pl_dna.synthetic_replay.score_role_profiles',return_value=distant):
+   c=illustrative_profile_context(data,'Alex Morganfield',0,90)
+  self.assertEqual(c['status'],'no_clear_profile');self.assertEqual(c['candidates'],[])
+  p=synthetic_brief_payload(data,'Alex Morganfield',0,43)
+  earlier=data[data.minute.le(43)].copy()
+  self.assertEqual(p['illustrative_comparison'],illustrative_profile_context(earlier,'Alex Morganfield',0,43))
+
  def test_optional_auto_cost_guard(self):
   state={'synthetic_last_ai_key':'old','synthetic_last_ai_attempt':100}
   self.assertTrue(auto_brief_due(True,True,43,'new',state,130))
