@@ -6,6 +6,15 @@ from copy import deepcopy
 import re
 
 
+def brief_word_limits(payload):
+    """Audience limits apply equally to live briefs and full-time recaps."""
+    if payload.get('focus') == 'Broadcast talking point':
+        return (20, 35)
+    if payload.get('focus') == 'Fan explanation':
+        return (35, 65)
+    return (20, 110)  # Retained research requests without an audience selection.
+
+
 def generate_analyst_brief(payload, provider):
     trusted = deepcopy(payload)
     if trusted['availability'] and not trusted.get('interpretation_available'):
@@ -21,7 +30,8 @@ def generate_analyst_brief(payload, provider):
             raise ValueError('Unexpected structure')
         headline,narrative,ids = reply['headline'],reply['narrative'],reply['evidence_ids']
         if not isinstance(headline,str) or not isinstance(narrative,str):raise ValueError('Text required')
-        if not 3 <= len(headline.split()) <= 14 or not 20 <= len(narrative.split()) <= 110:
+        minimum, maximum = brief_word_limits(trusted)
+        if not 3 <= len(headline.split()) <= 14 or not minimum <= len(narrative.split()) <= maximum:
             raise ValueError('Length')
         text = headline+' '+narrative
         # Numbers are shown only in exact source facts below the interpretation.
@@ -32,6 +42,10 @@ def generate_analyst_brief(payload, provider):
             raise ValueError('Distinct citations required')
         index={e['id']:e for e in trusted['evidence']}
         facts=[index[i] for i in ids]
+        if trusted.get('data_kind') == 'synthetic' and re.search(
+                r'\b(recent|recently|increase[ds]?|decline[ds]?|surge|rose|fell|shift|late|reciente|aument[oó]|disminuy[oó]|baj[oó])\b', text, re.I):
+            if not any(e.get('kind') == 'window_change' for e in facts):
+                raise ValueError('A trend requires cited window-change evidence')
         if len({e['metric'] for e in facts}) < 2:raise ValueError('Multiple measurements required')
         if any(narrative.strip()==e['sentence'].strip() for e in facts):raise ValueError('A fact copy is not an interpretation')
         if trusted.get('data_kind')=='synthetic':

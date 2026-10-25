@@ -50,6 +50,28 @@ class AnalystTests(unittest.TestCase):
         reply=simulated_brief(p);reply['evidence_ids']*=2
         self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'fallback')
 
+    def test_audience_limits_apply_to_both_interpretation_and_recap(self):
+        for phase in ('match_in_progress', 'full_time_recap'):
+            for focus, lower, upper in [('Fan explanation',35,65), ('Broadcast talking point',20,35)]:
+                p=self.payload();p.update(focus=focus,phase=phase)
+                for words, accepted in [(lower-1,False),(lower,True),(upper,True),(upper+1,False)]:
+                    reply=simulated_brief(p);reply['narrative']=' '.join(['football']*words)
+                    result=generate_analyst_brief(p,lambda _:reply)
+                    self.assertEqual(result['status']=='evidence_checked',accepted,(phase,focus,words))
+
+    def test_synthetic_trend_requires_cited_change_not_just_available_change(self):
+        from pl_dna.synthetic_replay import synthetic_brief_payload
+        from pl_dna.roles import generate_role_events
+        p=synthetic_brief_payload(generate_role_events(42),'Alex Morganfield',0,90)
+        reply=simulated_brief(p)
+        reply['narrative']='This synthetic demo shows a recent shift in passing. '+reply['narrative']
+        reply['evidence_ids']=[e['id'] for e in p['evidence'] if e['kind']=='recorded'][:2]
+        self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'fallback')
+        change=next(e for e in p['evidence'] if e['kind']=='window_change')
+        other=next(e for e in p['evidence'] if e['metric']!=change['metric'])
+        reply['evidence_ids']=[change['id'],other['id']]
+        self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'evidence_checked')
+
     def test_provider_errors_never_echo_secrets_or_retry(self):
         provider=Mock(side_effect=ValueError('secret-credential'))
         result=generate_analyst_brief(self.payload(),provider)

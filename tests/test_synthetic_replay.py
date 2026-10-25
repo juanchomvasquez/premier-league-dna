@@ -15,6 +15,8 @@ def simulated_synthetic_brief(p):
     narrative=('This synthetic demonstration shows the selected player contributing through several recorded actions. '
         'The combination gives a useful picture of involvement, while the individual measurements remain available for inspection. '
         'These observations describe activity within the selected window and cannot establish overall quality, tactical intent or a resemblance to a historical player.')
+    if p.get('focus')=='Broadcast talking point':
+        narrative='The selected player gets into the box and moves the ball forward in this synthetic demo. Those actions show involvement, without establishing finishing quality.'
     if p['language']=='Spanish':narrative='Esta demostración sintética combina varias acciones registradas para describir la participación del jugador. Las mediciones permiten seguir su contribución, pero no establecen por sí solas la calidad global, las intenciones tácticas ni una semejanza histórica.'
     return {'headline':'Recorded contributions in a synthetic performance','narrative':narrative,'evidence_ids':ids}
 
