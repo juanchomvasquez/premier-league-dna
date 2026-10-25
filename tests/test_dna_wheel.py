@@ -23,7 +23,7 @@ class WheelTests(unittest.TestCase):
                     svg = radar_svg(rows, player, profile)
                     ET.fromstring(svg)
                     self.assertIn('stroke-dasharray="7 5"', svg)
-                    self.assertIn('stroke="#39dfbc"', svg)
+                    self.assertIn('stroke="#00ff85"', svg)
                     card = reference_card(definition, profile, rows)
                     self.assertIn("Not selected yet", card)
                     self.assertIn("No historical index score yet", card)
@@ -33,7 +33,7 @@ class WheelTests(unittest.TestCase):
         report = {"action_sequences": 0, "measurements": [{"measurement": m, "count": 0} for m in definition["metrics"]]}
         rows = wheel_data(definition, report, "Box-to-box attacker")
         svg = radar_svg(rows, "Test", "Lampard", show_observed=False)
-        self.assertNotIn('stroke="#39dfbc"', svg)
+        self.assertNotIn('stroke="#00ff85"', svg)
         self.assertTrue(all(row["observed_rate"] is None for row in rows))
         rows[0]["reference_rate"] = 150
         self.assertIn('>160</text>', radar_svg(rows, "Test", "Reference", False))
@@ -59,7 +59,7 @@ class WheelTests(unittest.TestCase):
         self.assertEqual(list(at.exception), [])
         image = at.get("image")[0].proto.imgs[0]
         svg = base64.b64decode(image.url.split(",", 1)[1]).decode()
-        self.assertNotIn('stroke="#39dfbc"', svg)
+        self.assertNotIn('stroke="#00ff85"', svg)
 
 
 if __name__ == "__main__":

@@ -399,7 +399,7 @@ def sourced_season_card(name, show_career=True):
         dominant_club = max(club_shares(name), key=lambda row: row[1])[0]
         accent = CAREER_COLOURS[dominant_club][0]
     background = club_background(name) if career else None
-    background = background or f'linear-gradient(145deg,{tint},#101d30)'
+    background = background or f'linear-gradient(145deg,{tint},#321044)'
     opening = (f'<section class="dna-reference" style="border-top:4px solid {accent};background:{background};">'
                f'<div class="eyebrow">{"LEGEND / PREMIER LEAGUE CAREER" if career else "LEGEND SEASON / SOURCE CHECK"}</div>'
                f'<h3>{escape(heading)}</h3>')

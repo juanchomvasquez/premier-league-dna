@@ -21,42 +21,48 @@ from pl_dna.analyst_brief import generate_analyst_brief
 
 MIN_SEQUENCES = 10
 STYLE = """<style>
+.stApp {background:radial-gradient(ellipse at 85% 0%,#4b145b66,transparent 48%),#21082f;}
+[data-testid="stHeader"] {background:#21082ff2;}
+[data-testid="stTabs"] [aria-selected="true"] {color:#ff72ad;}
+button[kind="primary"] {background:#00ff85;color:#21082f;border-color:#00ff85;font-weight:700;}
+button[kind="primary"]:hover {background:#80ffbd;color:#21082f;border-color:#80ffbd;}
 .block-container {max-width:1180px;padding-top:2rem;padding-bottom:3rem;}
-.brand-line {font-size:.74rem;font-weight:700;letter-spacing:.18em;color:#39dfbc;margin-bottom:.5rem;}
-.demo-badge {display:inline-block;border:1px solid #37506d;border-radius:24px;padding:5px 13px;
- font-size:.76rem;color:#b8c8de;margin:0 0 1rem;}
+.brand-line::before {content:"";display:inline-block;width:32px;height:4px;background:linear-gradient(90deg,#00ff85 50%,#ff2882 50%);vertical-align:middle;margin-right:10px;}
+.brand-line {font-size:.74rem;font-weight:700;letter-spacing:.18em;color:#00ff85;margin-bottom:.5rem;}
+.demo-badge {display:inline-block;border:1px solid #694077;border-radius:24px;padding:5px 13px;
+ font-size:.76rem;color:#d7c4df;margin:0 0 1rem;}
 .player-hero {display:flex;align-items:center;justify-content:space-between;gap:24px;
- border:1px solid #2b425e;border-radius:20px;padding:26px 30px;margin:14px 0 20px;
- background:linear-gradient(115deg,#14253f,#102b31);}
+ border:1px solid #61336e;border-radius:20px;padding:26px 30px;margin:14px 0 20px;
+ background:linear-gradient(115deg,#37003c,#4b145b);}
 .player-hero h2 {font-size:2.05rem;line-height:1.2;padding:.4rem 0 .6rem;margin:0;color:#f3f6fc;}
-.player-hero p {color:#d1deed;margin:0;}
-.eyebrow {font-size:.67rem;letter-spacing:.13em;font-weight:700;color:#9eabc5;}
-.hero-tag {font-size:.61rem;letter-spacing:.08em;color:#76c7b4;margin-top:18px;}
+.player-hero p {color:#eee4f2;margin:0;}
+.eyebrow {font-size:.67rem;letter-spacing:.13em;font-weight:700;color:#c8afd1;}
+.hero-tag {font-size:.61rem;letter-spacing:.08em;color:#80ffbd;margin-top:18px;}
 .position-pitch {flex:0 0 175px;margin:0;}.position-pitch svg {width:100%;display:block;}
 .position-pitch figcaption {font-size:.63rem;text-align:center;color:#aec5c9;margin-top:6px;}
-[data-testid="stMetric"] {border:1px solid #2b425e;border-radius:14px;padding:14px 18px;background:#101d30;}
-[data-testid="stMetricLabel"] {color:#b4c3d8;}
-.insight-card {border:1px solid #2e5d59;border-left:4px solid #39dfbc;border-radius:14px;
- padding:20px 24px;background:#10232d;margin:12px 0;}
-.insight-card .eyebrow {color:#66e4cb;}.insight-card p {font-size:1.13rem;line-height:1.65;margin:10px 0 0;color:#f3f6fc;}
+[data-testid="stMetric"] {border:1px solid #61336e;border-radius:14px;padding:14px 18px;background:#321044;}
+[data-testid="stMetricLabel"] {color:#d7c4df;}
+.insight-card {border:1px solid #694077;border-left:4px solid #00ff85;border-radius:14px;
+ padding:20px 24px;background:#321044;margin:12px 0;}
+.insight-card .eyebrow {color:#80ffbd;}.insight-card p {font-size:1.13rem;line-height:1.65;margin:10px 0 0;color:#f3f6fc;}
 .profile-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:14px;margin:14px 0;}
-.profile-card {padding:19px;border:1px solid #473969;border-radius:15px;background:linear-gradient(145deg,#1b223b,#221c36);}
+.profile-card {padding:19px;border:1px solid #473969;border-radius:15px;background:linear-gradient(145deg,#321044,#3e124b);}
 .profile-card h4 {font-size:1.05rem;margin:12px 0 5px;padding:0;color:#f3f6fc;}
 .profile-card p {font-size:.84rem;color:#bdc5dc;min-height:2.6em;margin:0 0 12px;}
 .profile-score {font-size:1.8rem;font-weight:700;color:#d6c5ff;}.profile-score small {font-size:.8rem;color:#a5adc7;font-weight:400;}
 .profile-score.muted {font-size:.85rem;min-height:43px;padding-top:12px;}
-.score-track {height:6px;border-radius:8px;background:#35334d;margin-top:10px;overflow:hidden;}
+.score-track {height:6px;border-radius:8px;background:#573063;margin-top:10px;overflow:hidden;}
 .score-fill {height:100%;background:#b69aff;border-radius:8px;}
-.dna-reference {border:1px solid #37506d;border-radius:18px;padding:24px;min-height:360px;}
+.dna-reference {border:1px solid #694077;border-radius:18px;padding:24px;min-height:360px;}
 .dna-reference h3 {font-size:1.8rem;color:#f3f6fc;padding:12px 0 8px;margin:0;}
-.dna-reference p {color:#d1deed;font-size:.93rem;line-height:1.65;}
+.dna-reference p {color:#eee4f2;font-size:.93rem;line-height:1.65;}
 .dna-status {display:inline-block;margin:12px 0;padding:6px 10px;border:1px solid #5b527d;border-radius:20px;color:#d6c5ff;font-size:.65rem;letter-spacing:.07em;}
-.dna-reference dl {margin:20px 0;}.dna-reference dt {font-size:.72rem;color:#9eabc5;margin-top:14px;}
+.dna-reference dl {margin:20px 0;}.dna-reference dt {font-size:.72rem;color:#c8afd1;margin-top:14px;}
 .dna-reference dd {font-size:.86rem;color:#f3f6fc;margin:4px 0 0;}
-.dna-reference .dna-note {font-size:.78rem;color:#b8c8de;}
+.dna-reference .dna-note {font-size:.78rem;color:#d7c4df;}
 .season-facts {display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0;}
-.season-fact {background:#09111f66;border:1px solid #52617a;border-radius:12px;padding:12px 8px;text-align:center;}
-.season-fact strong {display:block;color:#f3f6fc;font-size:1.65rem;}.season-fact span {display:block;color:#d1deed;font-size:.65rem;}
+.season-fact {background:#21082f66;border:1px solid #52617a;border-radius:12px;padding:12px 8px;text-align:center;}
+.season-fact strong {display:block;color:#f3f6fc;font-size:1.65rem;}.season-fact span {display:block;color:#eee4f2;font-size:.65rem;}
 .season-sources {padding-left:16px;font-size:.75rem;line-height:1.6;}.season-sources a {color:#93c5fd;}
 @media(max-width:640px){
  .block-container {padding:1.2rem 1rem 2rem;}.player-hero {padding:20px;gap:12px;align-items:flex-start;}
@@ -207,7 +213,7 @@ def render_contributions(report, expert=False):
     st.subheader("Recorded contributions")
     counts = pd.DataFrame(report["measurements"])[["measurement", "count"]]
     if report["action_sequences"]:
-        st.bar_chart(counts.set_index("measurement"), horizontal=True, color="#39dfbc", x_label="Recorded count")
+        st.bar_chart(counts.set_index("measurement"), horizontal=True, color="#00ff85", x_label="Recorded count")
     else:
         st.info("No recorded events in this window. Move the timeline forward or select another player.")
     if expert:

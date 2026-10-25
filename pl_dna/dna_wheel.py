@@ -56,14 +56,14 @@ def radar_svg(rows, player, reference_name, show_observed=True, scale_max=100):
              f'aria-labelledby="dna-title dna-desc"><title id="dna-title">Player DNA wheel</title>'
              f'<desc id="dna-desc">{escape(player)} versus {escape(reference_name)}. '
              'Illustrative reference, not historical statistics. All axes are rates per 100 recorded sequences.</desc>',
-             '<rect width="640" height="470" rx="20" fill="#101d30"/>',
+             '<rect width="640" height="470" rx="20" fill="#321044"/>',
              '<text x="28" y="32" fill="#9eabc5" font-family="Arial,sans-serif" font-size="11" letter-spacing="2">PERFORMANCE SHAPE / DESIGN PREVIEW</text>']
     for fraction in (.2, .4, .6, .8, 1):
-        parts.append(f'<polygon points="{polygon([maximum * fraction] * len(rows))}" fill="none" stroke="#30415a" stroke-width="1"/>')
+        parts.append(f'<polygon points="{polygon([maximum * fraction] * len(rows))}" fill="none" stroke="#694077" stroke-width="1"/>')
         parts.append(f'<text x="328" y="{cy-radius*fraction-5:.1f}" fill="#a5b5cc" font-family="Arial,sans-serif" font-size="10">{maximum*fraction:g}</text>')
     for angle, row in zip(angles, rows, strict=True):
         x, y = point(angle, radius)
-        parts.append(f'<line x1="{cx}" y1="{cy}" x2="{x:.1f}" y2="{y:.1f}" stroke="#30415a"/>')
+        parts.append(f'<line x1="{cx}" y1="{cy}" x2="{x:.1f}" y2="{y:.1f}" stroke="#694077"/>')
         x, y = point(angle, radius + 35)
         lines = textwrap.wrap(SHORT_LABELS.get(row["measurement"], row["measurement"]), width=19)
         anchor = "start" if math.cos(angle) > .3 else "end" if math.cos(angle) < -.3 else "middle"
@@ -71,10 +71,10 @@ def radar_svg(rows, player, reference_name, show_observed=True, scale_max=100):
         parts.append(f'<text x="{x:.1f}" y="{y-7*(len(lines)-1):.1f}" text-anchor="{anchor}" fill="#d1deed" font-family="Arial,sans-serif" font-size="13">{spans}</text>')
     parts.append(f'<polygon points="{polygon([row["reference_rate"] for row in rows])}" fill="#b69aff" fill-opacity=".14" stroke="#b69aff" stroke-width="2.5" stroke-dasharray="7 5"/>')
     if show_observed and all(row["observed_rate"] is not None for row in rows):
-        parts.append(f'<polygon points="{polygon([row["observed_rate"] for row in rows])}" fill="#39dfbc" fill-opacity=".22" stroke="#39dfbc" stroke-width="3"/>')
+        parts.append(f'<polygon points="{polygon([row["observed_rate"] for row in rows])}" fill="#00ff85" fill-opacity=".22" stroke="#00ff85" stroke-width="3"/>')
         for angle, row in zip(angles, rows, strict=True):
             x, y = point(angle, radius * row["observed_rate"] / maximum)
-            parts.append(f'<circle cx="{x:.2f}" cy="{y:.2f}" r="4" fill="#39dfbc"/>')
+            parts.append(f'<circle cx="{x:.2f}" cy="{y:.2f}" r="4" fill="#00ff85"/>')
     parts.append('<text x="320" y="443" text-anchor="middle" fill="#a5b5cc" font-family="Arial,sans-serif" font-size="12">Shared rate scale · not percentiles or ability ratings</text></svg>')
     return ''.join(parts)
 
@@ -93,7 +93,7 @@ def reference_card(definition, profile, rows, show_observed=True):
             furthest = max(available, key=lambda row: abs(row["observed_rate"] - row["reference_rate"]))
             comparison = (f'Closest measured rate: {closest["measurement"].lower()}. '
                           f'Largest rate gap: {furthest["measurement"].lower()}.')
-    return (f'<section class="dna-reference" style="border-top:4px solid {accent};background:linear-gradient(145deg,{tint},#101d30);">'
+    return (f'<section class="dna-reference" style="border-top:4px solid {accent};background:linear-gradient(145deg,{tint},#321044);">'
             '<div class="eyebrow">LEGEND INDEX / DESIGN PREVIEW</div>'
             f'<h3>{escape(legend)} Index</h3><p>{escape(club or "Club not assigned")} · {escape(profile)}</p>'
             '<div class="dna-status">HISTORICAL BENCHMARK PENDING</div>'

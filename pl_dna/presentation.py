@@ -53,7 +53,7 @@ def player_header(player, role, role_label, start, end, view):
         <span style="position:absolute;left:39%;top:33%;width:22%;height:34%;border:1px solid #69ad9c;border-radius:50%;"></span>
         <span style="position:absolute;left:0;top:25%;width:15%;height:50%;border:1px solid #69ad9c;border-left:0;"></span>
         <span style="position:absolute;right:0;top:25%;width:15%;height:50%;border:1px solid #69ad9c;border-right:0;"></span>
-        <span style="position:absolute;left:{x}%;top:{y}%;width:11px;height:11px;transform:translate(-50%,-50%);background:#39dfbc;border:2px solid white;border-radius:50%;box-shadow:0 0 0 8px #39dfbc30;"></span>
+        <span style="position:absolute;left:{x}%;top:{y}%;width:11px;height:11px;transform:translate(-50%,-50%);background:#00ff85;border:2px solid white;border-radius:50%;box-shadow:0 0 0 8px #00ff8530;"></span>
       </div><figcaption>Position guide · schematic</figcaption></figure>
     </section>"""
 
@@ -79,7 +79,7 @@ def profile_cards(definition, scores, show_scores=True):
                    f'aria-valuemin="0" aria-valuemax="100" aria-valuenow="{score:.1f}">'
                    f'<div class="score-fill" style="width:{max(0,min(100,score)):.1f}%"></div></div>')
         cards.append(f'<article class="profile-card" style="border-top:4px solid {accent};'
-                     f'background:linear-gradient(145deg,{tint},#141e31);">'
+                     f'background:linear-gradient(145deg,{tint},#321044);">'
                      f'<div class="eyebrow">INVENTED PROFILE</div>'
                      f'<h4>{escape(name)}</h4>{club_label}<p>{escape(profile)}</p>{value}{bar}</article>')
     return '<div class="profile-grid">' + ''.join(cards) + '</div>'

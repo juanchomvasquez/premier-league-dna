@@ -69,10 +69,10 @@ def wheel(payload):
     def points(values):
         return ' '.join(f'{cx+radius*v/ceiling*math.cos(a):.2f},{cy+radius*v/ceiling*math.sin(a):.2f}' for v, a in zip(values, angles))
     svg = ['<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 455" role="img" aria-label="Recorded match and fitted reference-season mix">',
-        '<rect width="660" height="455" rx="20" fill="#101d30"/>',
+        '<rect width="660" height="455" rx="20" fill="#321044"/>',
         '<text x="24" y="30" fill="#dce8fb" font-size="14">RECORDED MATCH / IDENTIFIED REFERENCES</text>']
     for f in (.25,.5,.75,1):
-        svg += [f'<polygon points="{points([ceiling*f]*len(keys))}" fill="none" stroke="#35465d"/>',
+        svg += [f'<polygon points="{points([ceiling*f]*len(keys))}" fill="none" stroke="#694077"/>',
             f'<text x="335" y="{cy-radius*f+12}" fill="#9caec5" font-size="11">{ceiling*f/100:g}{"×" if comparable else ""}</text>']
     for a, key in zip(angles, keys):
         x, y = cx+radius*1.4*math.cos(a), cy+radius*1.4*math.sin(a)
@@ -80,12 +80,12 @@ def wheel(payload):
         lines = wrap(FIELDS[key][0], width=22)
         spans = ''.join(f'<tspan x="{x:.1f}" dy="{0 if i==0 else 13}">{escape(line)}</tspan>' for i,line in enumerate(lines))
         svg.append(f'<text x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}" fill="#dce8fb" font-size="11">{spans}</text>')
-    series = ([(fitted,'#b69aff','7 5')] if show_mix else []) + [(selected,'#39dfbc','none')]
+    series = ([(fitted,'#b69aff','7 5')] if show_mix else []) + [(selected,'#00ff85','none')]
     for values, color, dash in series:
         svg.append(f'<polygon points="{points(values)}" fill="{color}" fill-opacity=".13" stroke="{color}" stroke-width="2.5" stroke-dasharray="{dash}"/>')
     legend = 'Teal: selected match rates · Purple: fitted reference mix' if show_mix else 'Teal: selected match rates · No composite reference shown'
     scale_note = '1× = highest selected reference rate on that axis · not an ability rating' if comparable else 'Recorded counts per 90 played minutes · shared count scale · no historical fit'
-    svg += [f'<text x="24" y="420" fill="#39dfbc" font-size="13">{legend}</text>',
+    svg += [f'<text x="24" y="420" fill="#00ff85" font-size="13">{legend}</text>',
         f'<text x="24" y="443" fill="#aabbd0" font-size="11">{scale_note}</text></svg>']
     return ''.join(svg)
 
