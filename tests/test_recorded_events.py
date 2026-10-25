@@ -98,7 +98,8 @@ class RecordedEventsTests(unittest.TestCase):
             at=test_dashboard.DashboardTests().app()
             self.assertIn('177</strong>',test_dashboard.html(at))
             self.assertIn('West Ham United',test_dashboard.html(at))
-            at.radio(key='data_source').set_value('Archived midfield research').run()
+            from streamlit.testing.v1 import AppTest
+            at=AppTest.from_string('import streamlit as st\nfrom pl_dna.blend_dashboard import render_blend_dashboard\nrender_blend_dashboard(st, "Fan")',default_timeout=30).run()
             self.assertEqual(list(at.exception), [])
             self.assertTrue(any('Estimated blend' in m.value for m in at.markdown))
             self.assertEqual(sum(int(m.value.rstrip('%')) for m in at.metric), 100)

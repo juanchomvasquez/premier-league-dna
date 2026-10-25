@@ -122,7 +122,7 @@ class BlendTests(unittest.TestCase):
         from streamlit.testing.v1 import AppTest
         provider = Mock(side_effect=lambda p: {'angle': 'closest_sample', 'lead': p['evidence'][0]['id'], 'support': None})
         with patch('pl_dna.microsoft_provider.create_provider_from_env', return_value=provider) as factory:
-            at = AppTest.from_file(str(Path(__file__).resolve().parents[1]/'app.py'), default_timeout=30).run().radio(key='data_source').set_value('Archived midfield research').run()
+            at = AppTest.from_string('import streamlit as st\nfrom pl_dna.blend_dashboard import render_blend_dashboard\nrender_blend_dashboard(st, "Fan")', default_timeout=30).run()
             self.assertEqual(list(at.exception), [])
             factory.assert_not_called()
             at.button(key='generate_legend_story').click().run()

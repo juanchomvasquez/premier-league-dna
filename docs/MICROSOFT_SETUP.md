@@ -59,3 +59,15 @@ legend similarity are inferred. The first version of this brief is English-only;
 local summaries retain Spanish. Failed validation produces no AI brief, and a
 locally computed table remains available. One explicit button click makes one
 request, without retries. Fixture tests exercise the new response contract.
+
+
+## Current-season analyst brief (current UI)
+
+The default current-season view supersedes the fixed-sentence workflows described
+above. `performance_interpretation` requests a headline, a short AI-authored
+interpretation and two or three known evidence IDs. Exact numerical facts are
+rendered locally. Format and citation checks do not independently verify prose
+semantics. Weak-fit output must not force a legend match. The local snapshot is
+collapsed and contains counts, not a second story. The archived study is removed
+from public navigation; its modules remain for research regression tests.
+See CURRENT_SEASON_AND_LIVE.md for the current behavior and cost controls.

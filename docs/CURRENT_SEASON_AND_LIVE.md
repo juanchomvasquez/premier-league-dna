@@ -1,7 +1,7 @@
 # Current-season performances and automatic match updates
 
 The default **This season & live** view now uses real 2026/27 match snapshots.
-The old Vieira study is an optional archived research view. The synthetic
+The old Vieira study remains in the source tree but is removed from public navigation. The synthetic
 eight-position demonstration remains separate and explicitly labelled.
 Fan/Broadcaster/Expert buttons have been removed; evidence sits under expanders.
 
@@ -129,13 +129,30 @@ presented as product match data.
 
 ## Microsoft AI and cost controls
 
-Calculated comparisons and the local explanatory story do not call Azure.
-**Generate Microsoft match story** makes one potentially billable request, with
-no automatic retry. Azure selects known supporting comparison IDs; the app
-validates them and renders calculated numbers with controlled wording. This
-checks evidence consistency, not the scientific validity of the similarity model.
+Calculated comparisons and the collapsed **Calculated snapshot** require no AI
+call. The snapshot is a compact list of recorded counts, not a match narrative.
+**Generate Microsoft interpretation** makes one potentially billable request,
+with no automatic retry. Microsoft now authors a headline and a brief synthesis
+of the pattern across different measurements, rather than selecting fixed
+sentences for the same local template.
 
-**Update Microsoft story automatically during live play** is off by default.
+The structured response contains headline, narrative and two or three distinct
+known evidence IDs. Numerical tokens are rejected from the prose; the app
+attaches the exact cited fact sentences locally. Format, length, distinct
+measurements and citation membership are checked. Certain unsupported overall
+assessments and named legend claims during a no-clear-match state are rejected.
+These checks do **not** verify every semantic claim in AI prose. The output is
+labelled AI interpretation, with cited facts checked but interpretation not
+independently verified. The prompt prohibits invented tactics, intent, causation,
+errors, dominance or ability grades. Weak fits must not be forced into legend
+resemblance. Changing the player or data hides the prior brief.
+
+The previous duplicate local/AI story cards are removed. One AI interpretation
+appears after generation, with supporting facts and copy text under an expander.
+No generated interpretation appears in the static preview. Developer tests use
+simulated AI responses; no paid Azure test was made for this revision.
+
+**Update Microsoft interpretation automatically during live play** is off by default.
 If explicitly enabled in the app, it makes at most one automatic request every
 five minutes in that browser session, only when the comparison changes, the
 source is not stale, and the fixture is in progress. Attempts are recorded before

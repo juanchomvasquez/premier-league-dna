@@ -30,7 +30,7 @@ has been independently validated.
 
 The separate **Eight-position synthetic demo** retains the fictional scenarios,
 minute slider, local English/Spanish summaries and explicitly invented overlay.
-**Archived midfield research** preserves the earlier historical event study.
+The earlier midfield research remains in the source tree, outside the public dashboard.
 Recorded match totals are never turned into invented minute-by-minute replays.
 
 The responsive navy, teal and purple theme is in `.streamlit/config.toml`.
@@ -41,7 +41,7 @@ python -m unittest discover -s tests -v
 ```
 
 Local calculations require no Azure credentials. The optional Microsoft connector
-selects evidence IDs, validates them, and renders controlled wording. A manual
+writes a short analyst interpretation and cites two or three known evidence IDs. Exact numerical facts are attached locally; prose format and citations are checked, but interpretation is not independently verified. A manual
 click makes one potentially billable request. Automatic Microsoft stories are
 off by default and, if enabled during live play, limited to one attempt per five
 minutes per browser session when fresh statistics change. No paid Azure calls

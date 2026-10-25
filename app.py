@@ -190,15 +190,11 @@ def main():
     st.title("Every player has a blend.")
     st.write("Explore the contribution. Understand the profile. Follow the evidence.")
     audience = "Fan"  # One public dashboard; this preserves the internal narrative schema.
-    source = st.radio("Data source", ["This season & live", "Eight-position synthetic demo", "Archived midfield research"],
+    source = st.radio("Data source", ["This season & live", "Eight-position synthetic demo"],
                       horizontal=True, key="data_source")
     if source == "This season & live":
         from pl_dna.current_dashboard import render_current_dashboard
         render_current_dashboard()
-        return
-    if source == "Archived midfield research":
-        from pl_dna.blend_dashboard import render_blend_dashboard
-        render_blend_dashboard(st, audience)
         return
     st.html('<div class="demo-badge">Synthetic demo · Fictional players · Invented profiles</div>')
     events = st.cache_data(generate_role_events)(seed=42)
@@ -265,11 +261,10 @@ def main():
         event metrics are sourced. No combination of career-high statistics is used.
 
         **Insight provenance.** Local summaries use calculated evidence and fixed wording.
-        For a Microsoft legend story, select Recorded midfield comparison. That mode fits actual
-        archived-event rates to three small reference samples, then Azure selects the supporting
-        comparisons. It does not compare synthetic counts with historical season totals.
-        Only the explicit Generate legend story button calls Azure. Evidence selections are checked
-        against locally calculated facts. This validates output consistency, not career resemblance.
+        For a Microsoft analyst brief, select This season & live. It interprets the recorded
+        performance using cited measurements. Exact supporting numbers are rendered locally.
+        Citation and format checks do not independently verify the prose interpretation or
+        establish validated historical similarity. Automatic AI updates are off by default.
         """)
         with st.expander("Selected position: model configuration"):
             st.json(definition)

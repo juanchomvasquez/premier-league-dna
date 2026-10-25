@@ -14,7 +14,7 @@ import streamlit as st
 from pl_dna.season_feed import (fetch_scoreboard, fetch_summary, fetch_player_stats,
     normalize_player, match_info, roster_players, FIELDS, ROLE_LABELS)
 from pl_dna.season_comparison import compare_season_player
-from pl_dna.legend_blend import generate_blend_story, story_text
+from pl_dna.analyst_brief import generate_analyst_brief
 
 now_seconds = time.time
 
@@ -41,6 +41,7 @@ def cached_player(match_id, team_id, player_id):
 def fingerprint(payload):
     # Retrieval times alone are not a football development and must not call AI.
     source = {k: payload[k] for k in ('player_id', 'role')}
+    source['brief_version'] = 2  # Never reuse the former fixed-template story.
     source['fixture_id'] = payload['fixture']['id']
     source['counts'] = payload['target']['counts']
     source['minutes'] = payload['target']['minutes']
@@ -86,20 +87,15 @@ def wheel(payload):
 
 
 def render_story(payload, live, stale):
-    st.markdown('#### The story behind the performance')
+    st.markdown('#### Microsoft analyst brief')
     key = fingerprint(payload)
-    # A reproducible local explanation remains available without an inference call.
-    ranked = sorted([e for e in payload['evidence'] if e.get('kind')!='execution'], key=lambda e: (abs(e['rate']-e['reference_rate'])/payload['scales'][e['metric']], e['id']))
-    if payload.get('fit_status')=='no_clear_match':
-        ranked = [e for e in payload['evidence'] if e.get('kind')=='execution'] + ranked
-    selected = [ranked[0]]
-    other = next((e for e in ranked[1:] if e['metric'] != selected[0]['metric'] and e['legend'] != selected[0]['legend']), None)
-    candidate = {'angle': 'contrast' if payload.get('fit_status')=='no_clear_match' else 'closest_sample', 'lead': selected[0]['id'], 'support': other['id'] if other else None}
     from pl_dna.presentation import insight_card
-    st.html(insight_card(story_text(payload, candidate), 'Fan'))
-    st.caption('Local calculated comparison · source counts and selected-season rates · no AI call')
-    clicked = st.button('Generate Microsoft match story', type='primary', key='season_generate_story')
-    enabled = st.checkbox('Update Microsoft story automatically during live play', value=False, key='season_auto_ai') if live else False
+    with st.expander('Calculated snapshot · no AI call'):
+        for metric in payload['metric_keys'][:3]:
+            st.write(f"{FIELDS[metric][0]}: {payload['target']['counts'][metric]:g} in {payload['minute']:g} played minutes.")
+        st.caption('Observed counts only. The analyst brief below interprets the pattern across measurements.')
+    clicked = st.button('Generate Microsoft interpretation', type='primary', key='season_generate_story')
+    enabled = st.checkbox('Update Microsoft interpretation automatically during live play', value=False, key='season_auto_ai') if live else False
     if live:
         st.caption('Optional automatic AI: potentially billable, at most one request every five minutes in this browser session, only when the comparison changes. It is off by default. Data and calculated comparisons update without AI calls.')
     now = now_seconds()
@@ -116,19 +112,23 @@ def render_story(payload, live, stale):
         except Exception:
             result = {'status': 'fallback', 'reason': 'Microsoft AI is not configured. The calculated comparison remains available.'}
         else:
-            with st.spinner('Selecting the comparisons that explain this performance…'):
-                result = generate_blend_story(payload, provider)
+            with st.spinner('Interpreting the performance and citing the supporting facts…'):
+                result = generate_analyst_brief(payload, provider)
         st.session_state['season_ai_story'] = {'fingerprint': key, 'result': result}
     saved = st.session_state.get('season_ai_story')
     if saved and saved['fingerprint'] == key and not stale:
         result = saved['result']
-        if result['status'] == 'verified':
+        if result['status'] == 'evidence_checked':
+            st.subheader(result['headline'])
             st.html(insight_card(result['text'], 'Fan'))
-            st.caption('Microsoft-selected evidence · calculated numbers · checked output')
-            with st.expander('Copy Microsoft story'):
-                st.code(result['text'], language=None, wrap_lines=True)
+            st.caption('AI-written interpretation · cited facts checked · interpretation is not independently verified')
+            with st.expander('Supporting facts & copy brief'):
+                for fact in result['facts']: st.write(fact)
+                st.code(result['headline']+'\n\n'+result['text']+'\n\n'+'\n'.join(result['facts']), language=None, wrap_lines=True)
         else:
             st.info(result['reason'])
+    elif not stale:
+        st.caption('Generate a short reading of the pattern across these stats, with the exact supporting facts attached. No AI request is made until you click or enable live updates.')
     if clicked and stale:
         st.info('The feed is stale. A new Microsoft story is paused until a successful refresh.')
 
