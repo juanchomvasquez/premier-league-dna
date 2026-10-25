@@ -52,12 +52,21 @@ class AnalystTests(unittest.TestCase):
 
     def test_audience_limits_apply_to_both_interpretation_and_recap(self):
         for phase in ('match_in_progress', 'full_time_recap'):
-            for focus, lower, upper in [('Fan explanation',35,65), ('Broadcast talking point',20,35)]:
+            for focus, lower, upper in [('Fan explanation',35,80), ('Broadcast talking point',20,50)]:
                 p=self.payload();p.update(focus=focus,phase=phase)
                 for words, accepted in [(lower-1,False),(lower,True),(upper,True),(upper+1,False)]:
                     reply=simulated_brief(p);reply['narrative']=' '.join(['football']*words)
                     result=generate_analyst_brief(p,lambda _:reply)
                     self.assertEqual(result['status']=='evidence_checked',accepted,(phase,focus,words))
+
+    def test_reported_modest_word_overruns_are_accepted_without_retry(self):
+        for focus,words in [('Fan explanation',69),('Broadcast talking point',43)]:
+            p=self.payload();p['focus']=focus
+            reply=simulated_brief(p);reply['narrative']=' '.join(['football']*words)
+            provider=Mock(return_value=reply)
+            result=generate_analyst_brief(p,provider)
+            self.assertEqual(result['status'],'evidence_checked')
+            provider.assert_called_once()
 
     def test_synthetic_trend_requires_cited_change_not_just_available_change(self):
         from pl_dna.synthetic_replay import synthetic_brief_payload
@@ -74,9 +83,9 @@ class AnalystTests(unittest.TestCase):
 
     def test_safe_rejection_reason_identifies_length_and_missing_citations(self):
         p=self.payload();p['focus']='Broadcast talking point'
-        reply=simulated_brief(p);reply['narrative']=' '.join(['football']*40)
+        reply=simulated_brief(p);reply['narrative']=' '.join(['football']*55)
         result=generate_analyst_brief(p,lambda _:reply)
-        self.assertIn('40 words',result['reason']);self.assertIn('20–35',result['reason'])
+        self.assertIn('55 words',result['reason']);self.assertIn('20–50',result['reason'])
         reply['narrative']=' '.join(['football']*25)
         reply['evidence_ids']=['secret-provider-value','unknown']
         result=generate_analyst_brief(p,lambda _:reply)

@@ -7,11 +7,11 @@ import re
 
 
 def brief_word_limits(payload):
-    """Audience limits apply equally to live briefs and full-time recaps."""
+    """Acceptance ceilings allow modest overruns of prompt targets and apply equally to live briefs and full-time recaps."""
     if payload.get('focus') == 'Broadcast talking point':
-        return (20, 35)
+        return (20, 50)
     if payload.get('focus') == 'Fan explanation':
-        return (35, 65)
+        return (35, 80)
     return (20, 110)  # Retained research requests without an audience selection.
 
 
