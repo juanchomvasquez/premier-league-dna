@@ -22,6 +22,10 @@ def simulated_brief(p):
 
 
 class AnalystTests(unittest.TestCase):
+    def setUp(self):
+        self.research_env=patch.dict('os.environ',{'PL_DNA_ENABLE_RESEARCH':'1'})
+        self.research_env.start();self.addCleanup(self.research_env.stop)
+
     def payload(self):
         study=load_current();e=next(iter(study['targets'].values()))
         return compare_season_player(e['player'],e['snapshot'],e['fixture'],study['references'],e['role'])

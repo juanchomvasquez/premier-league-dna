@@ -22,6 +22,10 @@ def raw_stats(snapshot):
 
 
 class CurrentSeasonTests(unittest.TestCase):
+    def setUp(self):
+        self.research_env=patch.dict('os.environ',{'PL_DNA_ENABLE_RESEARCH':'1'})
+        self.research_env.start();self.addCleanup(self.research_env.stop)
+
     @classmethod
     def setUpClass(cls):
         cls.study = load_current()

@@ -1,3 +1,5 @@
+> Research documentation. This view is disabled in the default submission build while third-party data-use permissions remain unresolved. The primary submission route is the synthetic replay connected to Microsoft. See [data review](submission/DATA_RIGHTS_REVIEW.md). An owner flag is not permission to reuse data.
+
 # Current-season performances and automatic match updates
 
 The default **This season & live** view now uses real 2026/27 match snapshots.

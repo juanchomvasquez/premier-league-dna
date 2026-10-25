@@ -40,12 +40,12 @@ class DashboardTests(unittest.TestCase):
                     self.assertEqual(rates["Count"].tolist(), [m["count"] for m in report["measurements"]])
                     self.assertEqual(len(at.code), 1)
 
-    def test_synthetic_mode_routes_azure_to_recorded_comparison_without_calling(self):
+    def test_synthetic_mode_connects_to_microsoft_without_calling_on_selection(self):
         with patch("pl_dna.microsoft_provider.create_provider_from_env", new=Mock()) as factory:
             at = self.app()
             at.radio(key="insight_source").set_value("Microsoft AI").run()
             self.assert_healthy(at)
-            self.assertTrue(any("This season & live" in c.value for c in at.info))
+            self.assertEqual(at.button(key="synthetic_generate_brief").label,"Generate Microsoft interpretation")
             factory.assert_not_called()
 
     def test_updated_striker_cards_include_henry_and_rooney_without_changing_data(self):

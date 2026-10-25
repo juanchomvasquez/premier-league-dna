@@ -1,96 +1,81 @@
 # Premier League DNA
 
-Every player has a blend. Explore recorded Premier League performances, inspect exploratory historical-reference comparisons, and follow automatically refreshed match statistics.
+Every player has a blend. Every insight has evidence.
 
-## Run the prototype
+The default submission route connects our own synthetic football events to an
+accelerated replay, position-specific statistics, a Microsoft AI interpretation,
+a performance wheel and event-level evidence. It supports eight positions,
+player/time-window selection, English/Spanish and fan/broadcast brief focus.
 
-Requires Python 3.10 or newer.
+## Run
+
+Requires Python 3.10 or later.
 
 ```bash
 python -m pip install -r requirements.txt
 python -m streamlit run app.py
+python -m unittest discover -s tests -q
 ```
 
-The default **This season & live** dashboard includes eight recorded 2026/27
-performances: one per position group, from eight clubs. Choose a recorded example
-or connect to a match feed. Live statistics refresh every 60 seconds while the
-view is active; matchdays can also be browsed by UK date.
+Select a player, click Start replay and watch the clock release observed events.
+Pause to inspect a fixed window. Choose Microsoft AI and explicitly generate an
+interpretation. At full time the request becomes a performance recap. The same
+observed evidence drives the charts and the cited numerical facts.
 
-One dashboard replaces the Fan/Broadcaster/Expert controls. A weak comparison
-shows **No clear legend match**, hides mixture percentages and the composite
-reference polygon, and keeps the player's wheel and evidence-based story.
-Execution facts are separate from playing style; no overall grade is inferred.
-Insufficient minutes or shared fields has a separate unavailable state.
+The replay advances three match minutes every two seconds by default. Its events
+are fictional independent action scenarios, not a real PL feed or a complete
+possession-consistent football match. Future rows are withheld from analysis.
+The pitch marker is schematic. Invented legend-inspired profile overlays are
+design previews, off by default, and never validated historical likeness scores.
+Sourced career cards are separate context, not synthetic similarity inputs.
 
-[Current-season data, live behavior, sources and limits](docs/CURRENT_SEASON_AND_LIVE.md)
-documents the 18 full-season references, three CDM match-sample references and four unavailable selected seasons.
-All 25 career cards remain accessible with club colours weighted by PL appearances. The legend pool is retired-only; Van Dijk remains a current example. CDM uses explicitly labelled real 2003/04 match samples for Roy Keane, Patrick Vieira and Claude Makélélé. These are small recorded samples, not season/career averages; full equivalence with current-match summary fields is unverified.
-The fitted mix is exploratory; neither provider equivalence nor style similarity
-has been independently validated.
+## Microsoft inference and cost
 
-The separate **Eight-position synthetic demo** retains the fictional scenarios,
-minute slider, local English/Spanish summaries and explicitly invented overlay.
-The earlier midfield research remains in the source tree, outside the public dashboard.
-Recorded match totals are never turned into invented minute-by-minute replays.
+An Azure OpenAI deployment provisioned through Microsoft Foundry provides the
+runtime interpretation. Configure existing private settings as described in
+[Microsoft setup](docs/MICROSOFT_SETUP.md). Never commit keys to GitHub.
 
-The responsive navy, teal and purple theme is in `.streamlit/config.toml`.
-Include that folder when uploading or deploying the app.
+No model call on startup or ordinary controls while automatic updates are off.
+Each Generate button click makes one potentially billable request. Optional
+replay updates are off by default and limited to one automatic attempt every
+thirty seconds per browser session when evidence changes. This is not a global
+spending cap. API failure leaves the replay and local facts available.
 
-```bash
-python -m unittest discover -s tests -v
-```
+The model writes prose and cites known measurements. The app checks structure,
+citation membership and numeric-token rules, then renders exact facts locally.
+These checks do not independently verify all semantic claims in the prose.
+No paid Azure call was made while developing this revision; the deployed
+interpretation/recap still needs an owner smoke test.
 
-Local calculations require no Azure credentials. The optional Microsoft connector
-writes a short analyst interpretation and cites two or three known evidence IDs. Exact numerical facts are attached locally; prose format and citations are checked, but interpretation is not independently verified. A manual
-click makes one potentially billable request. Automatic Microsoft stories are
-off by default and, if enabled during live play, limited to one attempt per five
-minutes per browser session when fresh statistics change. No paid Azure calls
-were used in development tests. Real in-progress feed behavior still needs an
-end-to-end check on the deployed app; completed and pre-match feeds were exercised.
-See [Microsoft setup](docs/MICROSOFT_SETUP.md).
+## Submission materials
 
-## Project vision and development scope
+- [Pitch and project description](docs/submission/PROJECT_PITCH.md)
+- [Judge testing instructions](docs/submission/JUDGE_INSTRUCTIONS.md)
+- [Architecture](docs/submission/ARCHITECTURE.md)
+- [Data permission review](docs/submission/DATA_RIGHTS_REVIEW.md)
+- [Final checklist](docs/submission/SUBMISSION_CHECKLIST.md)
 
-Premier League DNA aims to explain playing-style blends across a team,
-using position-specific measurements and references drawn from
-Premier League history.
+The public repository is https://github.com/juanchomvasquez/premier-league-dna.
+The demo is https://juanchomvasquez-premier-league-dna-app-1qylhs.streamlit.app/.
+New local code is not deployed merely by preparing this package. The owner uploads
+files manually and reboots Streamlit. No final hackathon submission or video was
+created in this session.
 
-Development begins with central midfielders to establish the analysis
-and explainability workflow. The submission target is a broader,
-position-aware experience, with additional role groups introduced
-as their measurements and reference models are implemented and tested.
+## Research modules
 
-Currently implemented: a local experimental explorer for goalkeepers,
-centre-backs, full-backs, defensive midfielders (CDM), central midfielders (CM),
-attacking midfielders (CAM), wingers and strikers.
-Each role has five applicable measurements, three invented archetypes (four for strikers) and a
-fictional demonstration player. The new role scenarios are separate from the
-original notebook dataset; the same player name does not imply the same data.
-Goalkeepers use their own measurements and invented reference profiles.
+The codebase preserves eight recorded 2026/27 player examples, a retired-only
+legend roster, sourced career cards and identified historical reference data.
+The roster includes Roy Keane, Vieira and Makélélé CDM samples from real 2003/04
+matches, not season/career averages. Full cross-provider equivalence and style
+similarity remain unvalidated. Missing references remain unavailable.
 
-## Synthetic-demo interpretation
+The current-season/live research view is disabled by default while data reuse
+permissions remain unresolved. An owner with appropriate rights can expose it
+with PL_DNA_ENABLE_RESEARCH=1. The flag itself does not grant permission. Public
+visibility of a provider endpoint does not establish a licence to reuse its data
+or send it into AI. This research connector is not represented as an authorized
+production feed in the submission.
 
-The dataset is synthetic and the players are fictional. Legend-inspired reference profiles are invented design hypotheses. Scores are independent model outputs, not probabilities, validated historical comparisons or player-quality rankings. Activity dimensions overlap. The ten-sequence display threshold is provisional.
-
-The original exploration is in `notebooks/01_midfield_style_prototype.ipynb` and
-its reusable calculations are preserved in `pl_dna/engine.py`. The expanded role
-scenarios and calculations are in `pl_dna/roles.py`; the interface is in `app.py`.
-These are independent action scenarios, not a possession-consistent simulation
-of a complete match. See [build checkpoints](docs/BUILD_PLAN.md) and
-[acceptance criteria](docs/ACCEPTANCE.md) for remaining scope and limitations.
-
-## Player DNA visual preview
-
-The dashboard includes a selectable radar wheel and club-coloured legend season card.
-Sourced career cards cover all 25 retired legends across eight positions; selected-season headlines are shown where available. They are displayed separately from the synthetic performance wheel; the current-season mode separately uses sourced season-rate references. Neither mode supplies validated similarity scores. The invented
-overlay is an explicit design-preview option, off by default.
-See [historical sources, selection criteria and upload instructions](docs/HISTORICAL_SEASONS.md).
-
-
-## Recorded-event research study
-
-A separate optional study compares Henry’s Liverpool match with his other 2003/04
-appearances using same-provider, same-definition event rates. It includes source
-reconciliation and a second SQL recount, without claiming a validated style score
-or career event coverage. All 25 optional career headline cards include club colours
-weighted by PL appearances. See [evidence and limitations](docs/RECORDED_EVENT_STUDY.md).
+See [research sources and coverage](docs/CURRENT_SEASON_AND_LIVE.md). The earlier
+archived midfield UI remains outside public navigation. Raw third-party event
+files, credentials and caches are not included in the release package.

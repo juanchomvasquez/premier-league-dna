@@ -34,6 +34,11 @@ def generate_analyst_brief(payload, provider):
         facts=[index[i] for i in ids]
         if len({e['metric'] for e in facts}) < 2:raise ValueError('Multiple measurements required')
         if any(narrative.strip()==e['sentence'].strip() for e in facts):raise ValueError('A fact copy is not an interpretation')
+        if trusted.get('data_kind')=='synthetic':
+            marker='sintétic' if trusted.get('language')=='Spanish' else 'synthetic'
+            if marker not in narrative.casefold():raise ValueError('Synthetic attribution required')
+            if any(name.casefold() in text.casefold() for name in trusted.get('excluded_legend_names',[])):
+                raise ValueError('No historical comparison in the synthetic brief')
         if trusted.get('fit_status')!='candidate_mix':
             for name,r in trusted['references'].items():
                 if name.casefold() in text.casefold() or r.get('short_label',name).casefold() in text.casefold():

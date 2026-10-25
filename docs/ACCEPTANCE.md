@@ -20,7 +20,6 @@ References are invented design profiles. No score claims historical accuracy, qu
 
 ## Remaining submission work
 
-The app has been hosted on Streamlit Community Cloud. Live Microsoft AI verification,
-review of the updated hosted interface on desktop and mobile, a final pitch and a
-sub-two-minute video remain submission work. Automated local tests and UI checks
+The app has been hosted on Streamlit Community Cloud. Verification of the new deployed synthetic-to-Microsoft path,
+review of the updated hosted interface on desktop and mobile, a sub-two-minute video and final portal submission remain owner work. Pitch and judge instructions are prepared under docs/submission. Automated local tests and UI checks
 do not establish production readiness.

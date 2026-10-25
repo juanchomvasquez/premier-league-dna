@@ -1,6 +1,8 @@
 """Audience-aware, evidence-first football dashboard."""
 import json
 import math
+import os
+import time
 
 import pandas as pd
 import streamlit as st
@@ -13,6 +15,9 @@ from pl_dna.narrative import generate_narrative, SPANISH_METRICS
 from pl_dna.presentation import player_header, profile_cards, insight_card
 from pl_dna.dna_wheel import wheel_data, radar_svg, reference_card
 from pl_dna.historical import season_facts, sourced_season_card, observed_wheel_svg
+
+from pl_dna.synthetic_replay import advance_clock, synthetic_brief_payload, brief_fingerprint, auto_brief_due
+from pl_dna.analyst_brief import generate_analyst_brief
 
 MIN_SEQUENCES = 10
 STYLE = """<style>
@@ -69,7 +74,52 @@ def render_insight(package, audience, player, start, end):
     language = language_col.selectbox("Insight language", ["English", "Spanish"], key="insight_language")
     mode = source_col.radio("Insight source", ["Local calculated summary", "Microsoft AI"], horizontal=True, key="insight_source")
     if mode == "Microsoft AI":
-        st.info("For the Microsoft legend story, choose This season & live under Data source. The synthetic demo does not have compatible historical reference rates.")
+        focus = st.selectbox("Brief focus", ["Fan explanation", "Broadcast talking point"], key="synthetic_brief_focus")
+        payload = synthetic_brief_payload(st.session_state["synthetic_events"],player,start,end,
+            view=package["view"],language=language,focus=focus)
+        with st.expander("Calculated snapshot · no AI call"):
+            st.write(generate_narrative(package,language=language)["text"])
+        if payload["availability"]:
+            st.info(payload["availability"])
+            return
+        key = brief_fingerprint(payload)
+        scope=(player,payload['role'],package['view'],language,focus)
+        clicked = st.button("Generate Microsoft recap" if end==90 else "Generate Microsoft interpretation",
+                            type="primary",key="synthetic_generate_brief")
+        enabled = st.checkbox("Refresh Microsoft brief during replay",value=False,key="synthetic_auto_ai")
+        st.caption("Potentially billable: one request per click. Optional replay updates are off by default and limited to one attempt every thirty seconds per browser session when the evidence changes. No calls on ordinary control changes while automatic updates are off.")
+        now = time.monotonic()
+        due = auto_brief_due(enabled,st.session_state.get("replay_playing",False),end,key,st.session_state,now)
+        if clicked or due:
+            st.session_state["synthetic_last_ai_attempt"]=now
+            st.session_state["synthetic_last_ai_key"]=key
+            try:
+                from pl_dna.microsoft_provider import create_provider_from_env
+                provider=create_provider_from_env()
+            except Exception:
+                result={"status":"fallback","reason":"Microsoft is not configured or enabled. The synthetic replay and calculated facts remain available."}
+            else:
+                with st.spinner("Interpreting observed synthetic events…"):
+                    result=generate_analyst_brief(payload,provider)
+            st.session_state["synthetic_ai_result"]={"key":key,"result":result,"scope":scope,"minute":end,"start":start}
+        saved=st.session_state.get("synthetic_ai_result")
+        replay_history=bool(saved and st.session_state.get('replay_playing') and saved.get('scope')==scope and saved.get('minute',end)<=end)
+        if saved and (saved["key"]==key or replay_history):
+            result=saved["result"]
+            if result["status"]=="evidence_checked":
+                st.subheader(result["headline"])
+                st.html(insight_card(result["text"],audience))
+                st.caption("Synthetic full-time recap · Microsoft AI" if saved.get('minute',end)==90 else "Synthetic match interpretation · Microsoft AI")
+                st.caption(f"As of synthetic minute {saved.get('minute',end)} · evidence window ({saved.get('start',start)}, {saved.get('minute',end)}].")
+                st.caption("Cited facts and format checked; the AI interpretation is not independently verified. This is fictional match data, not a real legend comparison.")
+                with st.expander("Supporting facts & copy brief"):
+                    for fact in result["facts"]:st.write(fact)
+                    st.code(result["headline"]+"\n\n"+result["text"],language=None,wrap_lines=True)
+            else:st.info(result["reason"])
+        else:
+            st.caption("The brief will use only events observed by the current replay minute. Pause the replay to read a fixed-window interpretation.")
+        st.download_button("Download synthetic AI evidence",json.dumps(payload,indent=2,allow_nan=False),
+            file_name="synthetic_brief_evidence.json",mime="application/json",key="synthetic_brief_evidence")
         return
     context_key = (player, start, end, language, mode, audience)
     package["audience"] = audience.lower()
@@ -190,21 +240,52 @@ def main():
     st.title("Every player has a blend.")
     st.write("Explore the contribution. Understand the profile. Follow the evidence.")
     audience = "Fan"  # One public dashboard; this preserves the internal narrative schema.
-    source = st.radio("Data source", ["This season & live", "Eight-position synthetic demo"],
-                      horizontal=True, key="data_source")
+    options = ["This season & live", "Eight-position synthetic demo"] if os.environ.get("PL_DNA_ENABLE_RESEARCH")=="1" else ["Eight-position synthetic demo"]
+    source = st.radio("Data source",options,horizontal=True,key="data_source")
     if source == "This season & live":
         from pl_dna.current_dashboard import render_current_dashboard
         render_current_dashboard()
         return
+    render_synthetic_dashboard()
+
+
+def toggle_replay():
+    playing=not st.session_state.get("replay_playing",False)
+    if playing and st.session_state.get("minute",43)>=90:st.session_state["minute"]=1
+    st.session_state["replay_playing"]=playing
+    st.session_state["replay_last_tick"]=time.monotonic()
+
+
+def reset_replay():
+    st.session_state["replay_playing"]=False
+    st.session_state["minute"]=1
+    st.session_state.pop("synthetic_ai_result",None)
+
+
+def pause_replay():
+    st.session_state["replay_playing"]=False
+
+
+@st.fragment(run_every=2)
+def render_synthetic_dashboard():
+    audience = "Fan"
+    st.session_state.setdefault("minute",43)
+    advance_clock(st.session_state,time.monotonic())
     st.html('<div class="demo-badge">Synthetic demo · Fictional players · Invented profiles</div>')
     events = st.cache_data(generate_role_events)(seed=42)
+    st.session_state["synthetic_events"]=events
+    replay_controls=st.columns([1,1,2])
+    replay_controls[0].button("Pause replay" if st.session_state.get("replay_playing") else "Start replay",on_click=toggle_replay,key="replay_toggle")
+    replay_controls[1].button("Reset replay",on_click=reset_replay,key="replay_reset")
+    replay_controls[2].selectbox("Accelerated replay speed",[1,3,5],index=1,format_func=lambda n:f"{n} match minutes every two seconds",key="replay_step")
+    st.caption("Controlled synthetic replay: events are released by simulated match minute. This is not a live Premier League feed. Pause or drag the timeline to inspect a fixed window.")
     controls = st.columns([2, 2, 2, 3])
     role = controls[0].selectbox("Position", list(ROLE_DEFINITIONS), index=2,
                                 format_func=lambda key: ROLE_DEFINITIONS[key]["label"], key="position")
     definition = ROLE_DEFINITIONS[role]
     player = controls[1].selectbox("Player", sorted(name for name, code in PLAYERS.items() if code == role))
     view = controls[2].radio("View", ["Match so far", "Last 15 minutes"], horizontal=True, key="window_view")
-    end = controls[3].slider("Match minute", 1, 90, 43, key="minute")
+    end = controls[3].slider("Match minute", 1, 90, value=None, key="minute",on_change=pause_replay)
     start = 0 if view == "Match so far" else max(0, end - 15)
     report = analyze_role_player(events, player, start, end)
     selected = events.loc[events["player"].eq(player) & events["sequence_minute"].gt(start) & events["sequence_minute"].le(end) & events["minute"].le(end)]
@@ -215,6 +296,11 @@ def main():
     summary[0].metric("Recorded sequences", report["action_sequences"])
     summary[1].metric("Recorded events", report["recorded_events"])
     summary[2].metric("Selected window", f"{end-start} min")
+    if end==90:st.success("Synthetic full time — complete performance available. Generate a Microsoft recap or use the calculated summary below.")
+    with st.expander("Latest ingested synthetic events"):
+        observed=events.loc[events.minute.le(end)].sort_values(["minute","event_id"])
+        st.caption(f"{len(observed)} event rows observed across all generated players by minute {end}. Rows from future minutes are withheld.")
+        st.dataframe(observed[["event_id","minute","player","event_type","outcome"]].tail(10),hide_index=True,width="stretch")
     overview, evidence, method = st.tabs(["Player overview", "Evidence explorer", "How it works"])
     with overview:
         render_insight(package, audience, player, start, end)
@@ -261,7 +347,7 @@ def main():
         event metrics are sourced. No combination of career-high statistics is used.
 
         **Insight provenance.** Local summaries use calculated evidence and fixed wording.
-        For a Microsoft analyst brief, select This season & live. It interprets the recorded
+        Select Microsoft AI in the synthetic demo to connect observed events to an analyst brief. It interprets the recorded
         performance using cited measurements. Exact supporting numbers are rendered locally.
         Citation and format checks do not independently verify the prose interpretation or
         establish validated historical similarity. Automatic AI updates are off by default.

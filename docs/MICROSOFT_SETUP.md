@@ -1,3 +1,31 @@
+# Current submission: synthetic replay to Microsoft
+
+The default Eight-position synthetic demo now uses the Microsoft analyst-brief
+workflow directly. Choose Microsoft AI in Player overview and explicitly click
+Generate Microsoft interpretation, or Generate Microsoft recap at full time.
+Existing private Azure settings are reused. The code calls an Azure OpenAI
+Responses endpoint for a model deployed through Microsoft Foundry.
+
+English/Spanish and fan/broadcast focus are passed to the request. The model
+receives observed facts and supported equal-window changes, never future events
+or invented historical profile scores. Exact supporting numbers are rendered
+locally; format/citation checks do not verify all prose semantics.
+
+Refresh Microsoft brief during replay is off by default. If enabled, automatic
+attempts are limited to once every thirty seconds per browser session when the
+context changes. Recorded failures do not immediately retry the same context.
+Each manual click is a separate potentially billable request. No global budget
+cap is implied. Do not publish keys or include them in judge instructions.
+
+The research view is off by default: its third-party data permissions are not
+established. PL_DNA_ENABLE_RESEARCH=1 is an owner-controlled research gate, not a
+licence. See submission/DATA_RIGHTS_REVIEW.md.
+
+The remainder records earlier implementation details; where they differ, the
+current synthetic workflow and docs/submission take precedence.
+
+---
+
 # Microsoft inference connector
 
 The adapter targets Azure OpenAI's v1 Responses endpoint in Microsoft Foundry.
