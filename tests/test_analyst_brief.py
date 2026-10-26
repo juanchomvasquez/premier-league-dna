@@ -84,6 +84,22 @@ class AnalystTests(unittest.TestCase):
         reply['evidence_ids']=[change['id'],other['id']]
         self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'evidence_checked')
 
+    def test_unsupported_trend_continuation_is_removed_without_retry_or_leaking_copy(self):
+        from pl_dna.synthetic_replay import synthetic_brief_payload
+        from pl_dna.roles import generate_role_events
+        p=synthetic_brief_payload(generate_role_events(42),'Noah Bennett',0,67)
+        reply=simulated_brief(p)
+        reply['headline']='A recent shift in defending'
+        opening='In this synthetic demonstration, Bennett contributes through tackles and interceptions.'
+        reply['narrative']=opening+' His aerial duels increased recently. This points to a new tactical role.'
+        provider=Mock(return_value=reply)
+        result=generate_analyst_brief(p,provider)
+        self.assertEqual(result['status'],'evidence_checked')
+        self.assertEqual(result['text'],opening)
+        self.assertNotIn('increased',str(result));self.assertNotIn('tactical',str(result))
+        self.assertNotIn('recent',result['headline'])
+        self.assertIn('Evidence edit',result['style_note']);provider.assert_called_once()
+
     def test_unknown_evidence_rejection_does_not_expose_ids(self):
         p=self.payload();reply=simulated_brief(p)
         reply['evidence_ids']=['secret-provider-value','unknown']

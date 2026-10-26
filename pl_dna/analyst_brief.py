@@ -55,10 +55,25 @@ def generate_analyst_brief(payload, provider):
             raise ValueError('Distinct citations required')
         index={e['id']:e for e in trusted['evidence']}
         facts=[index[i] for i in ids]
-        if trusted.get('data_kind') == 'synthetic' and re.search(
-                r'\b(recent|recently|increase[ds]?|decline[ds]?|surge|rose|fell|shift|late|reciente|aument[oó]|disminuy[oó]|baj[oó])\b', text, re.I):
-            if not any(e.get('kind') == 'window_change' for e in facts):
-                raise ValueError('A trend requires cited window-change evidence')
+        evidence_edit=False
+        if trusted.get('data_kind') == 'synthetic' and not any(e.get('kind')=='window_change' for e in facts):
+            trend=re.compile(r'\b(recent|recently|increase[ds]?|decline[ds]?|surge|rose|fell|shift|late|reciente|aument[oó]|disminuy[oó]|baj[oó])\b',re.I)
+            # Retain only the complete prefix: later sentences could depend on the rejected claim.
+            kept=[]
+            for sentence in re.split(r'(?<=[.!?])\s+',narrative.strip()):
+                if trend.search(sentence):
+                    evidence_edit=True;break
+                kept.append(sentence)
+            if evidence_edit:
+                narrative=' '.join(kept)
+                if not narrative.strip():raise ValueError('No supported text before trend')
+                marker='sintétic' if trusted.get('language')=='Spanish' else 'synthetic'
+                if marker not in narrative.casefold():
+                    narrative=('Demostración sintética: ' if trusted.get('language')=='Spanish' else 'Synthetic demonstration: ')+narrative
+            if trend.search(headline):
+                headline='Participación del jugador' if trusted.get('language')=='Spanish' else 'Player contribution in focus'
+                evidence_edit=True
+            text=headline+' '+narrative
         if len({e['metric'] for e in facts}) < 2:raise ValueError('Multiple measurements required')
         if any(narrative.strip()==e['sentence'].strip() for e in facts):raise ValueError('A fact copy is not an interpretation')
         if trusted.get('data_kind')=='synthetic':
@@ -80,7 +95,7 @@ def generate_analyst_brief(payload, provider):
                     raise ValueError('No legend resemblance is supported')
         return {'status':'evidence_checked','headline':headline.strip(),'text':narrative.strip(),
             'original_text':narrative.strip(),'shortened':False,
-            'style_note':'',
+            'style_note':'Evidence edit: unsupported trend wording and any following continuation were omitted locally. No extra Microsoft request was made.' if evidence_edit else '',
             'facts':[e['sentence'] for e in facts], 'evidence_ids':ids,
             'illustrative_comparison':deepcopy(trusted.get('illustrative_comparison'))}
     except (ValueError,KeyError,TypeError) as error:
@@ -91,6 +106,7 @@ def generate_analyst_brief(payload, provider):
             'Prose must not introduce numerical claims or markup':'The prose included numbers or markup; exact figures belong in the supporting facts.',
             'Unsupported overall assessment':'The response included an unsupported overall player assessment.',
             'Distinct citations required':'The response did not cite two or three distinct supporting facts.',
+            'No supported text before trend':'The response began with an unsupported trend claim, leaving no preceding text to show safely. The calculated style comparison remains available.',
             'A trend requires cited window-change evidence':'The response described a recent change without citing window-comparison evidence.',
             'Multiple measurements required':'The response did not cite different measurements.',
             'A fact copy is not an interpretation':'The response copied a supporting fact instead of explaining the pattern.',
