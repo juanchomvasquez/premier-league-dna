@@ -128,7 +128,7 @@ def render_insight(package, audience, player, start, end):
             result=saved["result"]
             if result["status"]=="evidence_checked":
                 st.subheader(result["headline"])
-                st.html(insight_card(result["text"],audience))
+                st.html(insight_card(result["text"],"Broadcaster" if focus=="Broadcast talking point" else "Fan"))
                 st.caption("Synthetic full-time recap · Microsoft AI" if saved.get('minute',end)==90 else "Synthetic match interpretation · Microsoft AI")
                 st.caption(f"As of synthetic minute {saved.get('minute',end)} · evidence window ({saved.get('start',start)}, {saved.get('minute',end)}].")
                 st.caption("Cited facts and format checked; the AI interpretation is not independently verified. This is fictional match data, not a real legend comparison.")
