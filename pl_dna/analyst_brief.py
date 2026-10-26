@@ -67,9 +67,6 @@ def generate_analyst_brief(payload, provider):
             if evidence_edit:
                 narrative=' '.join(kept)
                 if not narrative.strip():raise ValueError('No supported text before trend')
-                marker='sintétic' if trusted.get('language')=='Spanish' else 'synthetic'
-                if marker not in narrative.casefold():
-                    narrative=('Demostración sintética: ' if trusted.get('language')=='Spanish' else 'Synthetic demonstration: ')+narrative
             if trend.search(headline):
                 headline='Participación del jugador' if trusted.get('language')=='Spanish' else 'Player contribution in focus'
                 evidence_edit=True
@@ -77,24 +74,17 @@ def generate_analyst_brief(payload, provider):
         if len({e['metric'] for e in facts}) < 2:raise ValueError('Multiple measurements required')
         if any(narrative.strip()==e['sentence'].strip() for e in facts):raise ValueError('A fact copy is not an interpretation')
         if trusted.get('data_kind')=='synthetic':
-            marker='sintétic' if trusted.get('language')=='Spanish' else 'synthetic'
-            if marker not in narrative.casefold():raise ValueError('Synthetic attribution required')
             candidates=trusted.get('illustrative_comparison',{}).get('candidates',[])
             allowed={c['legend_label'].removesuffix('-inspired').casefold():c['legend_label'] for c in candidates}
             mentioned=[name for name in trusted.get('excluded_legend_names',[]) if name.casefold() in text.casefold()]
             if any(name.casefold() not in allowed for name in mentioned):
                 raise ValueError('No historical comparison in the synthetic brief')
-            if mentioned:
-                qualifier = r'inspirad' if trusted.get('language')=='Spanish' else r'-inspired'
-                label = r'ilustrativ|inventad' if trusted.get('language')=='Spanish' else r'illustrative|invented'
-                if not re.search(qualifier,narrative,re.I) or not re.search(label,narrative,re.I):
-                    raise ValueError('Illustrative qualification required')
         if trusted.get('fit_status')!='candidate_mix':
             for name,r in trusted['references'].items():
                 if name.casefold() in text.casefold() or r.get('short_label',name).casefold() in text.casefold():
                     raise ValueError('No legend resemblance is supported')
         return {'status':'evidence_checked','headline':headline.strip(),'text':narrative.strip(),
-            'original_text':narrative.strip(),'shortened':False,
+            'original_text':narrative.strip(),'shortened':False,'data_kind':trusted.get('data_kind'),
             'style_note':'Evidence edit: unsupported trend wording and any following continuation were omitted locally. No extra Microsoft request was made.' if evidence_edit else '',
             'facts':[e['sentence'] for e in facts], 'evidence_ids':ids,
             'illustrative_comparison':deepcopy(trusted.get('illustrative_comparison'))}

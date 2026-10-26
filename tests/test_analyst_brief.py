@@ -100,6 +100,36 @@ class AnalystTests(unittest.TestCase):
         self.assertNotIn('recent',result['headline'])
         self.assertIn('Evidence edit',result['style_note']);provider.assert_called_once()
 
+    def test_supporter_story_without_repeated_disclaimers_is_accepted(self):
+        from pl_dna.synthetic_replay import synthetic_brief_payload
+        from pl_dna.roles import generate_role_events
+        p=synthetic_brief_payload(generate_role_events(42),'Alex Morganfield',0,90)
+        reply=simulated_brief(p)
+        reply['headline']='Morganfield is not shy about having a go'
+        reply['narrative']="I like the combination here: Morganfield gets into the box and has a go. There is a Lampard-inspired feel to that part of his game, with passing that moves the ball forward adding another talking point."
+        result=generate_analyst_brief(p,lambda _:reply)
+        self.assertEqual(result['status'],'evidence_checked')
+        self.assertEqual(result['text'],reply['narrative'])
+        self.assertEqual(result['data_kind'],'synthetic')
+
+    def test_synthetic_adapter_uses_selected_voice_without_legacy_instruction_stack(self):
+        from pl_dna.synthetic_replay import synthetic_brief_payload
+        from pl_dna.roles import generate_role_events
+        p=synthetic_brief_payload(generate_role_events(42),'Alex Morganfield',0,90)
+        p['instructions']=['LEGACY_INSTRUCTION_SHOULD_NOT_REACH_MODEL']
+        candidate=simulated_brief(p)
+        env={'PL_DNA_ENABLE_AZURE':'1','AZURE_OPENAI_BASE_URL':'https://demo.openai.azure.com/openai/v1/',
+             'AZURE_OPENAI_API_KEY':'test-placeholder','AZURE_OPENAI_DEPLOYMENT':'test'}
+        prompts=[]
+        for focus in ('Fan explanation','Broadcast talking point'):
+            p['focus']=focus
+            transport=Mock(return_value=io.BytesIO(json.dumps({'output':[{'type':'message','content':[{'type':'output_text','text':json.dumps(candidate)}]}]}).encode()))
+            create_provider_from_env(env,transport)(p)
+            prompt=json.loads(transport.call_args.args[0].data)['input']
+            self.assertNotIn('LEGACY_INSTRUCTION_SHOULD_NOT_REACH_MODEL',prompt)
+            prompts.append(prompt.split('DATA:')[0])
+        self.assertNotEqual(prompts[0],prompts[1])
+
     def test_unknown_evidence_rejection_does_not_expose_ids(self):
         p=self.payload();reply=simulated_brief(p)
         reply['evidence_ids']=['secret-provider-value','unknown']

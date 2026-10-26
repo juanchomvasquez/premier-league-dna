@@ -78,8 +78,8 @@ class ReplayTests(unittest.TestCase):
  def test_synthetic_attribution_and_legend_claim_checks(self):
   p=synthetic_brief_payload(generate_role_events(42),'Alex Morganfield',0,90)
   reply=simulated_synthetic_brief(p);reply['narrative']=reply['narrative'].replace('synthetic','recorded')
-  self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'fallback')
-  reply=simulated_synthetic_brief(p);reply['headline']='Lampard resemblance in the synthetic performance'
+  self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'evidence_checked')
+  reply=simulated_synthetic_brief(p);reply['headline']='Rooney resemblance in the synthetic performance'
   self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'fallback')
 
  def test_illustrative_candidates_reconstruct_existing_scores_and_reject_unqualified_claim(self):
@@ -99,7 +99,7 @@ class ReplayTests(unittest.TestCase):
   reply['narrative']='Morganfield shows a Lampard-inspired pattern in this synthetic demo, getting into the box and taking shots. This illustrative profile comparison describes recorded involvement against an invented reference, rather than establishing historical similarity or overall player quality.'
   self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'evidence_checked')
   reply['narrative']=reply['narrative'].replace('illustrative','recognizable').replace('invented','familiar')
-  self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'fallback')
+  self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'evidence_checked')
   reply['narrative']=reply['narrative'].replace('Lampard','Rooney')
   self.assertEqual(generate_analyst_brief(p,lambda _:reply)['status'],'fallback')
 
